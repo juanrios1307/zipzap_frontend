@@ -1,11 +1,11 @@
 import React from 'react';
 
-import image1 from '../../assets/images/modern-design.jpg';
-import image2 from '../../assets/images/clean-design.jpg';
-import image3 from '../../assets/images/great-support.jpg';
-import image4 from '../../assets/images/easy-customise.jpg';
-import image5 from '../../assets/images/unlimited-features.jpg';
-import image6 from '../../assets/images/advanced-option.jpg';
+import image1 from '../../assets/images/hotel.jpg';
+import image2 from '../../assets/images/hotel.jpg';
+import image3 from '../../assets/images/hotel.jpg';
+import image4 from '../../assets/images/hotel.jpg';
+import image5 from '../../assets/images/hotel.jpg';
+import image6 from '../../assets/images/hotel.jpg';
 
 import { Row, Col } from 'antd';
 import { Card } from 'antd';

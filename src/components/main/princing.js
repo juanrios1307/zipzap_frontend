@@ -72,7 +72,7 @@ function AppPricing() {
                                 <p>{item.content[0].support}</p>
                                 <p>{item.content[0].backup}</p>
                                 <p>{item.content[0].access}</p>
-                                <Button type="primary" size="large"><i className="fab fa-telegram-plane"></i> Get Started</Button>
+                                <Button type="danger" size="large"><i className="fab fa-telegram-plane"></i> Get Started</Button>
                             </Card>
                         </List.Item>
                     )}

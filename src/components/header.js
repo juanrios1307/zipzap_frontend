@@ -20,7 +20,7 @@ function AppHeader() {
       <div className="container-fluid">
           <div className="header">
               <div className="logo">
-                  <i className="fas fa-expand-arrows-alt"></i>
+                  <i className="fas fa-plane"></i>
                   <a href="http://www.google.com">ZIPZAP</a>
               </div>
               <div className="mobileHidden">
@@ -48,10 +48,7 @@ function AppHeader() {
 
 
                       <Link href="#hero" title="Home" />
-                      <Link href="#about" title="¿Quiénes somos?" />
                       <Link href="#" title="Iniciar Sesión" />
-
-
 
                   </Anchor>
               </div>

@@ -65,7 +65,7 @@ function AppContact() {
                     </Form.Item>
 
                     <Form.Item>
-                        <Button type="primary" htmlType="submit" className="login-form-button">
+                        <Button type="danger" htmlType="submit" className="login-form-button">
                             Enviar
                         </Button>
                     </Form.Item>

@@ -26,11 +26,7 @@ class MainPage extends Component {
                 </Header>
                 <Content>
                     <AppHero/>
-                    <AppAbout/>
-                    <AppFeature/>
-                    <AppWorks/>
-                    <AppPricing/>
-                    <AppContact/>
+
                 </Content>
                 <Footer>
                     <AppFooter/>
