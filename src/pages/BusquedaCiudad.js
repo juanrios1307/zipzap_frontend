@@ -1,17 +1,16 @@
-import React,{Component} from 'react';
+import React,{Component} from "react";
 import '../assets/css/App.css';
 import 'antd/dist/antd.css';
 
-import AppHeader from "../components/header";
-import AppHero from "../components/main/hero";
-import AppFooter from "../components/main/footer";
-
 import { Layout } from 'antd';
 import {Footer} from "antd/es/layout/layout";
+import AppHeader from "../components/header";
+import AppPaquetes from "../components/busqueda/paquetes";
+import Establecimientos from "../components/busqueda/establecimientos";
 
 const { Header, Content } = Layout;
 
-class MainPage extends Component {
+class BusquedaPage extends Component {
 
     render(){
         return (
@@ -20,14 +19,15 @@ class MainPage extends Component {
                     <AppHeader/>
                 </Header>
                 <Content>
-                    <AppHero/>
+                    <AppPaquetes/>
+
 
                 </Content>
                 <Footer>
-                    <AppFooter/>
+                    <Establecimientos/>
                 </Footer>
             </Layout>
         );
     }
 }
-export default MainPage;
+export default BusquedaPage;

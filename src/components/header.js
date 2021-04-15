@@ -20,8 +20,8 @@ function AppHeader() {
       <div className="container-fluid">
           <div className="header">
               <div className="logo">
-                  <i className="fas fa-plane"></i>
-                  <a href="http://www.google.com">ZIPZAP</a>
+                  <i className="fa fa-paper-plane-o" aria-hidden="true"></i>
+                  <a href="/">ZIPZAP</a>
               </div>
               <div className="mobileHidden">
                   <Anchor targetOffset="65">
@@ -48,7 +48,7 @@ function AppHeader() {
 
 
                       <Link href="#hero" title="Home" />
-                      <Link href="#" title="Iniciar Sesión" />
+                      <Link href="/login" title="Iniciar Sesión" />
 
                   </Anchor>
               </div>
@@ -64,12 +64,7 @@ function AppHeader() {
                   >
                       <Anchor targetOffset="65">
                           <Link href="#hero" title="Home" />
-                          <Link href="#about" title="Quiénes somos" />
-                          <Link href="#feature" title="Qué ofrecemos" />
-                          <Link href="#works" title="Demo" />
-                          <Link href="#pricing" title="Membresías" />
-                          <Link href="#contact" title="Contacto" />
-                          <Link href="#" title="Iniciar Sesión" />
+                          <Link href="/login" title="Iniciar Sesión" />
                       </Anchor>
                   </Drawer>
               </div>

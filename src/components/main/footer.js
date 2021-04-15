@@ -6,7 +6,7 @@ function AppFooter() {
         <div className="container-fluid">
             <div className="footer">
                 <div className="logo">
-                    <i className="fas fa-expand-arrows-alt"></i>
+                    <i className="fa fa-paper-plane-o" aria-hidden="true"></i>
                     <a href="http://google.com">ZIPZAP</a>
                 </div>
                 <ul className="socials">

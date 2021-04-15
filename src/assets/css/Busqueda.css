@@ -1,0 +1,20 @@
+/*
+hero
+----
+*/
+.busquedaBlock {
+    background: url('/src/assets/images/white-background.jpg') no-repeat;
+    background-position: 50% 100%;
+    background-size: cover;
+    height: 160vh;
+}
+
+
+.busquedaBlock .slick-dots li button {
+    background: #000 !important;
+}
+
+.busquedaBlock .slick-dots li.slick-active button {
+    background: #000000 !important;
+}
+
