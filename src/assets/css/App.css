@@ -282,6 +282,9 @@ footer
 
 .footer .socials li {
     margin: 0 20px;
+    display: inline;
+    padding-left:3px;
+    padding-right:3px;
 }
 
 .footer .socials a {

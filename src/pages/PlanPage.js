@@ -13,7 +13,6 @@ import AppFooter from "../components/main/footer";
 
 import { Layout } from 'antd';
 import {Footer} from "antd/es/layout/layout";
-import AppHero from "../components/main/hero";
 
 const { Header, Content } = Layout;
 
