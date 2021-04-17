@@ -8,6 +8,10 @@ import {
     Button,
     DatePicker,
 } from 'antd';
+import Axios from "axios";
+import Swal from "sweetalert2";
+import {Redirect} from "react-router-dom";
+import moment from "moment";
 
 
 const formItemLayout = {
@@ -36,155 +40,202 @@ const tailFormItemLayout = {
 const AppRegistrationForm = () => {
     const [form] = Form.useForm();
 
-    const onFinish = (values) => {
-        console.log('Received values of form: ', values);
-    };
+    const [bool,setBool] = useState(false);
 
-    return (
-        <div id="hero" className="registerBlock">
+    const onFinish=(values) =>{
+        Register(values)
+    }
 
-            <div className="block">
-                <Form
-                    {...formItemLayout}
-                    form={form}
-                    name="register"
-                    onFinish={onFinish}
-                    initialValues={{
-                        residence: ['zhejiang', 'hangzhou', 'xihu'],
-                        prefix: '86',
-                    }}
-                    scrollToFirstError
-                >
-                    <Form.Item
-                        name="email"
-                        label="E-mail"
-                        rules={[
-                            {
-                                type: 'email',
-                                message: 'The input is not valid E-mail!',
-                            },
-                            {
-                                required: true,
-                                message: 'Please input your E-mail!',
-                            },
-                        ]}
-                    >
-                        <Input />
-                    </Form.Item>
-
-                    <Form.Item
-                        name="password"
-                        label="Password"
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Please input your password!',
-                            },
-                        ]}
-                        hasFeedback
-                    >
-                        <Input.Password />
-                    </Form.Item>
-
-                    <Form.Item
-                        name="confirm"
-                        label="Confirm Password"
-                        dependencies={['password']}
-                        hasFeedback
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Please confirm your password!',
-                            },
-                            ({ getFieldValue }) => ({
-                                validator(_, value) {
-                                    if (!value || getFieldValue('password') === value) {
-                                        return Promise.resolve();
-                                    }
-                                    return Promise.reject(new Error('The two passwords that you entered do not match!'));
-                                },
-                            }),
-                        ]}
-                    >
-                        <Input.Password />
-                    </Form.Item>
-
-                    <Form.Item
-                        name="nickname"
-                        label="Nombre "
-                        tooltip="What do you want others to call you?"
-                        rules={[{ required: true, message: 'Please input your nickname!', whitespace: true }]}
-                    >
-                        <Input />
-                    </Form.Item>
-
-                    <Form.Item
-                        name="last_name"
-                        label="Apellido "
-                        tooltip="What do you want others to call you?"
-                        rules={[{ required: true, message: 'Please input your nickname!', whitespace: true }]}
-                    >
-                        <Input />
-                    </Form.Item>
-
-                    <Form.Item  name="datebirth"
-                                label="Fecha Nacimiento "
-                                rules={[{ required: true }]}
-                    >
-                        <DatePicker />
-                    </Form.Item>
+    const Register = async(values) => {
 
 
-                    <Form.Item
-                        name="phone"
-                        label="Celular "
-                        rules={[{ required: true, message: 'Please input your phone number!' }]}
-                    >
-                        <Input />
-                    </Form.Item>
+        values.fecha_nac=moment(values.fecha_nac).format('YYYY-MM-DD h:mm:ss')
+
+        //const url = 'https://peaceful-ridge-86113.herokuapp.com/api/users/'
+        const url='http://localhost:5000/api/users/'
+
+        const response = await Axios.post(
+            url,
+            {values})
+
+        const mensaje = response.data.message
+        const status=response.status
+
+        console.log(mensaje)
+
+        if(status===200){
+            Swal.fire({
+                title: mensaje,
+
+            })
+
+            //localStorage.setItem("token",response.data.token)
+            setBool(true)
+            window.location.reload(false)
+        }else{
+            Swal.fire({
+                title: mensaje,
+
+            })
+
+        }
+    }
+
+    if(bool){
+        return(
+            <Redirect to="/login"/>
+        )
+    }else {
 
 
-                    <Form.Item label="Captcha" extra="We must make sure that your are a human.">
-                        <Row gutter={8}>
-                            <Col span={12}>
-                                <Form.Item
-                                    name="captcha"
-                                    noStyle
-                                    rules={[{ required: true, message: 'Please input the captcha you got!' }]}
-                                >
-                                    <Input />
-                                </Form.Item>
-                            </Col>
-                            <Col span={12}>
-                                <Button>Get captcha</Button>
-                            </Col>
-                        </Row>
-                    </Form.Item>
+        return (
+            <div id="hero" className="registerBlock">
+                <div className="container-fluid">
+                    <div className="titleHolder">
+                        <h2>Registro</h2>
+                    </div>
 
-                    <Form.Item
-                        name="agreement"
-                        valuePropName="checked"
-                        rules={[
-                            {
-                                validator: (_, value) =>
-                                    value ? Promise.resolve() : Promise.reject(new Error('Should accept agreement')),
-                            },
-                        ]}
-                        {...tailFormItemLayout}
-                    >
-                        <Checkbox>
-                            I have read the <a href="">agreement</a>
-                        </Checkbox>
-                    </Form.Item>
-                    <Form.Item {...tailFormItemLayout}>
-                        <Button type="primary" htmlType="submit">
-                            Register
-                        </Button>
-                    </Form.Item>
-                </Form>
+                    <div className="block">
+                        <Form
+                            {...formItemLayout}
+                            form={form}
+                            name="register"
+                            onFinish={onFinish}
+
+                            scrollToFirstError
+                        >
+                            <Form.Item
+                                name="correo"
+                                label="E-mail"
+                                rules={[
+                                    {
+                                        type: 'email',
+                                        message: 'The input is not valid E-mail!',
+                                    },
+                                    {
+                                        required: true,
+                                        message: 'Please input your E-mail!',
+                                    },
+                                ]}
+                            >
+                                <Input/>
+                            </Form.Item>
+
+                            <Form.Item
+                                name="password"
+                                label="Contraseña"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Please input your password!',
+                                    },
+                                ]}
+                                hasFeedback
+                            >
+                                <Input.Password/>
+                            </Form.Item>
+
+                            <Form.Item
+                                name="confirm"
+                                label="Confirmar Contraseña"
+                                dependencies={['password']}
+                                hasFeedback
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Please confirm your password!',
+                                    },
+                                    ({getFieldValue}) => ({
+                                        validator(_, value) {
+                                            if (!value || getFieldValue('password') === value) {
+                                                return Promise.resolve();
+                                            }
+                                            return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                                        },
+                                    }),
+                                ]}
+                            >
+                                <Input.Password/>
+                            </Form.Item>
+
+                            <Form.Item
+                                name="nombre"
+                                label="Nombre "
+                                tooltip="What do you want others to call you?"
+                                rules={[{required: true, message: 'Please input your nickname!', whitespace: true}]}
+                            >
+                                <Input/>
+                            </Form.Item>
+
+                            <Form.Item
+                                name="apellido"
+                                label="Apellido "
+                                tooltip="What do you want others to call you?"
+                                rules={[{required: true, message: 'Please input your nickname!', whitespace: true}]}
+                            >
+                                <Input/>
+                            </Form.Item>
+
+                            <Form.Item name="fecha_nac"
+                                       label="Fecha Nacimiento "
+                                       rules={[{required: true}]}
+                            >
+                                <DatePicker/>
+                            </Form.Item>
+
+
+                            <Form.Item
+                                name="telefono"
+                                label="Celular "
+                                rules={[{required: true, message: 'Please input your phone number!'}]}
+                            >
+                                <Input/>
+                            </Form.Item>
+
+
+                            <Form.Item label="Captcha" extra="We must make sure that your are a human.">
+                                <Row gutter={8}>
+                                    <Col span={12}>
+                                        <Form.Item
+                                            name="captcha"
+                                            noStyle
+                                            rules={[{required: true, message: 'Please input the captcha you got!'}]}
+                                        >
+                                            <Input/>
+                                        </Form.Item>
+                                    </Col>
+                                    <Col span={12}>
+                                        <Button>Get captcha</Button>
+                                    </Col>
+                                </Row>
+                            </Form.Item>
+
+                            <Form.Item
+                                name="agreement"
+                                valuePropName="checked"
+                                rules={[
+                                    {
+                                        validator: (_, value) =>
+                                            value ? Promise.resolve() : Promise.reject(new Error('Should accept agreement')),
+                                    },
+                                ]}
+                                {...tailFormItemLayout}
+                            >
+                                <Checkbox>
+                                    I have read the <a href="">agreement</a>
+                                </Checkbox>
+                            </Form.Item>
+                            <Form.Item {...tailFormItemLayout}>
+                                <Button type="primary" htmlType="submit">
+                                    Register
+                                </Button>
+                            </Form.Item>
+                        </Form>
+                    </div>
+                </div>
             </div>
-        </div>
-    );
+        );
+    }
 };
 
 export default AppRegistrationForm
