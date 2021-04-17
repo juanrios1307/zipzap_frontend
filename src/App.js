@@ -15,6 +15,10 @@ import BusquedaMonumentoPage from "./pages/busquedaEstablecimiento/BusquedaMonum
 import BusquedaParquePage from "./pages/busquedaEstablecimiento/BusquedaParquePage";
 import BusquedaRestaurantePage from "./pages/busquedaEstablecimiento/BusquedaRestaurantePage";
 import BusquedaTeatroPage from "./pages/busquedaEstablecimiento/BusquedaTeatroPage";
+import RegisterEstablecimientoPage from "./pages/RegisterEstablecimientoPage";
+
+
+import AppMap from "./components/login/Map";
 
 
 
@@ -26,7 +30,10 @@ class App extends React.Component {
                 <Switch>
                     <Route exact path="/" component={MainPage} />
                     <Route exact path="/login" component={LoginPage}/>
-                    <Route exact path="/register" component={RegisterPage}/>
+                    <Route exact path="/signup" component={RegisterPage}/>
+                    <Route exact path="/signup/place" component={RegisterEstablecimientoPage}/>
+
+                    <Route exact path="/map" component={AppMap}/>
 
                     <Route exact path="/busqueda" component={BusquedaCiudadPage}/>
                     <Route exact path="/plan" component={PlanPage}/>

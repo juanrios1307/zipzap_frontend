@@ -88,9 +88,8 @@ function AppLogin() {
                                            onChange={e => setPassword(e.target.value)}/>
                                 </div>
                             </div>
-                            <a href="/" className="a">¿Olvidaste tu contraseña?</a>
 
-                            <a href="/" className="a">Registra Tu Empresa</a>
+
                             <input type="submit" className="btn" value="Login"/>
                         </form>
                     </div>

@@ -47,8 +47,9 @@ function AppHeader() {
                       </Form>
 
 
-                      <Link href="#hero" title="Home" />
+                      <Link href="/" title="Home" />
                       <Link href="/login" title="Iniciar Sesión" />
+                      <Link href="/signup" title="Registrate" />
 
                   </Anchor>
               </div>
@@ -63,8 +64,9 @@ function AppHeader() {
                       visible={visible}
                   >
                       <Anchor targetOffset="65">
-                          <Link href="#hero" title="Home" />
+                          <Link href="/" title="Home" />
                           <Link href="/login" title="Iniciar Sesión" />
+                          <Link href="/signup" title="Registrate" />
                       </Anchor>
                   </Drawer>
               </div>
