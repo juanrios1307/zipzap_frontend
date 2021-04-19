@@ -13,6 +13,7 @@ import Axios from "axios";
 import Swal from "sweetalert2";
 import {Redirect} from "react-router-dom";
 import moment from "moment";
+import AppGoogleMaps from "./Map";
 
 const { Option } = Select;
 
@@ -92,8 +93,8 @@ const RegisterEstablecimiento = () => {
 
         values.fecha_subida=moment().format('YYYY-MM-DD h:mm:ss')
         values.fecha_ultima_edicion=moment().format('YYYY-MM-DD h:mm:ss')
-        values.logitud=1
-        values.latitud=1
+        values.logitud=parseFloat(localStorage.getItem("long"))
+        values.latitud=parseFloat(localStorage.getItem("lat"))
 
         console.log(values)
 
@@ -160,7 +161,7 @@ const RegisterEstablecimiento = () => {
 
 
         return (
-            <div id="hero" className="registerBlock">
+            <div id="hero" className="registerBlock all">
                 <div className="container-fluid">
                     <div className="titleHolder">
                         <h2>Registrar Establecimiento</h2>
@@ -270,14 +271,20 @@ const RegisterEstablecimiento = () => {
                             </Form.Item>
 
 
+
+                            <div className="divMap">
+                                <AppGoogleMaps />
+                            </div>
+
                             <Form.Item {...tailFormItemLayout}>
                                 <Button type="primary" htmlType="submit">
                                     Register
                                 </Button>
                             </Form.Item>
+
+
                         </Form>
 
-                        <a href="/" className="a">Registra Tu Empresa</a>
                     </div>
                 </div>
             </div>
