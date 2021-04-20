@@ -5,9 +5,10 @@ import {
     Select,
     AutoComplete,
     Button,
-
+    Upload,
+    Modal
 } from 'antd';
-
+import { PlusOutlined,InboxOutlined } from '@ant-design/icons';
 
 import Axios from "axios";
 import Swal from "sweetalert2";
@@ -56,7 +57,14 @@ const RegisterEstablecimiento = () => {
     const [ciudad, setCiudad] = useState([]);
     const [ambiente, setAmbiente] = useState([]);
     const [tipos, setTipos] = useState(['Bar','Evento','Hotel','Monumento','Parque','Restaurante','Teatro']);
-    const [tipo, setTipo] = useState('B')
+    const [tipo, setTipo] = useState('')
+
+    const[ previewVisible,setPreviewVisible]=useState(false)
+    const [previewImage,setPreviewImage]=useState( '')
+    const [previewTitle,setPreviewTitle]=useState('')
+    const [fileList,setFileList]=useState([])
+
+    const [imagesUrl,setImagesUrl]=useState([])
 
     const onFinish=(values) =>{
         Register(values)
@@ -73,7 +81,7 @@ const RegisterEstablecimiento = () => {
 
         const ciudades = response.data
         setCiudad(ciudades)
-        console.log(ciudades)
+
     }
 
     const ambientes = async() =>{
@@ -87,7 +95,7 @@ const RegisterEstablecimiento = () => {
 
         const ambientes = response.data
         setAmbiente(ambientes)
-        console.log(ambientes)
+
     }
 
     useEffect(()=>{
@@ -104,10 +112,13 @@ const RegisterEstablecimiento = () => {
         values.logitud=parseFloat(localStorage.getItem("long"))
         values.latitud=parseFloat(localStorage.getItem("lat"))
 
+        handleUpload()
+
+        values.imagenes = imagesUrl
         console.log(values)
 
         //const url = 'https://peaceful-ridge-86113.herokuapp.com/api/users/'
-        const url='http://localhost:5000/api/lugar/'
+       const url='http://localhost:5000/api/lugar/'
 
         const config = {
             method: 'post',
@@ -143,6 +154,64 @@ const RegisterEstablecimiento = () => {
         }
     }
 
+    function getBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
+    }
+
+
+    const handleCancel = () => setPreviewVisible( false );
+
+    const handlePreview = async file => {
+        if (!file.url && !file.preview) {
+            file.preview = await getBase64(file.originFileObj);
+        }
+
+        setPreviewImage( file.url || file.preview)
+        setPreviewVisible(true)
+        setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1))
+
+    };
+
+    const handleChange = ({fileList}) => setFileList(fileList);
+
+    const dummyRequest = ({ file, onSuccess }) => {
+        setTimeout(() => {
+            onSuccess("ok");
+        }, 0);
+    };
+
+    const handleUpload =async () => {
+
+
+        const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/zipzap/image/upload';
+        const UPLOAD_PRESET = 'yxoq41kh';
+
+
+        console.log(fileList[0].originFileObj)
+
+        const formImages = new FormData();
+
+        for(var i=0;i<fileList.length ; i++){
+
+
+            formImages.append('file', fileList[i].originFileObj);
+            formImages.append('upload_preset', UPLOAD_PRESET);
+
+            const resI = await Axios.post(CLOUDINARY_URL, formImages);
+
+            imagesUrl.push(resI.data.secure_url)
+        }
+
+        console.log(formImages)
+
+    };
+
+
 
 
     if(bool){
@@ -166,12 +235,17 @@ const RegisterEstablecimiento = () => {
             value: website,
         }));
 
-
+        const uploadButton = (
+            <div>
+                <PlusOutlined />
+                <div style={{ marginTop: 8 }}>Upload</div>
+            </div>
+        );
 
 
 
         return (
-            <div id="hero" className="registerBlock all">
+            <div id="hero" className="registerBlock registerPlaceBlock all">
                 <div className="container-fluid">
                     <div className="titleHolder">
                         <h2>Registrar Establecimiento</h2>
@@ -278,6 +352,34 @@ const RegisterEstablecimiento = () => {
                                         <Option key={i} value={i}>{i}</Option>
                                     ))}
                                 </Select>
+                            </Form.Item>
+
+                            <Form.Item
+                                label="Imagenes"
+                                name="imagenes">
+                                <Form.Item
+                                    valuePropName="fileList"
+                                    noStyle>
+
+                                    <Upload
+                                        listType="picture-card"
+                                        fileList={fileList}
+                                        onPreview={handlePreview}
+                                        onChange={handleChange}
+                                        customRequest={dummyRequest}
+                                        accept="image/png, image/jpeg"
+                                    >
+                                        {fileList.length >= 10 ? null : uploadButton}
+                                    </Upload>
+                                    <Modal
+                                        visible={previewVisible}
+                                        title={previewTitle}
+                                        footer={null}
+                                        onCancel={handleCancel}
+                                    >
+                                        <img alt="example" style={{ width: '100%' }} src={previewImage} />
+                                    </Modal>
+                                </Form.Item>
                             </Form.Item>
 
 
