@@ -1,15 +1,12 @@
 import React, {useState} from "react";
-import {Card, Carousel, Row, Col, Anchor} from 'antd';
+import {Card, Row, Col, Anchor} from 'antd';
 import hotel from "../../assets/images/hotel.jpg";
 import restaurante from "../../assets/images/restaurante.jpg";
 import bar from "../../assets/images/bar.jpg";
 import monumento from "../../assets/images/monumento.jpg";
 import parque from "../../assets/images/parque.jpg";
 import cine from "../../assets/images/cine.jpg";
-import evento from "../../assets/images/evento.jpg";
-import promo from "../../assets/images/promo.jpg";
 
-const { Link } = Anchor;
 
 const { Meta } = Card;
 

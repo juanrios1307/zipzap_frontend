@@ -14,6 +14,13 @@ import Swal from "sweetalert2";
 import {Redirect} from "react-router-dom";
 import moment from "moment";
 import AppGoogleMaps from "./Map";
+import AppRegistrationBar from "./registerLugar/registerBar";
+import AppRegistrationEvento from "./registerLugar/registerEvento";
+import AppRegistrationHotel from "./registerLugar/registerHotel";
+import AppRegistrationMonumento from "./registerLugar/registerMonumento";
+import AppRegistrationParque from "./registerLugar/registerParque";
+import AppRegistrationRestaurante from "./registerLugar/registerRestaurante";
+import AppRegistrationTeatro from "./registerLugar/registerTeatro";
 
 const { Option } = Select;
 
@@ -48,7 +55,8 @@ const RegisterEstablecimiento = () => {
     const [autoCompleteResult, setAutoCompleteResult] = useState([]);
     const [ciudad, setCiudad] = useState([]);
     const [ambiente, setAmbiente] = useState([]);
-    const [tipo, setTipo] = useState(['Bar','Evento','Hotel','Monumento','Parque','Restaurante','Teatro']);
+    const [tipos, setTipos] = useState(['Bar','Evento','Hotel','Monumento','Parque','Restaurante','Teatro']);
+    const [tipo, setTipo] = useState('B')
 
     const onFinish=(values) =>{
         Register(values)
@@ -134,6 +142,8 @@ const RegisterEstablecimiento = () => {
 
         }
     }
+
+
 
     if(bool){
         return(
@@ -263,9 +273,9 @@ const RegisterEstablecimiento = () => {
                                 name="tipo"
                                 label="Tipo "
                                 rules={[{required: true, message: 'Por Favor Elije El tipo de tu Establecimiento!'}]}>
-                                <Select>
-                                    {tipo.map(i =>(
-                                        <Option key={i}>{i}</Option>
+                                <Select onChange={e=>setTipo(e)}>
+                                    {tipos.map(i =>(
+                                        <Option key={i} value={i}>{i}</Option>
                                     ))}
                                 </Select>
                             </Form.Item>
@@ -276,12 +286,39 @@ const RegisterEstablecimiento = () => {
                                 <AppGoogleMaps />
                             </div>
 
+
+                            {tipo=="Bar" && (
+                                   <AppRegistrationBar/>
+                               )}
+
+                            {tipo=="Evento" && (
+                                    <AppRegistrationEvento/>
+                                )}
+
+                            {tipo=="Hotel" && (
+                                <AppRegistrationHotel/>
+                            )}
+
+                            {tipo=="Monumento" && (
+                                <AppRegistrationMonumento/>
+                            )}
+                            {tipo=="Parque" && (
+                                <AppRegistrationParque/>
+                            )}
+
+                            {tipo=="Restaurante" && (
+                                <AppRegistrationRestaurante/>
+                            )}
+
+                            {tipo=="Teatro" && (
+                                <AppRegistrationTeatro/>
+                            )}
+
                             <Form.Item {...tailFormItemLayout}>
                                 <Button type="primary" htmlType="submit">
                                     Register
                                 </Button>
                             </Form.Item>
-
 
                         </Form>
 

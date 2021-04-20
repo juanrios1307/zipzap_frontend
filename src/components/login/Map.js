@@ -18,7 +18,7 @@ const center ={
 
 function AppGoogleMaps() {
 
-    const [mapRef, setMapRef] = useState(null);
+
     const [selectedPlace, setSelectedPlace] = useState(null);
     const [markerMap, setMarkerMap] = useState({});
     //const [center, setCenter] = useState({ lat: 6.227, lng: -75.58 });
@@ -35,27 +35,7 @@ function AppGoogleMaps() {
 
     const [map, setMap] = React.useState(null)
 
-    const myPlaces = [
-        { id: "place1", pos: { lat: 6.227, lng: -75.58 } },
-        { id: "place2", pos: { lat: 6.127, lng: -75.38  } },
-        { id: "place3", pos: { lat: 6.227, lng: -75.38  } }
-    ];
 
-
-
-    // Iterate myPlaces to size, center, and zoom map to contain all markers
-    const fitBounds = map => {
-        const bounds = new window.google.maps.LatLngBounds();
-
-        map.fitBounds(bounds);
-    };
-
-    const loadHandler = map => {
-        // Store a reference to the google map instance in state
-        setMapRef(map);
-        // Fit map bounds to contain all markers
-        fitBounds(map);
-    };
 
     // We have to create a mapping of our places to actual Marker objects
     const markerLoadHandler = (marker, place) => {
