@@ -39,6 +39,7 @@ function PlanHotel() {
                         <div id="pricing" className="block pricingBlock bgGray">
                             <div className="container-fluid">
                                 <div className="titleHolder">
+                                    <h2>{localStorage.getItem("plan")}</h2>
                                     <h2>Hoteles</h2>
 
                                     <div className="site-card-wrapper">
