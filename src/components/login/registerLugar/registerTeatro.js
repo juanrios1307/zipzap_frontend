@@ -6,13 +6,11 @@ import {
     Col,
     Checkbox,
     Button,
-    DatePicker,
+    DatePicker, Upload, Modal, InputNumber,
 } from 'antd';
 import Axios from "axios";
-import Swal from "sweetalert2";
-import {Redirect} from "react-router-dom";
-import moment from "moment";
 
+import { PlusOutlined } from '@ant-design/icons';
 
 const formItemLayout = {
     labelCol: {
@@ -40,84 +38,132 @@ const tailFormItemLayout = {
 const AppRegistrationTeatro = () => {
     const [form] = Form.useForm();
 
-    const [bool,setBool] = useState(false);
 
-    const onFinish=(values) =>{
-        Register(values)
+    const[ previewVisible,setPreviewVisible]=useState(false)
+    const [previewImage,setPreviewImage]=useState( '')
+    const [previewTitle,setPreviewTitle]=useState('')
+    const [cartaImg,setCartaImg]=useState([])
+
+    const [cartaImgUrl,setCartaImgUrl]=useState([])
+
+    function getBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
     }
 
-    const Register = async(values) => {
 
+    const handleCancel = () => setPreviewVisible( false );
 
-        values.fecha_nac=moment(values.fecha_nac).format('YYYY-MM-DD h:mm:ss')
-
-        //const url = 'https://peaceful-ridge-86113.herokuapp.com/api/users/'
-        const url='http://localhost:5000/api/users/'
-
-        const response = await Axios.post(
-            url,
-            {values})
-
-        const mensaje = response.data.message
-        const status=response.status
-
-        console.log(mensaje)
-
-        if(status===200){
-            Swal.fire({
-                title: mensaje,
-
-            })
-
-            //localStorage.setItem("token",response.data.token)
-            setBool(true)
-            window.location.reload(false)
-        }else{
-            Swal.fire({
-                title: mensaje,
-
-            })
-
+    const handlePreview = async file => {
+        if (!file.url && !file.preview) {
+            file.preview = await getBase64(file.originFileObj);
         }
-    }
 
-    if(bool){
-        return(
-            <Redirect to="/login"/>
-        )
-    }else {
+        setPreviewImage( file.url || file.preview)
+        setPreviewVisible(true)
+        setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1))
+
+    };
+
+    const handleChange = ({fileList}) => setCartaImg(fileList);
+
+    const dummyRequest = ({ file, onSuccess }) => {
+        setTimeout(() => {
+            onSuccess("ok");
+        }, 0);
+    };
+
+    const handleUpload =async () => {
 
 
-        return (
-            <div id="hero" className="registerBarBlock">
-                <div className="container-fluid">
+        const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/zipzap/image/upload';
+        const UPLOAD_PRESET = 'yxoq41kh';
 
-                    <div className="block">
-                        <Form
-                            {...formItemLayout}
-                            form={form}
-                            name="register"
-                            onFinish={onFinish}
 
-                            scrollToFirstError
-                        >
+        console.log(cartaImg[0].originFileObj)
 
+        const formImages = new FormData();
+
+        for(var i=0;i<cartaImg.length ; i++){
+
+
+            formImages.append('file', cartaImg[i].originFileObj);
+            formImages.append('upload_preset', UPLOAD_PRESET);
+
+            const resI = await Axios.post(CLOUDINARY_URL, formImages);
+
+            cartaImgUrl.push(resI.data.secure_url)
+        }
+
+        console.log(formImages)
+
+    };
+
+    const uploadButton = (
+        <div>
+            <PlusOutlined />
+            <div style={{ marginTop: 8 }}>Upload</div>
+        </div>
+    );
+
+    return (
+        <div id="hero" className="registerBarBlock">
+            <div className="container-fluid">
+
+                <div className="block">
+                    <Form
+                        {...formItemLayout}
+                        form={form}
+                        scrollToFirstError
+                    >
+
+                        <Form.Item
+                            label="Imagen Cartelera"
+                            name="imagencartelera">
                             <Form.Item
-                                name="nombre"
-                                label="Nombre "
-                                tooltip="What do you want others to call you?"
-                                rules={[{required: true, message: 'Please input your nickname!', whitespace: true}]}
-                            >
-                                <Input/>
+                                valuePropName="fileList"
+                                noStyle>
+
+                                <Upload
+                                    listType="picture-card"
+                                    fileList={cartaImg}
+                                    onPreview={handlePreview}
+                                    onChange={handleChange}
+                                    customRequest={dummyRequest}
+                                    accept="image/png, image/jpeg"
+                                >
+                                    {cartaImg.length >= 1 ? null : uploadButton}
+                                </Upload>
+                                <Modal
+                                    visible={previewVisible}
+                                    title={previewTitle}
+                                    footer={null}
+                                    onCancel={handleCancel}
+                                >
+                                    <img alt="example" style={{ width: '100%' }} src={previewImage} />
+                                </Modal>
                             </Form.Item>
+                        </Form.Item>
 
-                        </Form>
+                        <Form.Item
+                            name="capacidad"
+                            label="Capacidad "
+                            rules={[{required: true, message: 'Por Favor ingresa la capacidad del teatro!'}]}
+                        >
+                            <InputNumber/>
+                        </Form.Item>
 
-                    </div>
+                    </Form>
+
                 </div>
             </div>
-        );
-    }
+        </div>
+    );
+
 };
 
 export default AppRegistrationTeatro

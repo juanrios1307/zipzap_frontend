@@ -6,9 +6,10 @@ import {
     AutoComplete,
     Button,
     Upload,
-    Modal
+    Modal,
+    InputNumber
 } from 'antd';
-import { PlusOutlined,InboxOutlined } from '@ant-design/icons';
+import { PlusOutlined } from '@ant-design/icons';
 
 import Axios from "axios";
 import Swal from "sweetalert2";
@@ -292,7 +293,7 @@ const RegisterEstablecimiento = () => {
                                 label="Celular "
                                 rules={[{required: true, message: 'Please input your phone number!'}]}
                             >
-                                <Input/>
+                                <InputNumber/>
                             </Form.Item>
 
                             <Form.Item

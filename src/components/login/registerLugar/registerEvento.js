@@ -6,7 +6,7 @@ import {
     Col,
     Checkbox,
     Button,
-    DatePicker,
+    DatePicker, InputNumber,
 } from 'antd';
 import Axios from "axios";
 import Swal from "sweetalert2";
@@ -42,52 +42,6 @@ const AppRegistrationEvento = () => {
 
     const [bool,setBool] = useState(false);
 
-    const onFinish=(values) =>{
-        Register(values)
-    }
-
-    const Register = async(values) => {
-
-
-        values.fecha_nac=moment(values.fecha_nac).format('YYYY-MM-DD h:mm:ss')
-
-        //const url = 'https://peaceful-ridge-86113.herokuapp.com/api/users/'
-        const url='http://localhost:5000/api/users/'
-
-        const response = await Axios.post(
-            url,
-            {values})
-
-        const mensaje = response.data.message
-        const status=response.status
-
-        console.log(mensaje)
-
-        if(status===200){
-            Swal.fire({
-                title: mensaje,
-
-            })
-
-            //localStorage.setItem("token",response.data.token)
-            setBool(true)
-            window.location.reload(false)
-        }else{
-            Swal.fire({
-                title: mensaje,
-
-            })
-
-        }
-    }
-
-    if(bool){
-        return(
-            <Redirect to="/login"/>
-        )
-    }else {
-
-
         return (
             <div id="hero" className="registerBarBlock">
                 <div className="container-fluid">
@@ -96,19 +50,24 @@ const AppRegistrationEvento = () => {
                         <Form
                             {...formItemLayout}
                             form={form}
-                            name="register"
-                            onFinish={onFinish}
 
                             scrollToFirstError
                         >
 
                             <Form.Item
-                                name="nombre"
-                                label="Evento "
-                                tooltip="What do you want others to call you?"
-                                rules={[{required: true, message: 'Please input your nickname!', whitespace: true}]}
+                                name="descripcion"
+                                label="Descripción Evento "
+                                rules={[{required: true, message: 'Por favor Ingresa Una Descripción Del Evento', whitespace: true}]}
                             >
                                 <Input/>
+                            </Form.Item>
+
+                            <Form.Item
+                                name="capacidad"
+                                label="Capacidad "
+                                rules={[{required: true, message: 'Por Favor ingresa la capacidad del evento!'}]}
+                            >
+                                <InputNumber/>
                             </Form.Item>
 
                         </Form>
@@ -117,7 +76,7 @@ const AppRegistrationEvento = () => {
                 </div>
             </div>
         );
-    }
+
 };
 
 export default AppRegistrationEvento

@@ -1,12 +1,26 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 
-import {Anchor, Drawer, Button, Form, Input} from 'antd';
+import {Anchor, Drawer, Button, Form, Input,AutoComplete} from 'antd';
+import Axios from "axios";
 
 const { Link } = Anchor;
+
+const options = [
+    {
+        value: 'Burns Bay Road',
+    },
+    {
+        value: 'Downing Street',
+    },
+    {
+        value: 'Wall Street',
+    },
+];
 
 function AppHeader() {
 
     const [visible, setVisible] = useState(false);
+    const [ciudad, setCiudad] = useState([]);
 
     const showDrawer = () => {
         setVisible(true);
@@ -15,6 +29,49 @@ function AppHeader() {
     const onClose = () => {
         setVisible(false);
     };
+
+    const ciudades = async() =>{
+
+        //const url = 'https://peaceful-ridge-86113.herokuapp.com/api/users/'
+        const url='http://localhost:5000/api/ciudad/'
+
+        const response = await Axios.get(
+            url,
+        )
+
+        const ciudades = response.data
+
+        for(var i=0;i<ciudades.length;i++){
+
+            ciudad.push(
+                new Object({
+                    "value":ciudades[i].nombre
+                })
+            )
+        }
+
+        console.log(ciudad)
+    }
+
+    const buscar = async() => {
+
+        //const url = 'https://peaceful-ridge-86113.herokuapp.com/api/users/'
+        const url='http://localhost:5000/api/ciudad/'
+
+        const response = await Axios.get(
+            url,
+        )
+
+        const ciudades = response.data
+
+
+        console.log(ciudades)
+
+    }
+
+    useEffect(()=>{
+        ciudades()
+    },[])
 
     return (
       <div className="container-fluid">
@@ -31,12 +88,25 @@ function AppHeader() {
                           className="login-form"
                           initialValues={{ remember: true }}
                           layout="inline"
+                          onFinish={buscar}
                       >
                           <Form.Item
                               name="city"
                               rules={[{ required: true, message: 'Por favor ingresa una ciudad!' }]}
                           >
-                              <Input placeholder="Ciudad" />
+
+                              <AutoComplete
+                                  style={{
+                                      width: 200,
+                                  }}
+                                  options={ciudad}
+                                  placeholder="Ciudad"
+                                  filterOption={(inputValue, option) =>
+                                      option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+                                  }
+                              />
+
+
                           </Form.Item>
 
                           <Form.Item>

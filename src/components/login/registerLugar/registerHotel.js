@@ -6,7 +6,7 @@ import {
     Col,
     Checkbox,
     Button,
-    DatePicker,
+    DatePicker, InputNumber, Rate,
 } from 'antd';
 import Axios from "axios";
 import Swal from "sweetalert2";
@@ -93,25 +93,22 @@ const AppRegistrationHotel = () => {
                 <div className="container-fluid">
 
                     <div className="block">
-                        <Form
-                            {...formItemLayout}
-                            form={form}
-                            name="register"
-                            onFinish={onFinish}
-
-                            scrollToFirstError
-                        >
 
                             <Form.Item
-                                name="nombre"
-                                label="Nombre "
-                                tooltip="What do you want others to call you?"
-                                rules={[{required: true, message: 'Please input your nickname!', whitespace: true}]}
+                                name="estrellas"
+                                label="Estrellas "
+                                rules={[{required: true, message: 'Por Favor ingresa la capacidad del evento!'}]}
                             >
-                                <Input/>
+                                <Rate />
                             </Form.Item>
 
-                        </Form>
+                            <Form.Item
+                                name="tipoHabs"
+                                label="Cuantos Tipos De habitaciones tienes? "
+                                rules={[{required: true, message: '¿cuántos tipos de habitaciones hay en el hotel? !'}]}
+                            >
+                                <InputNumber/>
+                            </Form.Item>
 
                     </div>
                 </div>

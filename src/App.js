@@ -19,6 +19,7 @@ import RegisterEstablecimientoPage from "./pages/RegisterEstablecimientoPage";
 
 
 import AppMap from "./components/login/Map";
+import MisEstablecimientosPage from "./pages/MisEstablecimientosPage";
 
 
 
@@ -32,6 +33,8 @@ class App extends React.Component {
                     <Route exact path="/login" component={LoginPage}/>
                     <Route exact path="/signup" component={RegisterPage}/>
                     <Route exact path="/signup/place" component={RegisterEstablecimientoPage}/>
+
+                    <Route exact path="/dashboard" component={MisEstablecimientosPage}/>
 
                     <Route exact path="/map" component={AppMap}/>
 
