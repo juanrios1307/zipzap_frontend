@@ -15,6 +15,18 @@ function AppMisEstablecimientos() {
         localStorage.setItem("plan",value)
     }
 
+    const edit = () =>{
+        console.log("edit")
+    }
+
+    const eliminar = () =>{
+        console.log("delete")
+    }
+
+    const see = () =>{
+        console.log("see")
+    }
+
     return (
         <div id="hero" className="paquetesBlock">
 
@@ -32,9 +44,9 @@ function AppMisEstablecimientos() {
                                                 hoverable
                                                 cover={<img alt="Modern Design" src={image} />}
                                                 actions={[
-                                                    <EyeOutlined  key="select" />,
-                                                    <EditOutlined key="update" />,
-                                                    <DeleteOutlined key="delete"/>
+                                                    <EyeOutlined  key="select" onClick ={()=>see}/>,
+                                                    <EditOutlined key="update" onClick ={()=>edit}/>,
+                                                    <DeleteOutlined key="delete" onClick ={()=>eliminar}/>
                                                 ]}
 
                                             >
@@ -51,8 +63,32 @@ function AppMisEstablecimientos() {
                                 })
                                 }
 
+                                <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }}>
+
+                                    <Card
+                                        hoverable
+                                        cover={<img alt="Modern Design" src={image} />}
+                                        actions={[
+                                            <EyeOutlined  key="select" onClick ={()=>see()}/>,
+                                            <EditOutlined key="update" onClick ={()=>edit()}/>,
+                                            <DeleteOutlined key="delete" onClick ={()=>eliminar()}/>
+                                        ]}
+
+                                    >
+
+                                        <Meta title={"NN"} />
+
+                                        <p>{"NN"}</p>
+
+                                    </Card>
+
+
+                                </Col>
+
 
                             </Row>
+
+                            <a href="/signup/place" className="a">Registra Tu Empresa</a>
                         </div>
 
                     </div>
