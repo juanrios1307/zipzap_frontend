@@ -6,25 +6,8 @@ import Axios from "axios";
 
 const { Link } = Anchor;
 
-const options = [
-    {
-        value: 'cerrarSesion',
-        label: 'Cerrar Sesión',
-    },
-    {
-        value: 'registrarEstablecimiento',
-        label: 'Registrar Establecimiento',
-    },
-    {
-        value: 'verReservas',
-        label: 'Ver Mis Reservas',
-    },
-    {
-        value: 'verComentarios',
-        label: 'Ver Mis Calificaciones',
-    },
-];
-function AppHeader() {
+
+function AppHeaderHotel() {
 
     const [visible, setVisible] = useState(false);
     const [ciudad, setCiudad] = useState([]);
@@ -90,8 +73,8 @@ function AppHeader() {
       <div className="container-fluid">
           <div className="header">
               <div className="logo">
-                  <i className="fa fa-paper-plane" aria-hidden="true"></i>
-                  <a href="/">  ZIPZAP</a>
+                  <i className="fa fa-bed" aria-hidden="true"></i>
+                  <a>  Hoteles</a>
               </div>
               <div className="mobileHidden">
                   <Anchor targetOffset="65">
@@ -113,7 +96,7 @@ function AppHeader() {
                                       width: 200,
                                   }}
                                   options={ciudad}
-                                  placeholder="Ciudad"
+                                  placeholder="Hotel"
                                   filterOption={(inputValue, option) =>
                                       option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
                                   }
@@ -129,30 +112,6 @@ function AppHeader() {
                           </Form.Item>
                       </Form>
 
-                      <Link href="/" title="Home" />
-
-                      {token && (
-                          <Cascader options={options} >
-                                 <UserOutlined />
-                          </Cascader>
-
-                      )
-
-                      }
-
-                      {!token && (
-
-                              <Link href="/login" title="Iniciar Sesión" />
-
-
-                      )}
-
-                      {!token && (
-
-                          <Link href="/signup" title="Registrate" />
-
-
-                      )}
 
 
 
@@ -180,4 +139,4 @@ function AppHeader() {
     );
 }
 
-export default AppHeader;
+export default AppHeaderHotel;

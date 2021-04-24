@@ -39,6 +39,7 @@ function AppBusquedaHotel() {
 
     return (
         <div id="hero" className="busquedaBlock">
+
             <Carousel >
                 {items.map(item => {
                     return (

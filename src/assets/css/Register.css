@@ -3,14 +3,14 @@ hero
 ----
 */
 .registerPlaceBlock  {
-    height: 250vh !important;
+    height: auto !important;
 }
 
 .registerBlock {
     background-position: 50% 100%;
     background-size: cover;
     margin-top: 100px;
-    height: 150vh;
+    height: auto;
 
 }
 

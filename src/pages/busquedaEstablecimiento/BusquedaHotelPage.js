@@ -11,6 +11,7 @@ import {Layout} from "antd";
 import {Footer} from "antd/es/layout/layout";
 
 import Busqueda from "../../components/busqueda/busquedaHotel";
+import AppHeaderHotel from "../../components/busqueda/headersBusqueda/headerHotel";
 const { Header, Content } = Layout;
 
 
@@ -21,6 +22,7 @@ class BusquedaPage extends Component {
             <Layout className="mainLayout">
                 <Header>
                     <AppHeader/>
+                    <AppHeaderHotel/>
                 </Header>
                 <Content>
                     <Busqueda/>

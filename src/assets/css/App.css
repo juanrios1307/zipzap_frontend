@@ -206,7 +206,7 @@ hero
     background: url('/src/assets/images/white-background.jpg') no-repeat;
     background-position: 50% 100%;
     background-size: cover;
-    height: 210vh;
+    height: auto;
 }
 
 .heroBlock .ant-carousel,

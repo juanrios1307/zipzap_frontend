@@ -6,7 +6,7 @@ hero
     background: url('/src/assets/images/white-background.jpg') no-repeat;
     background-position: 50% 100%;
     background-size: cover;
-    height: 80vh;
+    height: auto;
 }
 
 .planBlock .container-fluid {
