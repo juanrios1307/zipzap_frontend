@@ -98,10 +98,7 @@ function AppGoogleMaps() {
 
             <GoogleMap
                 mapContainerStyle={containerStyle}
-                center={center}
-                zoom={10}
                 onLoad={onLoad}
-
 
                 // Save the user's map click position
                 onClick={e => getClick(e.latLng.toJSON())}
