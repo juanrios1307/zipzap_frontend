@@ -1,16 +1,31 @@
 import React, { useState,useEffect } from "react";
 
-import {Anchor, Drawer, Button, Form, Input, AutoComplete, Cascader} from 'antd';
+import {
+    Anchor,
+    Drawer,
+    Button,
+    Form,
+    Input,
+    AutoComplete,
+    Cascader,
+    Rate,
+    Slider,
+    Row,
+    Col,
+    InputNumber,
+    Select,
+    Switch
+} from 'antd';
 import {UserOutlined} from '@ant-design/icons';
 import Axios from "axios";
 
 const { Link } = Anchor;
+const { Option } = Select;
 
-
-function AppHeaderHotel() {
+function AppHeaderBar() {
 
     const [visible, setVisible] = useState(false);
-    const [ciudad, setCiudad] = useState([]);
+    const [ambientes, setAmbientes] = useState([]);
     const [token, setToken] = useState('');
 
     const showDrawer = () => {
@@ -21,47 +36,43 @@ function AppHeaderHotel() {
         setVisible(false);
     };
 
-    const ciudades = async() =>{
+    const getAmbientes = async() =>{
 
         //const url = 'https://peaceful-ridge-86113.herokuapp.com/api/users/'
-        const url='http://localhost:5000/api/ciudad/'
+        const url='http://localhost:5000/api/ambiente/'
 
         const response = await Axios.get(
             url,
         )
 
-        const ciudades = response.data
+        const data = response.data
+        setAmbientes(data)
 
-        for(var i=0;i<ciudades.length;i++){
-
-            ciudad.push(
-                new Object({
-                    "value":ciudades[i].nombre
-                })
-            )
-        }
-
-        console.log(ciudad)
     }
 
-    const buscar = async() => {
+
+    const filtrar = async(values) => {
 
         //const url = 'https://peaceful-ridge-86113.herokuapp.com/api/users/'
-        const url='http://localhost:5000/api/ciudad/'
+        /* const url='http://localhost:5000/api/ambiente/'
 
-        const response = await Axios.get(
-            url,
-        )
+         const response = await Axios.get(
+             url,
+         )
 
-        const ciudades = response.data
+         const ciudades = response.data
 
 
-        console.log(ciudades)
+         console.log(ciudades)*/
+
+        console.log(values)
 
     }
+
+
 
     useEffect(()=>{
-        ciudades()
+        getAmbientes()
 
         if(localStorage.getItem("token")){
             setToken(localStorage.getItem("token"))
@@ -73,43 +84,65 @@ function AppHeaderHotel() {
       <div className="container-fluid">
           <div className="header">
               <div className="logo">
-                  <i className="fa fa-bed" aria-hidden="true"></i>
+                  <i className="fa fa-beer" aria-hidden="true"></i>
                   <a>  Bares</a>
               </div>
               <div className="mobileHidden">
-                  <Anchor targetOffset="65">
+                  <Anchor targetOffset="1000">
 
                       <Form
-                          name="normal_login"
-                          className="login-form"
+                          name="filter_form"
+                          className="filter-form"
                           initialValues={{ remember: true }}
-                          layout="inline"
-                          onFinish={buscar}
+                          layout='vertical'
+                          onFinish={filtrar}
+                          style={{
+                              width:1000
+                          }}
                       >
-                          <Form.Item
-                              name="city"
-                              rules={[{ required: true, message: 'Por favor ingresa una ciudad!' }]}
-                          >
 
-                              <AutoComplete
-                                  style={{
-                                      width: 200,
-                                  }}
-                                  options={ciudad}
-                                  placeholder="Hotel"
-                                  filterOption={(inputValue, option) =>
-                                      option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
-                                  }
-                              />
+                          <Row>
+                              <Col span={5}>
 
+                                  <Form.Item
+                                      name="city"
+                                      label ="Nombre"
+                                      rules={[{ required: false}]}
+                                  >
 
-                          </Form.Item>
+                                      <Input
+                                          style={{
+                                              width: 150,
+                                          }}
+                                          placeholder="Bar"
 
-                          <Form.Item>
-                              <Button type="primary" htmlType="submit" className="login-form-button">
-                                  Buscar
-                              </Button>
-                          </Form.Item>
+                                      />
+                                  </Form.Item>
+
+                              </Col>
+
+                              <Col span={5}>
+                                  <Form.Item
+                                      name="ambiente"
+                                      label="Ambiente "
+                                      rules={[{required: false}]}>
+                                      <Select>
+                                          {ambientes.map(i =>(
+                                              <Option key={i.id_ambiente}>{i.nombre}</Option>
+                                          ))}
+                                      </Select>
+                                  </Form.Item>
+                              </Col>
+
+                              <Col span={2}>
+
+                                  <Form.Item>
+                                      <Button type="primary" htmlType="submit" className="login-form-button">
+                                          Aplicar
+                                      </Button>
+                                  </Form.Item>
+                              </Col>
+                          </Row>
                       </Form>
 
 
@@ -139,4 +172,4 @@ function AppHeaderHotel() {
     );
 }
 
-export default AppHeaderHotel;
+export default AppHeaderBar;

@@ -9,8 +9,9 @@ import PlanPage from "./pages/PlanPage";
 
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
-import BusquedaHotelPage from "./pages/busquedaEstablecimiento/BusquedaHotelPage"
 import BusquedaBarPage from "./pages/busquedaEstablecimiento/BusquedaBarPage";
+import BusquedaEventoPage from "./pages/busquedaEstablecimiento/BusquedaEventoPage";
+import BusquedaHotelPage from "./pages/busquedaEstablecimiento/BusquedaHotelPage"
 import BusquedaMonumentoPage from "./pages/busquedaEstablecimiento/BusquedaMonumentoPage";
 import BusquedaParquePage from "./pages/busquedaEstablecimiento/BusquedaParquePage";
 import BusquedaRestaurantePage from "./pages/busquedaEstablecimiento/BusquedaRestaurantePage";
@@ -42,6 +43,7 @@ class App extends React.Component {
                     <Route exact path="/plan" component={PlanPage}/>
 
                     <Route exact path="/busqueda/bar" component={BusquedaBarPage}/>
+                    <Route exact path="/busqueda/evento" component={BusquedaEventoPage}/>
                     <Route exact path="/busqueda/hotel" component={BusquedaHotelPage}/>
                     <Route exact path="/busqueda/monumento" component={BusquedaMonumentoPage}/>
                     <Route exact path="/busqueda/parque" component={BusquedaParquePage}/>

@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Card, Carousel,Row, Col} from 'antd';
 
-import monumento from "../../assets/images/monumento.jpg";
+import evento from "../../assets/images/evento.jpg";
 
 
 
@@ -28,7 +28,7 @@ const items = [
     },
 ]
 
-function AppBusquedaMonumento() {
+function AppBusquedaTeatro() {
 
     const [ciudad, setCiudad] = useState('Cartagena');
 
@@ -47,7 +47,7 @@ function AppBusquedaMonumento() {
                                             <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 8 }}>
                                                 <Card
                                                     hoverable
-                                                    cover={<img alt="test" src={monumento} />}
+                                                    cover={<img alt="test" src={evento} />}
                                                 >
                                                     <Meta title={item.title} />
                                                 </Card>
@@ -56,7 +56,7 @@ function AppBusquedaMonumento() {
                                             <Col xs={{ span: 24 }} sm={{ span: 12 }} md={{ span: 8 }}>
                                                 <Card
                                                     hoverable
-                                                    cover={<img alt="test" src={monumento} />}
+                                                    cover={<img alt="test" src={evento} />}
                                                 >
                                                     <Meta title={item.title} />
                                                 </Card>
@@ -65,7 +65,7 @@ function AppBusquedaMonumento() {
                                             <Col xs={{ span: 24 }} sm={{ span: 12 }} md={{ span: 8 }}>
                                                 <Card
                                                     hoverable
-                                                    cover={<img alt="test" src={monumento} />}
+                                                    cover={<img alt="test" src={evento} />}
                                                 >
                                                     <Meta title={item.title} />
                                                 </Card>
@@ -74,7 +74,7 @@ function AppBusquedaMonumento() {
                                             <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }}>
                                                 <Card
                                                     hoverable
-                                                    cover={<img alt="test" src={monumento} />}
+                                                    cover={<img alt="test" src={evento} />}
                                                 >
                                                     <Meta title={item.title} />
                                                 </Card>
@@ -82,7 +82,7 @@ function AppBusquedaMonumento() {
                                             <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }}>
                                                 <Card
                                                     hoverable
-                                                    cover={<img alt="test" src={monumento} />}
+                                                    cover={<img alt="test" src={evento} />}
                                                 >
                                                     <Meta title={item.title} />
                                                 </Card>
@@ -90,32 +90,7 @@ function AppBusquedaMonumento() {
                                             <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }}>
                                                 <Card
                                                     hoverable
-                                                    cover={<img alt="test" src={monumento} />}
-                                                >
-                                                    <Meta title={item.title} />
-                                                </Card>
-                                            </Col>
-
-                                            <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }}>
-                                                <Card
-                                                    hoverable
-                                                    cover={<img alt="test" src={monumento} />}
-                                                >
-                                                    <Meta title={item.title} />
-                                                </Card>
-                                            </Col>
-                                            <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }}>
-                                                <Card
-                                                    hoverable
-                                                    cover={<img alt="test" src={monumento} />}
-                                                >
-                                                    <Meta title={item.title} />
-                                                </Card>
-                                            </Col>
-                                            <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }}>
-                                                <Card
-                                                    hoverable
-                                                    cover={<img alt="test" src={monumento} />}
+                                                    cover={<img alt="test" src={evento} />}
                                                 >
                                                     <Meta title={item.title} />
                                                 </Card>
@@ -124,7 +99,7 @@ function AppBusquedaMonumento() {
                                             <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }}>
                                                 <Card
                                                     hoverable
-                                                    cover={<img alt="test" src={monumento} />}
+                                                    cover={<img alt="test" src={evento} />}
                                                 >
                                                     <Meta title={item.title} />
                                                 </Card>
@@ -132,7 +107,7 @@ function AppBusquedaMonumento() {
                                             <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }}>
                                                 <Card
                                                     hoverable
-                                                    cover={<img alt="test" src={monumento} />}
+                                                    cover={<img alt="test" src={evento} />}
                                                 >
                                                     <Meta title={item.title} />
                                                 </Card>
@@ -140,7 +115,32 @@ function AppBusquedaMonumento() {
                                             <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }}>
                                                 <Card
                                                     hoverable
-                                                    cover={<img alt="test" src={monumento} />}
+                                                    cover={<img alt="test" src={evento} />}
+                                                >
+                                                    <Meta title={item.title} />
+                                                </Card>
+                                            </Col>
+
+                                            <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }}>
+                                                <Card
+                                                    hoverable
+                                                    cover={<img alt="test" src={evento} />}
+                                                >
+                                                    <Meta title={item.title} />
+                                                </Card>
+                                            </Col>
+                                            <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }}>
+                                                <Card
+                                                    hoverable
+                                                    cover={<img alt="test" src={evento} />}
+                                                >
+                                                    <Meta title={item.title} />
+                                                </Card>
+                                            </Col>
+                                            <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }}>
+                                                <Card
+                                                    hoverable
+                                                    cover={<img alt="test" src={evento} />}
                                                 >
                                                     <Meta title={item.title} />
                                                 </Card>
@@ -159,4 +159,4 @@ function AppBusquedaMonumento() {
     );
 }
 
-export default AppBusquedaMonumento;
+export default AppBusquedaTeatro;

@@ -10,8 +10,8 @@ import AppFooter from "../../components/main/footer";
 import {Layout} from "antd";
 import {Footer} from "antd/es/layout/layout";
 
-import Busqueda from "../../components/busqueda/busquedaTeatro";
-import AppHeaderTeatro from "../../components/busqueda/headersBusqueda/headerTeatro";
+import Busqueda from "../../components/busqueda/busquedaEvento";
+import AppHeaderEvento from "../../components/busqueda/headersBusqueda/headerEvento";
 const { Header, Content } = Layout;
 
 
@@ -22,7 +22,7 @@ class BusquedaPage extends Component {
             <Layout className="mainLayout">
                 <Header>
                     <AppHeader/>
-                    <AppHeaderTeatro />
+                    <AppHeaderEvento />
                 </Header>
                 <Content>
                     <Busqueda/>

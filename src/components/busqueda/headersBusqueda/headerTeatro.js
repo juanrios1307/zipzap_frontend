@@ -22,12 +22,12 @@ import Axios from "axios";
 const { Link } = Anchor;
 const { Option } = Select;
 
-function AppHeaderHotel() {
+function AppHeaderTeatro() {
 
     const [visible, setVisible] = useState(false);
     const [ambientes, setAmbientes] = useState([]);
-
     const [token, setToken] = useState('');
+
     const showDrawer = () => {
         setVisible(true);
     };
@@ -35,7 +35,6 @@ function AppHeaderHotel() {
     const onClose = () => {
         setVisible(false);
     };
-
 
     const getAmbientes = async() =>{
 
@@ -55,16 +54,16 @@ function AppHeaderHotel() {
     const filtrar = async(values) => {
 
         //const url = 'https://peaceful-ridge-86113.herokuapp.com/api/users/'
-       /* const url='http://localhost:5000/api/ambiente/'
+        /* const url='http://localhost:5000/api/ambiente/'
 
-        const response = await Axios.get(
-            url,
-        )
+         const response = await Axios.get(
+             url,
+         )
 
-        const ciudades = response.data
+         const ciudades = response.data
 
 
-        console.log(ciudades)*/
+         console.log(ciudades)*/
 
         console.log(values)
 
@@ -85,8 +84,8 @@ function AppHeaderHotel() {
       <div className="container-fluid">
           <div className="header">
               <div className="logo">
-                  <i className="fa fa-bed" aria-hidden="true"></i>
-                  <a>  Hoteles</a>
+                  <i className="fa fa-desktop" aria-hidden="true"></i>
+                  <a>  Teatros</a>
               </div>
               <div className="mobileHidden">
                   <Anchor targetOffset="1000">
@@ -107,63 +106,42 @@ function AppHeaderHotel() {
 
                                   <Form.Item
                                       name="city"
-                                      label ="Nombre"
-                                      rules={[{ required: false, message: 'Por favor ingresa una ambiente!' }]}
+                                      label ="Evento"
+                                      rules={[{ required: false, message: 'Por favor ingresa una ciudad!' }]}
                                   >
 
                                       <Input
                                           style={{
                                               width: 150,
                                           }}
-                                          placeholder="Hotel"
+
 
                                       />
                                   </Form.Item>
 
                               </Col>
-                              <Col span={5}>
 
-                                  <Form.Item
-                                      name="estrellas"
-                                      label="Estrellas "
-
-                                      rules={[{required: false,}]}
-                                  >
-                                      <Rate defaultValue = {3}/>
-                                  </Form.Item>
-
-                              </Col>
                               <Col span={5}>
                                   <Form.Item
-                                    label="Rango de precio">
+                                      label="Capacidad">
 
-                                              <Slider
-                                                  min={100}
-                                                  max={200}
-                                                  range
-                                                  defaultValue={[120, 180]}
+                                      <Slider
+                                          min={100}
+                                          max={200}
+                                          range
+                                          defaultValue={[120, 180]}
 
-                                              />
+                                      />
 
                                   </Form.Item>
                               </Col>
 
-                              <Col span={2}>
-                                  <Form.Item
-                                      name="disponibilidad"
-                                      label="Disponible "
-
-                                      rules={[{required: false}]}>
-
-                                      <Switch checkedChildren="Sí" unCheckedChildren="No" defaultChecked defaultValue={'Sí'}/>
-                                  </Form.Item>
-                              </Col>
 
                               <Col span={5}>
                                   <Form.Item
                                       name="ambiente"
                                       label="Ambiente "
-                                      rules={[{required: false, message: 'Por Favor Elije un Ambiente!'}]}>
+                                      rules={[{required: false}]}>
                                       <Select>
                                           {ambientes.map(i =>(
                                               <Option key={i.id_ambiente}>{i.nombre}</Option>
@@ -182,7 +160,6 @@ function AppHeaderHotel() {
                               </Col>
                           </Row>
                       </Form>
-
 
 
 
@@ -210,4 +187,4 @@ function AppHeaderHotel() {
     );
 }
 
-export default AppHeaderHotel;
+export default AppHeaderTeatro;

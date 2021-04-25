@@ -1,13 +1,7 @@
 import React, {useState} from "react";
 import {Card, Carousel,Row, Col} from 'antd';
-import hotel from "../../assets/images/hotel.jpg";
-import restaurante from "../../assets/images/restaurante.jpg";
-import bar from "../../assets/images/bar.jpg";
-import monumento from "../../assets/images/monumento.jpg";
-import parque from "../../assets/images/parque.jpg";
+
 import cine from "../../assets/images/cine.jpg";
-import evento from "../../assets/images/evento.jpg";
-import promo from "../../assets/images/promo.jpg";
 
 
 const { Meta } = Card;
@@ -45,7 +39,6 @@ function AppBusquedaTeatro() {
                         <div id="pricing" className="block pricingBlock bgGray">
                             <div className="container-fluid">
                                 <div className="titleHolder">
-                                    <h2>{"Teatros "+item.title}</h2>
 
                                     <div className="site-card-wrapper">
 
