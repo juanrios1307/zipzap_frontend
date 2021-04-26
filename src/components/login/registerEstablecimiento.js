@@ -67,10 +67,16 @@ const RegisterEstablecimiento = () => {
 
     const [imagesUrl,setImagesUrl]=useState([])
 
+
+    const [carta, setCarta] = useState([])
+    const [menu, setMenu] = useState([])
+    const [cartelera, setCartelera] = useState([])
+
     const onFinish=(values) =>{
         Register(values)
     }
 
+    //Selecciono ciudades y ambientes
     const ciudades = async() =>{
 
         //const url = 'https://peaceful-ridge-86113.herokuapp.com/api/users/'
@@ -104,6 +110,8 @@ const RegisterEstablecimiento = () => {
         ciudades()
     },[])
 
+
+    //Registro lugar, imagenes y especifico
     const Register = async(values) => {
 
         const token = localStorage.getItem("token")
@@ -113,13 +121,28 @@ const RegisterEstablecimiento = () => {
         values.logitud=parseFloat(localStorage.getItem("long"))
         values.latitud=parseFloat(localStorage.getItem("lat"))
 
-        handleUpload()
-
+        uploadImagenesLugar()
         values.imagenes = imagesUrl
+
+        if(tipo=== "Bar"){
+            values.carta =await  uploadImagenEspecifica(carta)
+        }
+
+        if(tipo=== "Restaurante"){
+            values.menu =await  uploadImagenEspecifica(menu)
+        }
+
+        if(tipo=== "Teatro"){
+            values.cartelera =await  uploadImagenEspecifica(cartelera)
+        }
+
+
+
+
         console.log(values)
 
         //const url = 'https://peaceful-ridge-86113.herokuapp.com/api/users/'
-       const url='http://localhost:5000/api/lugar/'
+      const url='http://localhost:5000/api/lugar/'
 
         const config = {
             method: 'post',
@@ -148,13 +171,14 @@ const RegisterEstablecimiento = () => {
             //window.location.reload(false)
         }else{
             Swal.fire({
-                title: mensaje,
+                title: status,
 
             })
 
         }
     }
 
+    //Acciones con upload
     function getBase64(file) {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -186,14 +210,12 @@ const RegisterEstablecimiento = () => {
         }, 0);
     };
 
-    const handleUpload =async () => {
+    //SUbo Imagenes
+    const uploadImagenesLugar =async () => {
 
 
         const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/zipzap/image/upload';
         const UPLOAD_PRESET = 'yxoq41kh';
-
-
-        console.log(fileList[0].originFileObj)
 
         const formImages = new FormData();
 
@@ -208,43 +230,81 @@ const RegisterEstablecimiento = () => {
             imagesUrl.push(resI.data.secure_url)
         }
 
-        console.log(formImages)
 
     };
 
 
+    //Agrego imagenes a estado padre
+    const handleCartaBar = (fileList) =>{
 
+        setCarta(fileList);
+
+    }
+
+    const handleMenuRestaurante = (fileList) =>{
+
+        setMenu(fileList);
+
+    }
+
+    const handleCarteleraTeatro = (fileList) =>{
+
+        setCartelera(fileList);
+
+    }
+
+
+    //Subo imagen
+    const uploadImagenEspecifica =async (imagenes) => {
+
+        const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/zipzap/image/upload';
+        const UPLOAD_PRESET = 'yxoq41kh';
+
+        var imagenesURL =[]
+
+
+        const formImages = new FormData();
+
+        for(var i=0;i<imagenes.length ; i++){
+
+            formImages.append('file', imagenes[i].originFileObj);
+            formImages.append('upload_preset', UPLOAD_PRESET);
+
+            const resI = await Axios.post(CLOUDINARY_URL, formImages);
+
+            imagenesURL.push(resI.data.secure_url)
+        }
+
+        return imagenesURL
+
+    };
+
+
+    const onWebsiteChange = (value) => {
+        if (!value) {
+            setAutoCompleteResult([]);
+        } else {
+            setAutoCompleteResult(['.com', '.org', '.net'].map((domain) => `${value}${domain}`));
+        }
+    };
+
+    const websiteOptions = autoCompleteResult.map((website) => ({
+        label: website,
+        value: website,
+    }));
+
+    const uploadButton = (
+        <div>
+            <PlusOutlined />
+            <div style={{ marginTop: 8 }}>Upload</div>
+        </div>
+    );
 
     if(bool){
         return(
             <Redirect to="/"/>
         )
     }else if(localStorage.getItem("token")){
-
-
-
-        const onWebsiteChange = (value) => {
-            if (!value) {
-                setAutoCompleteResult([]);
-            } else {
-                setAutoCompleteResult(['.com', '.org', '.net'].map((domain) => `${value}${domain}`));
-            }
-        };
-
-        const websiteOptions = autoCompleteResult.map((website) => ({
-            label: website,
-            value: website,
-        }));
-
-        const uploadButton = (
-            <div>
-                <PlusOutlined />
-                <div style={{ marginTop: 8 }}>Upload</div>
-            </div>
-        );
-
-
-
         return (
             <div id="hero" className="registerBlock registerPlaceBlock all">
                 <div className="container-fluid">
@@ -356,12 +416,10 @@ const RegisterEstablecimiento = () => {
                             </Form.Item>
 
                             <Form.Item
+                                name="imagenes"
                                 label="Imagenes"
-                                name="imagenes">
-                                <Form.Item
-                                    valuePropName="fileList"
-                                    noStyle>
 
+                                >
                                     <Upload
                                         listType="picture-card"
                                         fileList={fileList}
@@ -380,7 +438,7 @@ const RegisterEstablecimiento = () => {
                                     >
                                         <img alt="example" style={{ width: '100%' }} src={previewImage} />
                                     </Modal>
-                                </Form.Item>
+
                             </Form.Item>
 
 
@@ -391,7 +449,7 @@ const RegisterEstablecimiento = () => {
 
 
                             {tipo=="Bar" && (
-                                   <AppRegistrationBar/>
+                                   <AppRegistrationBar handleCarta={handleCartaBar}/>
                                )}
 
                             {tipo=="Evento" && (
@@ -410,11 +468,11 @@ const RegisterEstablecimiento = () => {
                             )}
 
                             {tipo=="Restaurante" && (
-                                <AppRegistrationRestaurante/>
+                                <AppRegistrationRestaurante handleMenu={handleMenuRestaurante}/>
                             )}
 
                             {tipo=="Teatro" && (
-                                <AppRegistrationTeatro/>
+                                <AppRegistrationTeatro handleCartelera={handleCarteleraTeatro}/>
                             )}
 
                             <Form.Item {...tailFormItemLayout}>

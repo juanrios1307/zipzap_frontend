@@ -35,7 +35,7 @@ const tailFormItemLayout = {
     },
 };
 
-const AppRegistrationRestaurante = () => {
+const AppRegistrationRestaurante = (props) => {
     const [form] = Form.useForm();
 
 
@@ -45,6 +45,9 @@ const AppRegistrationRestaurante = () => {
     const [cartaImg,setCartaImg]=useState([])
 
     const [cartaImgUrl,setCartaImgUrl]=useState([])
+
+    const {handleMenu} = props
+
 
     function getBase64(file) {
         return new Promise((resolve, reject) => {
@@ -69,7 +72,11 @@ const AppRegistrationRestaurante = () => {
 
     };
 
-    const handleChange = ({fileList}) => setCartaImg(fileList);
+    const handleChange = ({fileList}) =>{
+        setCartaImg(fileList);
+
+        handleMenu(fileList)
+    }
 
     const dummyRequest = ({ file, onSuccess }) => {
         setTimeout(() => {
@@ -77,31 +84,6 @@ const AppRegistrationRestaurante = () => {
         }, 0);
     };
 
-    const handleUpload =async () => {
-
-
-        const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/zipzap/image/upload';
-        const UPLOAD_PRESET = 'yxoq41kh';
-
-
-        console.log(cartaImg[0].originFileObj)
-
-        const formImages = new FormData();
-
-        for(var i=0;i<cartaImg.length ; i++){
-
-
-            formImages.append('file', cartaImg[i].originFileObj);
-            formImages.append('upload_preset', UPLOAD_PRESET);
-
-            const resI = await Axios.post(CLOUDINARY_URL, formImages);
-
-            cartaImgUrl.push(resI.data.secure_url)
-        }
-
-        console.log(formImages)
-
-    };
 
     const uploadButton = (
         <div>
@@ -115,11 +97,6 @@ const AppRegistrationRestaurante = () => {
             <div className="container-fluid">
 
                 <div className="block">
-                    <Form
-                        {...formItemLayout}
-                        form={form}
-                        scrollToFirstError
-                    >
 
                         <Form.Item
                             label="Imagen Carta"
@@ -148,8 +125,6 @@ const AppRegistrationRestaurante = () => {
                                 </Modal>
                             </Form.Item>
                         </Form.Item>
-
-                    </Form>
 
                 </div>
             </div>

@@ -47,12 +47,6 @@ const AppRegistrationMonumento = () => {
                 <div className="container-fluid">
 
                     <div className="block">
-                        <Form
-                            {...formItemLayout}
-                            form={form}
-
-                            scrollToFirstError
-                        >
 
                             <Form.Item
                                 name="descripcion"
@@ -69,8 +63,6 @@ const AppRegistrationMonumento = () => {
                             >
                                 <Input/>
                             </Form.Item>
-
-                        </Form>
 
                     </div>
                 </div>

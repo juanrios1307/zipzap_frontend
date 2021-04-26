@@ -47,12 +47,6 @@ const AppRegistrationEvento = () => {
                 <div className="container-fluid">
 
                     <div className="block">
-                        <Form
-                            {...formItemLayout}
-                            form={form}
-
-                            scrollToFirstError
-                        >
 
                             <Form.Item
                                 name="descripcion"
@@ -70,7 +64,6 @@ const AppRegistrationEvento = () => {
                                 <InputNumber/>
                             </Form.Item>
 
-                        </Form>
 
                     </div>
                 </div>

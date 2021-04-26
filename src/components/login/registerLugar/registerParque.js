@@ -47,12 +47,6 @@ const AppRegistrationParque = () => {
             <div className="container-fluid">
 
                 <div className="block">
-                    <Form
-                        {...formItemLayout}
-                        form={form}
-
-                        scrollToFirstError
-                    >
 
                         <Form.Item
                             name="descripcion"
@@ -61,9 +55,6 @@ const AppRegistrationParque = () => {
                         >
                             <Input/>
                         </Form.Item>
-
-
-                    </Form>
 
                 </div>
             </div>
