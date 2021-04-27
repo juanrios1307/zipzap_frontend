@@ -146,7 +146,8 @@ function AppHeaderTeatro() {
 
                               <Col span={2}>
 
-                                  <Form.Item>
+                                  <Form.Item
+                                      label=" ">
                                       <Button type="primary" htmlType="submit" className="login-form-button">
                                           Aplicar
                                       </Button>

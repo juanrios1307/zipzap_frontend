@@ -7,7 +7,6 @@ import monumento from "../../assets/images/monumento.jpg";
 import parque from "../../assets/images/parque.jpg";
 import cine from "../../assets/images/cine.jpg";
 import evento from "../../assets/images/evento.jpg";
-import promo from "../../assets/images/promo.jpg";
 
 
 const { Meta } = Card;
@@ -102,30 +101,7 @@ function AppHero() {
                                                 </Card>
                                             </Col>
 
-                                            <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }}>
-                                                <Card
-                                                    hoverable
-                                                    cover={<img alt="Test" src={promo} />}
-                                                >
-                                                    <Meta title={"Promo "+item.title} />
-                                                </Card>
-                                            </Col>
-                                            <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }}>
-                                                <Card
-                                                    hoverable
-                                                    cover={<img alt="Test" src={promo} />}
-                                                >
-                                                    <Meta title={"Promo "+item.title} />
-                                                </Card>
-                                            </Col>
-                                            <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }}>
-                                                <Card
-                                                    hoverable
-                                                    cover={<img alt="Test" src={promo} />}
-                                                >
-                                                    <Meta title={"Promo "+item.title} />
-                                                </Card>
-                                            </Col>
+
 
                                             <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }}>
                                                 <Card

@@ -21,6 +21,7 @@ import RegisterEstablecimientoPage from "./pages/RegisterEstablecimientoPage";
 
 import AppMap from "./components/login/Map";
 import MisEstablecimientosPage from "./pages/MisEstablecimientosPage";
+import LugarPage from "./pages/LugarPage";
 
 
 
@@ -37,7 +38,8 @@ class App extends React.Component {
 
                     <Route exact path="/dashboard" component={MisEstablecimientosPage}/>
 
-                    <Route exact path="/map" component={AppMap}/>
+
+                    <Route exact path="/lugar" component={LugarPage}/>
 
                     <Route exact path="/busqueda" component={BusquedaCiudadPage}/>
                     <Route exact path="/plan" component={PlanPage}/>
