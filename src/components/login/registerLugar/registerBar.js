@@ -8,8 +8,6 @@ import { PlusOutlined } from '@ant-design/icons';
 
 
 const AppRegistrationBar = (props) => {
-    const [form] = Form.useForm();
-
 
     const[ previewVisible,setPreviewVisible]=useState(false)
     const [previewImage,setPreviewImage]=useState( '')

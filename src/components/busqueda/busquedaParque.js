@@ -30,8 +30,6 @@ const items = [
 
 function AppBusquedaParque() {
 
-    const [ciudad, setCiudad] = useState('Cartagena');
-
     return (
         <div id="hero" className="busquedaBlock">
             <Carousel >

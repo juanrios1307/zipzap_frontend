@@ -29,7 +29,6 @@ const items = [
 
 function AppBusquedaRestaurante() {
 
-    const [ciudad, setCiudad] = useState('Cartagena');
 
     return (
         <div id="hero" className="busquedaBlock">

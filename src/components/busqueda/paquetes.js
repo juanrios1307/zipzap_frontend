@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Card, Row, Col, Button} from 'antd';
+import {Card, Row, Col} from 'antd';
 
 import planAcuatico from "../../assets/images/planAcuatico.jpg"
 import planConocer from "../../assets/images/planConocer.jpg"

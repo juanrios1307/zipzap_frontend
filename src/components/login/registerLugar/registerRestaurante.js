@@ -8,7 +8,6 @@ import { PlusOutlined } from '@ant-design/icons';
 
 
 const AppRegistrationRestaurante = (props) => {
-    const [form] = Form.useForm();
 
 
     const[ previewVisible,setPreviewVisible]=useState(false)

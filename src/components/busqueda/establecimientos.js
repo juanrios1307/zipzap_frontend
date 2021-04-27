@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {Card, Row, Col, Anchor} from 'antd';
+import React from "react";
+import {Card, Row, Col,} from 'antd';
 import hotel from "../../assets/images/hotel.jpg";
 import restaurante from "../../assets/images/restaurante.jpg";
 import bar from "../../assets/images/bar.jpg";
@@ -12,7 +12,6 @@ const { Meta } = Card;
 
 function Establecimientos() {
 
-    const [ciudad, setCiudad] = useState('Cartagena');
 
     return (
         <div id="hero" className="establecimientosBlock">

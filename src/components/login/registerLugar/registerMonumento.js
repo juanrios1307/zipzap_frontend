@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     Form,
     Input,
@@ -8,9 +8,6 @@ import {
 
 
 const AppRegistrationMonumento = () => {
-    const [form] = Form.useForm();
-
-    const [bool,setBool] = useState(false);
 
         return (
             <div id="hero" className="registerBarBlock">

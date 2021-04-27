@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Card, Row, Col, Button, Carousel} from 'antd';
+import {Card, Row, Col} from 'antd';
 
 import image from "../assets/images/planAcuatico.jpg"
 import { EditOutlined, DeleteOutlined , EyeOutlined } from '@ant-design/icons';
@@ -8,12 +8,7 @@ const { Meta } = Card;
 
 function AppMisEstablecimientos() {
 
-    const [ciudad, setCiudad] = useState('Cartagena');
     const [establecimientos, setEstablecimientos]=useState([]);
-
-    const click= (value) =>{
-        localStorage.setItem("plan",value)
-    }
 
     const edit = () =>{
         console.log("edit")

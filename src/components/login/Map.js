@@ -6,10 +6,6 @@ import {
     InfoWindow
 } from '@react-google-maps/api';
 
-const containerStyle = {
-    width: '300px',
-    height: '150px'
-};
 
 const center ={
     lat: 6.227,
@@ -97,7 +93,6 @@ function AppGoogleMaps() {
     return isLoaded ? (
 
             <GoogleMap
-                mapContainerStyle={containerStyle}
                 onLoad={onLoad}
 
                 // Save the user's map click position

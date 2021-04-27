@@ -1,29 +1,15 @@
-import React, { useState } from 'react';
+import React  from 'react';
 import {
     Form, Input, InputNumber,
 } from 'antd';
-import Axios from "axios";
-import Swal from "sweetalert2";
-import {Redirect} from "react-router-dom";
-import moment from "moment";
 
 
 
 const AppRegistrationHabitacion = (props) => {
-    const [form] = Form.useForm();
-
-    const [bool,setBool] = useState(false);
 
     const {num} =props
 
-    if(bool){
-        return(
-            <Redirect to="/login"/>
-        )
-    }else {
-
-
-        return (
+    return (
             <div id="hero" className="registerBarBlock">
                 <div className="container-fluid">
 
@@ -65,7 +51,7 @@ const AppRegistrationHabitacion = (props) => {
                 </div>
             </div>
         );
-    }
+
 };
 
 export default AppRegistrationHabitacion

@@ -6,17 +6,10 @@ import {
     Button,
     Form,
     Input,
-    AutoComplete,
-    Cascader,
-    Rate,
-    Slider,
     Row,
     Col,
-    InputNumber,
     Select,
-    Switch
 } from 'antd';
-import {UserOutlined} from '@ant-design/icons';
 import Axios from "axios";
 
 const { Link } = Anchor;

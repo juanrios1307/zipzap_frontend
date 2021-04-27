@@ -7,8 +7,6 @@ import {
 import { PlusOutlined } from '@ant-design/icons';
 
 const AppRegistrationTeatro = (props) => {
-    const [form] = Form.useForm();
-
 
     const[ previewVisible,setPreviewVisible]=useState(false)
     const [previewImage,setPreviewImage]=useState( '')

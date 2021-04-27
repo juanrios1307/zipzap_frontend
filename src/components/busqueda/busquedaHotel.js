@@ -29,7 +29,6 @@ const items = [
 
 function AppBusquedaHotel() {
 
-    const [ciudad, setCiudad] = useState('Cartagena');
 
     return (
         <div id="hero" className="busquedaBlock">

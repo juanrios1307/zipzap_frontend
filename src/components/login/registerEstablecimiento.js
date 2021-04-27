@@ -167,8 +167,8 @@ const RegisterEstablecimiento = () => {
 
             })
 
-            //setBool(true)
-            //window.location.reload(false)
+            setBool(true)
+            window.location.reload(false)
         }else{
             Swal.fire({
                 title: status,
@@ -447,30 +447,30 @@ const RegisterEstablecimiento = () => {
                             </div>
 
 
-                            {tipo=="Bar" && (
+                            {tipo==="Bar" && (
                                    <AppRegistrationBar handleCarta={handleCartaBar}/>
                                )}
 
-                            {tipo=="Evento" && (
+                            {tipo==="Evento" && (
                                     <AppRegistrationEvento/>
                                 )}
 
-                            {tipo=="Hotel" && (
+                            {tipo==="Hotel" && (
                                 <AppRegistrationHotel/>
                             )}
 
-                            {tipo=="Monumento" && (
+                            {tipo==="Monumento" && (
                                 <AppRegistrationMonumento/>
                             )}
-                            {tipo=="Parque" && (
+                            {tipo==="Parque" && (
                                 <AppRegistrationParque/>
                             )}
 
-                            {tipo=="Restaurante" && (
+                            {tipo==="Restaurante" && (
                                 <AppRegistrationRestaurante handleMenu={handleMenuRestaurante}/>
                             )}
 
-                            {tipo=="Teatro" && (
+                            {tipo==="Teatro" && (
                                 <AppRegistrationTeatro handleCartelera={handleCarteleraTeatro}/>
                             )}
 

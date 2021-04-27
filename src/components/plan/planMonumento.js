@@ -3,8 +3,6 @@ import {Card, Carousel,Row, Col} from 'antd';
 
 import monumento from "../../assets/images/monumento.jpg";
 
-
-
 const { Meta } = Card;
 
 const items = [

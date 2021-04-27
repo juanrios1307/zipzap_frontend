@@ -2,9 +2,6 @@ import React, { useState } from 'react';
 import {
     Form,
     Input,
-    Row,
-    Col,
-    Checkbox,
     Button,
     DatePicker,
 } from 'antd';

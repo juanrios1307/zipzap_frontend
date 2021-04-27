@@ -4,17 +4,12 @@ import {
     InputNumber,
     Rate,
 } from 'antd';
-import Axios from "axios";
-import Swal from "sweetalert2";
-import {Redirect} from "react-router-dom";
-import moment from "moment";
+
 
 import AppRegistrationHabitacion from "./registerHabitacion";
 
 const AppRegistrationHotel = () => {
-    const [form] = Form.useForm();
 
-    const [bool,setBool] = useState(false);
     const [nTipos,setNTipos] = useState(1);
 
     const getArray = (n) =>{
@@ -22,12 +17,6 @@ const AppRegistrationHotel = () => {
 
         console.log()
     }
-
-    if(bool){
-        return(
-            <Redirect to="/login"/>
-        )
-    }else {
 
 
         return (
@@ -57,7 +46,7 @@ const AppRegistrationHotel = () => {
                 </div>
             </div>
         );
-    }
+
 };
 
 export default AppRegistrationHotel

@@ -30,7 +30,6 @@ const items = [
 
 function AppBusquedaBar() {
 
-    const [ciudad, setCiudad] = useState('Cartagena');
 
     return (
         <div id="hero" className="busquedaBlock">

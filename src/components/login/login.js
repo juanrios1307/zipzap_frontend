@@ -1,9 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import '../../assets/css/Login.css';
-import Wave from '../../assets/images/wave.png';
 import DashImg from '../../assets/images/planeLog.svg';
 import Deliveries from '../../assets/images/travelLog.svg';
-import { Link,Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import Axios from "axios";
 import Swal from "sweetalert2";
