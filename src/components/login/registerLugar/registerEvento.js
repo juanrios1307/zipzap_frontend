@@ -2,40 +2,9 @@ import React, { useState } from 'react';
 import {
     Form,
     Input,
-    Row,
-    Col,
-    Checkbox,
-    Button,
-    DatePicker, InputNumber,
+   InputNumber,
 } from 'antd';
-import Axios from "axios";
-import Swal from "sweetalert2";
-import {Redirect} from "react-router-dom";
-import moment from "moment";
 
-
-const formItemLayout = {
-    labelCol: {
-        xs: { span: 24 },
-        sm: { span: 8 },
-    },
-    wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 16 },
-    },
-};
-const tailFormItemLayout = {
-    wrapperCol: {
-        xs: {
-            span: 24,
-            offset: 0,
-        },
-        sm: {
-            span: 16,
-            offset: 8,
-        },
-    },
-};
 
 const AppRegistrationEvento = () => {
     const [form] = Form.useForm();

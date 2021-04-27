@@ -121,7 +121,7 @@ const RegisterEstablecimiento = () => {
         values.logitud=parseFloat(localStorage.getItem("long"))
         values.latitud=parseFloat(localStorage.getItem("lat"))
 
-        uploadImagenesLugar()
+        await uploadImagenesLugar()
         values.imagenes = imagesUrl
 
         if(tipo=== "Bar"){
@@ -325,7 +325,6 @@ const RegisterEstablecimiento = () => {
                             <Form.Item
                                 name="nombre"
                                 label="Nombre "
-                                tooltip="What do you want others to call you?"
                                 rules={[{required: true, message: 'Please input your nickname!', whitespace: true}]}
                             >
                                 <Input/>

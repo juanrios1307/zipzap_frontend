@@ -1,39 +1,11 @@
 import React, { useState } from 'react';
 import {
-    Form,
-    Input,
-    Row,
-    Col,
-    Checkbox,
-    Button,
-    DatePicker, Upload, Modal,
+    Form,Upload, Modal,
 } from 'antd';
-import Axios from "axios";
+
 
 import { PlusOutlined } from '@ant-design/icons';
 
-const formItemLayout = {
-    labelCol: {
-        xs: { span: 24 },
-        sm: { span: 8 },
-    },
-    wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 16 },
-    },
-};
-const tailFormItemLayout = {
-    wrapperCol: {
-        xs: {
-            span: 24,
-            offset: 0,
-        },
-        sm: {
-            span: 16,
-            offset: 8,
-        },
-    },
-};
 
 const AppRegistrationBar = (props) => {
     const [form] = Form.useForm();
