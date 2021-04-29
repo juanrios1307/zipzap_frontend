@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState,useEffect} from "react";
 import {Card, Row, Col} from 'antd';
 
 import planAcuatico from "../../assets/images/planAcuatico.jpg"
@@ -16,11 +16,18 @@ const { Meta } = Card;
 
 function AppPaquetes() {
 
-    const [ciudad, setCiudad] = useState('Cartagena');
+    const [ciudad, setCiudad] = useState(' ');
 
-    const click= (value) =>{
+    const setPlan= (value) =>{
         localStorage.setItem("plan",value)
     }
+
+    useEffect(()=>{
+
+
+        setCiudad(localStorage.getItem('city'))
+
+    },[])
 
     return (
         <div id="hero" className="paquetesBlock">
@@ -38,7 +45,7 @@ function AppPaquetes() {
                                             <Card
                                                 hoverable
                                                 cover={<img alt="Modern Design" src={planMejorRankeado} />}
-                                                onClick={()=>click("Mejor Rankeado")}
+                                                onClick={()=>setPlan(0)}
                                             >
 
                                                 <Meta title={"Mejor Rankeado"} />
@@ -52,7 +59,7 @@ function AppPaquetes() {
                                             <Card
                                                 hoverable
                                                 cover={<img alt="Test" src={planRumba} />}
-                                                onClick={()=>click("Rumba")}
+                                                onClick={()=>setPlan(1)}
                                             >
                                                 <Meta title={"Rumba"} />
                                             </Card>
@@ -65,7 +72,7 @@ function AppPaquetes() {
                                             <Card
                                                 hoverable
                                                 cover={<img alt="Test" src={planFamilia} />}
-                                                onClick={()=>click("Familiar")}
+                                                onClick={()=>setPlan(2)}
                                             >
                                                 <Meta title={"Familiar"} />
                                             </Card>
@@ -78,7 +85,7 @@ function AppPaquetes() {
                                             <Card
                                                 hoverable
                                                 cover={<img alt="Test" src={planEcologico} />}
-                                                onClick={()=>click("Ecologico")}
+                                                onClick={()=>setPlan(3)}
                                             >
                                                 <Meta title={"Ecologico"} />
                                             </Card>
@@ -91,7 +98,7 @@ function AppPaquetes() {
                                             <Card
                                                 hoverable
                                                 cover={<img alt="Test" src={planEconomico} />}
-                                                onClick={()=>click("Economico")}
+                                                onClick={()=>setPlan(4)}
                                             >
                                                 <Meta title={"Economico"} />
                                             </Card>
@@ -104,7 +111,7 @@ function AppPaquetes() {
                                             <Card
                                                 hoverable
                                                 cover={<img alt="Test" src={planConocer} />}
-                                                onClick={()=>click("Conocer")}
+                                                onClick={()=>setPlan(5)}
                                             >
                                                 <Meta title={"Conocer"} />
                                             </Card>
@@ -117,7 +124,7 @@ function AppPaquetes() {
                                             <Card
                                                 hoverable
                                                 cover={<img alt="Test" src={planLujo} />}
-                                                onClick={()=>click("Deluxe")}
+                                                onClick={()=>setPlan(6)}
                                             >
                                                 <Meta title={"Deluxe"} />
                                             </Card>
@@ -130,7 +137,7 @@ function AppPaquetes() {
                                             <Card
                                                 hoverable
                                                 cover={<img alt="Test" src={planCultura} />}
-                                                onClick={()=>click("Cultural")}
+                                                onClick={()=>setPlan(7)}
                                             >
                                                 <Meta title={"Cultural"} />
                                             </Card>
@@ -143,7 +150,7 @@ function AppPaquetes() {
                                             <Card
                                                 hoverable
                                                 cover={<img alt="Test" src={planAcuatico} />}
-                                                onClick={()=>click("Acuatico")}
+                                                onClick={()=>setPlan(8)}
                                             >
                                                 <Meta title={"Acuatico"} />
                                             </Card>
@@ -156,7 +163,7 @@ function AppPaquetes() {
                                             <Card
                                                 hoverable
                                                 cover={<img alt="Test" src={planRomantico} />}
-                                                onClick={()=>click("Romantico")}
+                                                onClick={()=>setPlan(9)}
                                             >
                                                 <Meta title={"Romantico"} />
                                             </Card>

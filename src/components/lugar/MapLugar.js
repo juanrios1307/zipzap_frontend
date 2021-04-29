@@ -40,6 +40,8 @@ function AppGoogleMapsLugar(props) {
 
         setMyPlace(place)
 
+        console.log(lugar)
+
     },[])
 
     const [map, setMap] = React.useState(null)
@@ -120,10 +122,10 @@ function AppGoogleMapsLugar(props) {
                 onUnmount={onUnmount}
             >
 
-                {clickedLatLng && myPlace && (
+                {lugar && myPlace && (
                     <Marker
                         key={"Establecimiento"}
-                        position={clickedLatLng}
+                        position={lugar}
                         onLoad={marker => markerLoadHandler(marker, myPlace)}
                         onClick={event => markerClickHandler(event, myPlace)}
                         // Not required, but if you want a custom icon:

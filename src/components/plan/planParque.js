@@ -1,79 +1,152 @@
-import React, {useState} from "react";
-import {Card, Carousel,Row, Col} from 'antd';
+import React, {useState,useEffect} from "react";
+import {Card, Carousel, Row, Col, Image} from 'antd';
 
-import parque from "../../assets/images/parque.jpg";
-
-
-
+import Axios from "axios";
+import beach from "../../assets/images/beach.jpg";
 const { Meta } = Card;
 
-const items = [
-    {
-        key: '1',
-        title: 'Cartagena',
-        content: 'An vim odio ocurreret consetetur, justo constituto ex mea. Quidam facilisis vituperata pri ne. Id nostrud gubergren urbanitas sed, quo summo animal qualisque ut, cu nostro dissentias consectetuer mel. Ut admodum conceptam mei, cu eam tation fabulas abhorreant. His ex mandamus.',
-        image : 'https://res.cloudinary.com/eia/image/upload/v1613953666/qyy1px336lx11famykj3.jpg'
-    },
-    {
-        key: '2',
-        title: 'Medellín',
-        content: 'An vim odio ocurreret consetetur, justo constituto ex mea. Quidam facilisis vituperata pri ne. Id nostrud gubergren urbanitas sed, quo summo animal qualisque ut, cu nostro dissentias consectetuer mel. Ut admodum conceptam mei, cu eam tation fabulas abhorreant. His ex mandamus.',
-        image : 'https://res.cloudinary.com/eia/image/upload/v1617930313/yjwy0cekd0bsgdsnywi3.jpg'
-    },
-    {
-        key: '3',
-        title: 'Cali',
-        content: 'An vim odio ocurreret consetetur, justo constituto ex mea. Quidam facilisis vituperata pri ne. Id nostrud gubergren urbanitas sed, quo summo animal qualisque ut, cu nostro dissentias consectetuer mel. Ut admodum conceptam mei, cu eam tation fabulas abhorreant. His ex mandamus.',
-        image : 'https://res.cloudinary.com/eia/image/upload/v1606176387/io6thfh9jygotsfcjv1h.jpg'
-    },
-]
+function PlanEst(props) {
 
-function PlanHotel() {
 
-    const [ciudad, setCiudad] = useState('Cartagena');
+    const [establecimientos,setEstablecimientos]=useState([])
+
+    const getEstablecimientos = async() =>{
+
+        setEstablecimientos([])
+        var url
+        var config
+        var response
+        var data
+
+        var ciudad= localStorage.getItem('ciudad')
+        var ambiente= localStorage.getItem('plan')
+
+
+        if(ambiente == 0){
+            //const url = 'https://peaceful-ridge-86113.herokuapp.com/api/users/'
+            url = 'http://localhost:5000/api/parque/best'
+
+            config = {
+                method: 'get',
+                url: url,
+                headers: {
+
+                }
+            };
+
+        }else {
+            //const url = 'https://peaceful-ridge-86113.herokuapp.com/api/users/'
+            url = 'http://localhost:5000/api/parque/ciudad_ambiente'
+
+            config = {
+                method: 'get',
+                url: url,
+                headers: {
+                    'ciudad': ciudad,
+                    'ambiente': ambiente
+                }
+            };
+        }
+
+        console.log(ciudad)
+        console.log(ambiente)
+
+        response = await Axios(config)
+        data = response.data
+
+        console.log(data)
+
+        const places =data
+        const est1=[]
+
+        console.log(data)
+        console.log(places)
+
+        while(places.length>0) {
+            var lugar = {}
+            var i = 0
+
+            while (places.length > (i + 1) && places[i].id_lugar === places[i + 1].id_lugar) {
+                i++
+
+            }
+            lugar = places[0]
+
+            i++
+
+
+            const imagenes = []
+
+            var j = 0
+
+            while (j < i) {
+                imagenes.push(places.shift().imagen)
+                j++
+
+            }
+
+            lugar.imagen = imagenes
+
+            est1.push(lugar)
+
+        }
+
+        setEstablecimientos(est1)
+
+        console.log(establecimientos)
+    }
+
+    useEffect(()=>{
+        getEstablecimientos()
+
+    },[])
 
     return (
         <div id="hero" className="planBlock">
-            <Carousel>
-                {items.map(item => {
-                    return (
-                        <div id="pricing" className="block pricingBlock bgGray">
-                            <div className="container-fluid">
-                                <div className="titleHolder">
-                                    <h2>Parques</h2>
-
-                                    <div className="site-card-wrapper">
-
+            <div id="pricing" className="block pricingBlock bgGray">
+                <div className="container-fluid">
+                    <div className="titleHolder">
+                        <h2>Parques</h2>
+                        <div className="site-card-wrapper">
+                            <Carousel>
+                                {establecimientos.map(item => {
+                                    return (
                                         <Row gutter={[16, 16]}>
-                                            <Col xs={{ span: 24 }} sm={{ span: 12 }} md={{ span: 12 }}>
+                                            <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }}>
                                                 <Card
                                                     hoverable
-                                                    cover={<img alt="Modern Design" src={parque} />}
                                                 >
-                                                    <Meta title={item.title} />
-                                                </Card>
-                                            </Col>
+                                                    <Meta title={item.nombre} />
+                                                    <p>{item.paginaweb}</p>
 
-                                            <Col xs={{ span: 24 }} sm={{ span: 12 }} md={{ span: 12 }}>
-                                                <Card
-                                                    hoverable
-                                                    cover={<img alt="Test" src={parque} />}
-                                                >
-                                                    <Meta title={item.title} />
-                                                </Card>
-                                            </Col>
+                                                    <Carousel autoplay>
+                                                        {item.imagen.map(img =>{
+                                                            return(
+                                                                <Image
+                                                                    src={img?img:beach}
+                                                                    alt={"No Hay Imagenes para Mostrar"}
+                                                                    width={400}
+                                                                />
+                                                            )
 
+                                                        })}
+                                                    </Carousel>
+
+                                                </Card>
+
+
+                                            </Col>
                                         </Row>
-                                    </div>
-
-                                </div>
-                            </div>
+                                    )
+                                })
+                                }
+                            </Carousel>
                         </div>
-                    );
-                })}
-            </Carousel>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }
 
-export default PlanHotel;
+export default PlanEst;

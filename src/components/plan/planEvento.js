@@ -24,7 +24,7 @@ function PlanEst(props) {
 
         if(ambiente == 0){
             //const url = 'https://peaceful-ridge-86113.herokuapp.com/api/users/'
-            url = 'http://localhost:5000/api/bar/best'
+            url = 'http://localhost:5000/api/evento/best'
 
             config = {
                 method: 'get',
@@ -36,7 +36,7 @@ function PlanEst(props) {
 
         }else {
             //const url = 'https://peaceful-ridge-86113.herokuapp.com/api/users/'
-            url = 'http://localhost:5000/api/bar/ciudad_ambiente'
+            url = 'http://localhost:5000/api/evento/ciudad_ambiente'
 
             config = {
                 method: 'get',
@@ -106,7 +106,7 @@ function PlanEst(props) {
             <div id="pricing" className="block pricingBlock bgGray">
                 <div className="container-fluid">
                     <div className="titleHolder">
-                        <h2>Bares</h2>
+                        <h2>Eventos</h2>
                         <div className="site-card-wrapper">
                             <Carousel>
                                 {establecimientos.map(item => {
@@ -131,7 +131,6 @@ function PlanEst(props) {
 
                                                         })}
                                                     </Carousel>
-
                                                 </Card>
 
 

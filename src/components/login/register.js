@@ -107,11 +107,11 @@ const AppRegistrationForm = () => {
                                 rules={[
                                     {
                                         type: 'email',
-                                        message: 'The input is not valid E-mail!',
+                                        message: 'El email ingresado no es valido',
                                     },
                                     {
                                         required: true,
-                                        message: 'Please input your E-mail!',
+                                        message: 'Por favor ingresa tu email!',
                                     },
                                 ]}
                             >
@@ -124,7 +124,7 @@ const AppRegistrationForm = () => {
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'Please input your password!',
+                                        message: 'Por favor ingresa tu contraseña!',
                                     },
                                 ]}
                                 hasFeedback
@@ -140,7 +140,7 @@ const AppRegistrationForm = () => {
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'Please confirm your password!',
+                                        message: 'Por favor confirma tu contraseña!',
                                     },
                                     ({getFieldValue}) => ({
                                         validator(_, value) {
@@ -158,8 +158,7 @@ const AppRegistrationForm = () => {
                             <Form.Item
                                 name="nombre"
                                 label="Nombre "
-                                tooltip="What do you want others to call you?"
-                                rules={[{required: true, message: 'Please input your nickname!', whitespace: true}]}
+                                rules={[{required: true, message: 'Por favor ingresa tu nombre!', whitespace: true}]}
                             >
                                 <Input/>
                             </Form.Item>
@@ -167,8 +166,8 @@ const AppRegistrationForm = () => {
                             <Form.Item
                                 name="apellido"
                                 label="Apellido "
-                                tooltip="What do you want others to call you?"
-                                rules={[{required: true, message: 'Please input your nickname!', whitespace: true}]}
+
+                                rules={[{required: true, message: 'Por favor ingresa tu  apellido!', whitespace: true}]}
                             >
                                 <Input/>
                             </Form.Item>
@@ -184,7 +183,7 @@ const AppRegistrationForm = () => {
                             <Form.Item
                                 name="telefono"
                                 label="Celular "
-                                rules={[{required: true, message: 'Please input your phone number!'}]}
+                                rules={[{required: true, message: 'Por favor ingresa tu telefono!'}]}
                             >
                                 <Input/>
                             </Form.Item>

@@ -74,7 +74,7 @@ function AppLogin() {
                                     <i className="fas fa-user"></i>
                                 </div>
                                 <div className="div">
-                                    <input type="email" className="input" placeholder="Email"
+                                    <input type="email" className="input" placeholder="Email" required
                                            onChange={e => setEmail(e.target.value)}/>
                                 </div>
                             </div>
@@ -83,7 +83,7 @@ function AppLogin() {
                                     <i className="fas fa-lock"></i>
                                 </div>
                                 <div className="div">
-                                    <input type="password" className="input" placeholder="Contraseña"
+                                    <input type="password" className="input" placeholder="Contraseña" required
                                            onChange={e => setPassword(e.target.value)}/>
                                 </div>
                             </div>

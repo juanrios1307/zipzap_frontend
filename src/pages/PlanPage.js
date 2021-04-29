@@ -9,6 +9,7 @@ import PlanBar from "../components/plan/planBar";
 import PlanMonumento from "../components/plan/planMonumento";
 import PlanParque from "../components/plan/planParque";
 import PlanTeatro from "../components/plan/planTeatro";
+import PlanEvento from "../components/plan/planEvento";
 import AppFooter from "../components/main/footer";
 
 import { Layout } from 'antd';
@@ -27,11 +28,12 @@ class PlanPage extends Component {
                 </Header>
                 <Content>
                     <PlanHotel/>
-                    <PlanRestaurante/>
-                    <PlanBar/>
-                    <PlanMonumento/>
-                    <PlanParque/>
-                    <PlanTeatro/>
+                    <PlanRestaurante />
+                    <PlanBar />
+                    <PlanMonumento />
+                    <PlanParque />
+                    <PlanTeatro />
+                    <PlanEvento />
                 </Content>
                 <Footer>
                     <AppFooter/>

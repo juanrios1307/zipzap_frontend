@@ -325,7 +325,7 @@ const RegisterEstablecimiento = () => {
                             <Form.Item
                                 name="nombre"
                                 label="Nombre "
-                                rules={[{required: true, message: 'Please input your nickname!', whitespace: true}]}
+                                rules={[{required: true, message: 'Por favor ingresa el nombre del establecimiento!', whitespace: true}]}
                             >
                                 <Input/>
                             </Form.Item>
@@ -336,11 +336,11 @@ const RegisterEstablecimiento = () => {
                                 rules={[
                                     {
                                         type: 'email',
-                                        message: 'The input is not valid E-mail!',
+                                        message: 'El email ingresado no es valido',
                                     },
                                     {
                                         required: true,
-                                        message: 'Please input your E-mail!',
+                                        message: 'Por favor ingresa el email!',
                                     },
                                 ]}
                             >
@@ -350,7 +350,7 @@ const RegisterEstablecimiento = () => {
                             <Form.Item
                                 name="telefono"
                                 label="Celular "
-                                rules={[{required: true, message: 'Please input your phone number!'}]}
+                                rules={[{required: true, message: 'Por favor ingresa el telefono!'}]}
                             >
                                 <InputNumber/>
                             </Form.Item>
@@ -361,7 +361,7 @@ const RegisterEstablecimiento = () => {
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'Please input website!',
+                                        message: 'Por favor ingresa el sitio web!',
                                     },
                                 ]}
                             >
@@ -372,23 +372,22 @@ const RegisterEstablecimiento = () => {
 
                             <Form.Item
                                 name="ciudad"
-                                label="ciudad "
-                                rules={[{required: true, message: 'Por Favor Elije un Ambiente!'}]}>
-                                <Select
-                                    showSearch
-                                    placeholder="Busca para Seleccionar Tu Ciudad"
-                                    optionFilterProp="children"
-                                    filterOption={(input, option) =>
-                                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                                }
-                                    filterSort={(optionA, optionB) =>
-                                    optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
-                                }>
+                                label="ciudad"
+                                rules={[{required: true, message: 'Por favor ingresa una ciudad!'}]}
+                            >
 
-                                    {ciudad.map(i =>(
-                                        <Option key={i.id_ciudad}>{i.nombre}</Option>
-                                    ))}
-                                </Select>
+                                <AutoComplete
+                                    style={{
+                                        width: 200,
+                                    }}
+                                    options={ciudad}
+                                    placeholder="Ciudad"
+                                    filterOption={(inputValue, option) =>
+                                        option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+                                    }
+                                />
+
+
                             </Form.Item>
 
 
@@ -417,7 +416,7 @@ const RegisterEstablecimiento = () => {
                             <Form.Item
                                 name="imagenes"
                                 label="Imagenes"
-
+                                rules={[{required: true, message: 'Por Favor Sube al menos una imagen!'}]}
                                 >
                                     <Upload
                                         listType="picture-card"
