@@ -59,3 +59,7 @@ hero
 .planBlock .btnHolder .fas {
     margin: 0 10px 0 0;
 }
+
+.calficacionBlock{
+    height: 30vh !important;
+}

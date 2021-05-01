@@ -14,6 +14,7 @@ import AppGoogleMapsLugar from "./MapLugar";
 import AppRatingForm from "./calificar";
 import AppReservaForm from "./reservar";
 import Axios from "axios";
+import AppComentarios from "./Calificaciones";
 
 const { Meta } = Card;
 
@@ -54,11 +55,8 @@ function AppLugar() {
         var tipo=(localStorage.getItem('tipo'))
         setTipo(tipo)
 
-        var id =(localStorage.getItem('id'))
+        var id =(localStorage.getItem('establecimiento'))
         setId(id)
-
-        console.log("tipo: "+tipo+" _::_ id: "+id)
-        console.log("tipo1: "+tipo+" _::_ id1: "+id)
 
         if(tipo==="bar"){
             console.log("bar")
@@ -329,7 +327,7 @@ function AppLugar() {
 
                                     {tipo==="bar" && (
                                         <div>
-                                            <img src={carta} alt="imagen carta" />
+                                            <Image src={carta} alt="imagen carta" />
                                         </div>
                                     )}
 
@@ -438,14 +436,7 @@ function AppLugar() {
                                 <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 12 }}>
 
 
-                                        <Card
-                                            hoverable
-                                            cover={<img alt="Test" src={rating} />}
-
-                                        >
-                                            <Meta title={"Comentarios"} />
-                                        </Card>
-
+                                      <AppComentarios />
 
                                 </Col>
 

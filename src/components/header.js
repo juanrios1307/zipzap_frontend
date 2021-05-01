@@ -130,12 +130,12 @@ function AppHeader() {
         )
     }else if(boolReservas){
         return (
-            <Redirect to="/dashboard"/>
+            <Redirect to="/misreservas"/>
         )
 
     }else if(boolRating){
         return (
-            <Redirect to="/dashboard"/>
+            <Redirect to="/misratings"/>
         )
     }else if(boolBusqueda){
         return (

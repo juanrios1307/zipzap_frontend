@@ -38,7 +38,7 @@ const tailFormItemLayout = {
 const AppReservaForm = () => {
     const [form] = Form.useForm();
 
-    const [bool,setBool] = useState(false);
+
 
     const onFinish=(values) =>{
         Reservar(values)
@@ -61,7 +61,9 @@ const AppReservaForm = () => {
             headers: {
                 'access-token': token,
 
-            }
+            },
+            data:values
+
         };
 
         const response = await Axios(config)
@@ -80,9 +82,7 @@ const AppReservaForm = () => {
 
             })
 
-            //localStorage.setItem("token",response.data.token)
-            setBool(true)
-            window.location.reload(false)
+
         }else{
             Swal.fire({
                 title: mensaje,
@@ -92,11 +92,6 @@ const AppReservaForm = () => {
         }
     }
 
-    if(bool){
-        return(
-            <Redirect to="/login"/>
-        )
-    }else {
 
 
         return (
@@ -138,7 +133,7 @@ const AppReservaForm = () => {
 
                             <Form.Item {...tailFormItemLayout}>
                                 <Button type="primary" htmlType="submit">
-                                    Calificar
+                                    Reservar
                                 </Button>
                             </Form.Item>
                         </Form>
@@ -147,7 +142,7 @@ const AppReservaForm = () => {
                 </div>
             </div>
         );
-    }
+
 };
 
 export default AppReservaForm

@@ -87,7 +87,16 @@ const RegisterEstablecimiento = () => {
             )
 
         const ciudades = response.data
-        setCiudad(ciudades)
+
+        for(var i=0;i<ciudades.length;i++){
+
+            ciudad.push(
+                new Object({
+                    "key":ciudades[i].id_ciudad,
+                    "value":ciudades[i].nombre
+                })
+            )
+        }
 
     }
 
@@ -120,6 +129,12 @@ const RegisterEstablecimiento = () => {
         values.fecha_ultima_edicion=moment().format('YYYY-MM-DD h:mm:ss')
         values.logitud=parseFloat(localStorage.getItem("long"))
         values.latitud=parseFloat(localStorage.getItem("lat"))
+
+
+        const cityKey = ciudad.find(function (item){
+            return item.value == values.ciudad
+        })
+        values.ciudad=cityKey.key
 
         await uploadImagenesLugar()
         values.imagenes = imagesUrl
@@ -302,7 +317,7 @@ const RegisterEstablecimiento = () => {
 
     if(bool){
         return(
-            <Redirect to="/"/>
+            <Redirect to="/dashboard"/>
         )
     }else if(localStorage.getItem("token")){
         return (
@@ -416,7 +431,6 @@ const RegisterEstablecimiento = () => {
                             <Form.Item
                                 name="imagenes"
                                 label="Imagenes"
-                                rules={[{required: true, message: 'Por Favor Sube al menos una imagen!'}]}
                                 >
                                     <Upload
                                         listType="picture-card"

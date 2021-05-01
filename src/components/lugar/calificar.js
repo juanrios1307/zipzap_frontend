@@ -38,7 +38,6 @@ const tailFormItemLayout = {
 const AppRatingForm = () => {
     const [form] = Form.useForm();
 
-    const [bool,setBool] = useState(false);
 
     const onFinish=(values) =>{
         Calificar(values)
@@ -52,7 +51,7 @@ const AppRatingForm = () => {
         values.fecha=moment(values.fecha).format('YYYY-MM-DD h:mm:ss')
 
         //const url = 'https://peaceful-ridge-86113.herokuapp.com/api/users/'
-        const url='http://localhost:5000/api/reserva/'
+        const url='http://localhost:5000/api/calificacion/'
 
         const token = localStorage.getItem("token")
 
@@ -62,7 +61,8 @@ const AppRatingForm = () => {
             headers: {
                 'access-token': token,
 
-            }
+            },
+            data:values
         };
 
         const response = await Axios(config)
@@ -81,8 +81,6 @@ const AppRatingForm = () => {
 
             })
 
-            //localStorage.setItem("token",response.data.token)
-            setBool(true)
             window.location.reload(false)
         }else{
             Swal.fire({
@@ -93,11 +91,6 @@ const AppRatingForm = () => {
         }
     }
 
-    if(bool){
-        return(
-            <Redirect to="/login"/>
-        )
-    }else {
 
 
         return (
@@ -154,7 +147,7 @@ const AppRatingForm = () => {
                 </div>
             </div>
         );
-    }
+
 };
 
 export default AppRatingForm
