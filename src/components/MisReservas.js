@@ -5,6 +5,7 @@ import { EditOutlined, DeleteOutlined , EyeOutlined } from '@ant-design/icons';
 import Axios from "axios";
 import {Redirect} from "react-router-dom";
 import moment from "moment";
+import Swal from "sweetalert2";
 
 const { Meta } = Card;
 
@@ -12,7 +13,6 @@ function AppMisReservas() {
 
     const [reservas, setReservas]=useState([]);
     const [seeBool, setSeeBool]=useState(false);
-    const [eliminarBool, setEliminarBool]=useState(false);
 
     const getReservas = async() =>{
 
@@ -42,10 +42,45 @@ function AppMisReservas() {
     }
 
 
-    const eliminar = (id_lugar) =>{
+    const eliminar =async (id_lugar) =>{
         console.log("delete")
 
-        setEliminarBool(true)
+        const url='http://localhost:5000/api/reservas/'
+
+        const token = localStorage.getItem("token")
+
+        const config = {
+            method: 'get',
+            url: url+ id_lugar,
+            headers: {
+                'access-token': token
+            }
+        };
+
+        const response = await Axios(config)
+
+        const mensaje = response.data.message
+        const status=response.status
+
+        console.log(mensaje)
+
+        if(status===200){
+            Swal.fire({
+                title: mensaje,
+
+            })
+
+
+        }else{
+            Swal.fire({
+                title: mensaje,
+
+            })
+
+        }
+
+
+
     }
 
     const see = (id_lugar,tipo) =>{
@@ -65,8 +100,6 @@ function AppMisReservas() {
         return(
             <Redirect to="/lugar"/>
         )
-    } else if(eliminarBool){
-
     }else {
 
         return (
