@@ -32,45 +32,34 @@ function AppMisEstablecimientos() {
             }
         };
 
-        const response = await Axios(config)
+        var response = await Axios(config)
+        var data = response.data
 
-        const data = response.data
+        console.log(data)
 
-        const places =data
-        const est1=[]
-
-        while(places.length>0){
-            var lugar={}
-            var i=0
-
-            while(places.length >(i+1) && places[i].id_lugar === places[i+1].id_lugar){
-                i++
-
-            }
-            lugar=places[0]
-
-            i++
+        var urlimg = 'http://localhost:5000/api/imagen/place/'
+        var datArray=[]
 
 
-            const imagenes=[]
+        for(var i=0;i<data.length;i++){
 
-            var j=0
+            datArray.push(data[i])
 
-            while(j<i){
-                imagenes.push(places.shift().imagen)
-                j++
+            var configImg = {
+                method: 'get',
+                url: urlimg+data[i].id_lugar,
+            };
 
-            }
+            var images = await Axios(configImg)
+            var dataImg = images.data
 
+            console.log(dataImg)
 
-            lugar.imagen=imagenes
-
-            est1.push(lugar)
-
+            datArray[i].imagenes=dataImg
         }
 
-        setEstablecimientos(est1)
-
+        setEstablecimientos(datArray)
+        console.log(establecimientos)
 
     }
 
@@ -118,7 +107,7 @@ function AppMisEstablecimientos() {
                             <h2>Mis Establecimientos</h2>
                             <div className="site-card-wrapper">
                                 <Row gutter={[16, 16]}>
-                                    {establecimientos.map(item => {
+                                    {establecimientos && establecimientos.map(item => {
                                         return (
                                             <Col xs={{span: 24}} sm={{span: 24}} md={{span: 24}}>
 
@@ -141,10 +130,10 @@ function AppMisEstablecimientos() {
                                                     <p>{item.tipo}</p>
 
                                                     <Carousel autoplay>
-                                                        {item.imagen.map(img => {
+                                                        {item.imagenes.map(img => {
                                                             return (
                                                                 <Image
-                                                                    src={img}
+                                                                    src={img.imagen}
                                                                     alt="No Tienes Imagenes Para Mostrar"
                                                                     width={400}
                                                                 />

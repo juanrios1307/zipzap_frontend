@@ -3,6 +3,8 @@ import {Card, Carousel, Row, Col, Image} from 'antd';
 
 import Axios from "axios";
 import beach from "../../assets/images/beach.jpg";
+import { EyeOutlined } from '@ant-design/icons';
+import {Redirect} from "react-router-dom";
 const { Meta } = Card;
 
 function PlanHotel(props) {
@@ -56,43 +58,42 @@ function PlanHotel(props) {
 
         console.log(data)
 
-        const places =data
-        const est1=[]
+        var urlimg = 'http://localhost:5000/api/imagen/place/'
+        var urlhabs = 'http://localhost:5000/api/habitacion/place/'
 
-        console.log(data)
-        console.log(places)
+        var datArray=[]
 
-        /*while(places.length>0) {
-            var lugar = {}
-            var i = 0
+        for(var i=0;i<data.length;i++){
+            datArray.push(data[i])
+            var configImg = {
+                method: 'get',
+                url: urlimg+data[i].id_lugar,
 
-            while (places.length > (i + 1) && places[i].id_lugar === places[i + 1].id_lugar) {
-                i++
+            };
 
-            }
-            lugar = places[0]
+            var images = await Axios(configImg)
+            var dataImg = images.data
 
-            i++
+            console.log(dataImg)
+            datArray[i].imagenes=dataImg
+
+            var configHabs = {
+                method: 'get',
+                url: urlhabs+data[i].id_lugar,
+
+            };
+
+            var habs = await Axios(configHabs)
+            var dataHabs = habs.data
+
+            console.log(dataHabs)
+
+            datArray[i].habitaciones=dataHabs
+
+        }
 
 
-            const imagenes = []
-
-            var j = 0
-
-            while (j < i) {
-                imagenes.push(places.shift().imagen)
-                j++
-
-            }
-
-            lugar.imagen = imagenes
-
-            est1.push(lugar)
-
-        }*/
-
-        setEstablecimientos(data)
-
+        setEstablecimientos(datArray)
         console.log(establecimientos)
     }
 
@@ -100,50 +101,76 @@ function PlanHotel(props) {
         getEstablecimientos()
 
     },[])
+    const [seeBool, setSeeBool]=useState(false);
 
-    return (
-        <div id="hero" className="planBlock">
-            <div id="pricing" className="block pricingBlock bgGray">
-                <div className="container-fluid">
-                    <div className="titleHolder">
-                        <h2>Hoteles</h2>
-                        <div className="site-card-wrapper">
-                            <Carousel>
-                                {establecimientos.map(item => {
-                                    return (
-                                        <Row gutter={[16, 16]}>
-                                            <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }}>
-                                                <Card
-                                                    hoverable
-                                                >
-                                                    <Meta title={item.nombre} />
-                                                    <p>{item.paginaweb}</p>
+    const see = (id_lugar,tipo) =>{
 
-                                                    <Carousel autoplay>
+        localStorage.setItem("establecimiento",id_lugar)
+        localStorage.setItem("tipo",tipo.toLowerCase())
 
-                                                        <Image
-                                                            src={item.imagen?item.imagen:beach}
-                                                            alt={"No Hay Imagenes para Mostrar"}
-                                                            width={400}
-                                                        />
+        setSeeBool(true)
+    }
 
-                                                    </Carousel>
+    if(seeBool){
+        return(
+            <Redirect to="/lugar"/>
+        )
+    }else {
 
-                                                </Card>
+        return (
+            <div id="hero" className="planBlock">
+                <div id="pricing" className="block pricingBlock bgGray">
+                    <div className="container-fluid">
+                        <div className="titleHolder">
+                            <h2>Hoteles</h2>
+                            <div className="site-card-wrapper">
+                                <Carousel>
+                                    {establecimientos.map(item => {
+                                        return (
+                                            <Row gutter={[16, 16]}>
+                                                <Col xs={{span: 24}} sm={{span: 24}} md={{span: 24}}>
+                                                    <Card
+                                                        hoverable
+
+                                                        actions={[
+                                                            <EyeOutlined key="select"
+                                                                         onClick={() => see(item.id_lugar, item.tipo)}/>,
+
+                                                        ]}
+
+                                                    >
+                                                        <Meta title={item.nombre}/>
+                                                        <p>{item.paginaweb}</p>
+
+                                                         <Carousel autoplay>
+                                                            {item.imagenes.map(img => {
+                                                                return (
+                                                                    <Image
+                                                                        src={img.imagen}
+                                                                        alt={"No Hay Imagenes para Mostrar"}
+                                                                        width={400}
+                                                                    />
+                                                                )
+
+                                                            })}
+                                                        </Carousel>
+
+                                                    </Card>
 
 
-                                            </Col>
-                                        </Row>
-                                    )
-                                })
-                                }
-                            </Carousel>
+                                                </Col>
+                                            </Row>
+                                        )
+                                    })
+                                    }
+                                </Carousel>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    );
+        );
+    }
 }
 
 export default PlanHotel;

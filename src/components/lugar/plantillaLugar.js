@@ -41,9 +41,9 @@ function AppLugar() {
     const [capacidad,setCapacidad] = useState(0)
 
     const [estrellas,setEstrellas] = useState(0)
-    const [tiposhabs, settiposhabs]=useState([1,2,3,4,5])
-    const [valorHabs, setvalorHabs]=useState([100,200,300])
-    const [disponibilidadHabs, setdisponibilidadHabs]=useState([10,20,30])
+    const [tiposhabs, settiposhabs]=useState([])
+    const [valorHabs, setvalorHabs]=useState([])
+    const [disponibilidadHabs, setdisponibilidadHabs]=useState([])
 
     const [historia,setHistoria] = useState('')
 
@@ -137,6 +137,59 @@ function AppLugar() {
                 setCapacidad(data[0].capacidad)
             }
         }else if(tipo === "hotel"){
+
+            //const url = 'https://peaceful-ridge-86113.herokuapp.com/api/users/'
+            const url='http://localhost:5000/api/hotel/places/'
+
+            const token = localStorage.getItem("token")
+
+            const config = {
+                method: 'get',
+                url: url+id,
+                headers: {
+                    'access-token': token
+                }
+            };
+
+            const response = await Axios(config)
+
+            const data = response.data
+
+            setNombre(data[0].nombre)
+            setCorreo(data[0].correo)
+            setTelefono(data[0].telefono)
+            setLongitud(data[0].logitud)
+            setLatitud(data[0].latitud)
+            setPaginaWeb(data[0].paginaweb)
+
+            setCiudad(data[0].ciudad)
+
+
+            console.log(data)
+
+            for (var i = 0; i < data.length; i++) {
+                imagenes.push(data[i].imagen)
+            }
+
+            var urlhabs = 'http://localhost:5000/api/habitacion/place/'
+
+            var configHabs = {
+                method: 'get',
+                url: urlhabs+data[0].id_lugar,
+
+            };
+
+            var habs = await Axios(configHabs)
+            var dataHabs = habs.data
+
+            for (var i=0; i < dataHabs.length ; i++){
+                tiposhabs.push(dataHabs[i].tipo)
+                valorHabs.push(dataHabs[i].valor)
+                disponibilidadHabs.push(dataHabs[i].disponibilidad)
+            }
+
+
+            setEstrellas(data[0].estrellas)
 
 
         }else if(tipo==="monumento"){

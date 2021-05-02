@@ -3,6 +3,8 @@ import {Card, Carousel, Row, Col, Image} from 'antd';
 
 import Axios from "axios";
 import beach from "../../assets/images/beach.jpg";
+import {Redirect} from "react-router-dom";
+import { EyeOutlined } from '@ant-design/icons';
 const { Meta } = Card;
 
 function PlanEst(props) {
@@ -48,51 +50,34 @@ function PlanEst(props) {
             };
         }
 
-        console.log(ciudad)
-        console.log(ambiente)
-
         response = await Axios(config)
         data = response.data
 
         console.log(data)
 
-        const places =data
-        const est1=[]
+        var urlimg = 'http://localhost:5000/api/imagen/place/'
 
-        console.log(data)
-        console.log(places)
-
-        while(places.length>0) {
-            var lugar = {}
-            var i = 0
-
-            while (places.length > (i + 1) && places[i].id_lugar === places[i + 1].id_lugar) {
-                i++
-
-            }
-            lugar = places[0]
-
-            i++
+        var datArray=[]
 
 
-            const imagenes = []
+        for(var i=0;i<data.length;i++){
 
-            var j = 0
+            datArray.push(data[i])
 
-            while (j < i) {
-                imagenes.push(places.shift().imagen)
-                j++
+            var configImg = {
+                method: 'get',
+                url: urlimg+data[i].id_lugar,
+            };
 
-            }
+            var images = await Axios(configImg)
+            var dataImg = images.data
 
-            lugar.imagen = imagenes
+            console.log(dataImg)
 
-            est1.push(lugar)
-
+            datArray[i].imagenes=dataImg
         }
 
-        setEstablecimientos(est1)
-
+        setEstablecimientos(datArray)
         console.log(establecimientos)
     }
 
@@ -100,52 +85,73 @@ function PlanEst(props) {
         getEstablecimientos()
 
     },[])
+    const [seeBool, setSeeBool]=useState(false);
 
-    return (
-        <div id="hero" className="planBlock">
-            <div id="pricing" className="block pricingBlock bgGray">
-                <div className="container-fluid">
-                    <div className="titleHolder">
-                        <h2>Eventos</h2>
-                        <div className="site-card-wrapper">
-                            <Carousel>
-                                {establecimientos.map(item => {
-                                    return (
-                                        <Row gutter={[16, 16]}>
-                                            <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }}>
-                                                <Card
-                                                    hoverable
-                                                >
-                                                    <Meta title={item.nombre} />
-                                                    <p>{item.paginaweb}</p>
+    const see = (id_lugar,tipo) =>{
 
-                                                    <Carousel autoplay>
-                                                        {item.imagen.map(img =>{
-                                                            return(
-                                                                <Image
-                                                                    src={img?img:beach}
-                                                                    alt={"No Hay Imagenes para Mostrar"}
-                                                                    width={400}
-                                                                />
-                                                            )
+        localStorage.setItem("establecimiento",id_lugar)
+        localStorage.setItem("tipo",tipo.toLowerCase())
 
-                                                        })}
-                                                    </Carousel>
-                                                </Card>
+        setSeeBool(true)
+    }
+
+    if(seeBool){
+        return(
+            <Redirect to="/lugar"/>
+        )
+    }else {
+
+        return (
+            <div id="hero" className="planBlock">
+                <div id="pricing" className="block pricingBlock bgGray">
+                    <div className="container-fluid">
+                        <div className="titleHolder">
+                            <h2>Eventos</h2>
+                            <div className="site-card-wrapper">
+                                <Carousel>
+                                    {establecimientos.map(item => {
+                                        return (
+                                            <Row gutter={[16, 16]}>
+                                                <Col xs={{span: 24}} sm={{span: 24}} md={{span: 24}}>
+                                                    <Card
+                                                        hoverable
+                                                        actions={[
+                                                            <EyeOutlined key="select"
+                                                                         onClick={() => see(item.id_lugar, item.tipo)}/>,
+
+                                                        ]}
+                                                    >
+                                                        <Meta title={item.nombre}/>
+                                                        <p>{item.paginaweb}</p>
+
+                                                        <Carousel autoplay>
+                                                            {item.imagenes.map(img => {
+                                                                return (
+                                                                    <Image
+                                                                        src={img.imagen}
+                                                                        alt={"No Hay Imagenes para Mostrar"}
+                                                                        width={400}
+                                                                    />
+                                                                )
+
+                                                            })}
+                                                        </Carousel>
+                                                    </Card>
 
 
-                                            </Col>
-                                        </Row>
-                                    )
-                                })
-                                }
-                            </Carousel>
+                                                </Col>
+                                            </Row>
+                                        )
+                                    })
+                                    }
+                                </Carousel>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    );
+        );
+    }
 }
 
 export default PlanEst;
