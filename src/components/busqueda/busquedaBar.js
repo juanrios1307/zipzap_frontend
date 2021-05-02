@@ -1,161 +1,152 @@
-import React, {useState} from "react";
-import {Card, Carousel,Row, Col} from 'antd';
+import React, {useState,useEffect} from "react";
+import {Card, Carousel, Row, Col, Image} from 'antd';
 
-import bar from "../../assets/images/bar.jpg";
-
-
-
+import Axios from "axios";
+import beach from "../../assets/images/beach.jpg";
+import { EyeOutlined } from '@ant-design/icons';
+import {Redirect} from "react-router-dom";
 const { Meta } = Card;
 
-const items = [
-    {
-        key: '1',
-        title: 'Cartagena',
-        content: 'An vim odio ocurreret consetetur, justo constituto ex mea. Quidam facilisis vituperata pri ne. Id nostrud gubergren urbanitas sed, quo summo animal qualisque ut, cu nostro dissentias consectetuer mel. Ut admodum conceptam mei, cu eam tation fabulas abhorreant. His ex mandamus.',
-        image : 'https://res.cloudinary.com/eia/image/upload/v1613953666/qyy1px336lx11famykj3.jpg'
-    },
-    {
-        key: '2',
-        title: 'Medellín',
-        content: 'An vim odio ocurreret consetetur, justo constituto ex mea. Quidam facilisis vituperata pri ne. Id nostrud gubergren urbanitas sed, quo summo animal qualisque ut, cu nostro dissentias consectetuer mel. Ut admodum conceptam mei, cu eam tation fabulas abhorreant. His ex mandamus.',
-        image : 'https://res.cloudinary.com/eia/image/upload/v1617930313/yjwy0cekd0bsgdsnywi3.jpg'
-    },
-    {
-        key: '3',
-        title: 'Cali',
-        content: 'An vim odio ocurreret consetetur, justo constituto ex mea. Quidam facilisis vituperata pri ne. Id nostrud gubergren urbanitas sed, quo summo animal qualisque ut, cu nostro dissentias consectetuer mel. Ut admodum conceptam mei, cu eam tation fabulas abhorreant. His ex mandamus.',
-        image : 'https://res.cloudinary.com/eia/image/upload/v1606176387/io6thfh9jygotsfcjv1h.jpg'
-    },
-]
-
-function AppBusquedaBar() {
 
 
-    return (
-        <div id="hero" className="busquedaBlock">
-            <Carousel >
-                {items.map(item => {
+function AppBusquedaEspecifica(props) {
+
+
+    const [establecimientos,setEstablecimientos]=useState([])
+
+    const gridStyle = {
+        textAlign: 'center',
+    };
+
+
+    const getEstablecimientos = async() =>{
+
+        setEstablecimientos([])
+        var url
+        var config
+        var response
+        var data
+
+        var ciudad= localStorage.getItem('ciudad')
+
+
+        //const url = 'https://peaceful-ridge-86113.herokuapp.com/api/users/'
+        url = 'http://localhost:5000/api/bar/ciudad/'
+
+        config = {
+            method: 'get',
+            url: url+ciudad,
+
+        };
+
+
+        response = await Axios(config)
+        data = response.data
+
+
+        var urlimg = 'http://localhost:5000/api/imagen/place/'
+        var datArray=[]
+
+
+        for(var i=0;i<data.length;i++){
+
+            datArray.push(data[i])
+
+            var configImg = {
+                method: 'get',
+                url: urlimg+data[i].id_lugar,
+            };
+
+            var images = await Axios(configImg)
+            var dataImg = images.data
+
+            console.log(dataImg)
+
+            datArray[i].imagenes=dataImg
+        }
+
+        setEstablecimientos(datArray)
+        console.log(establecimientos)
+    }
+
+    useEffect(()=>{
+        getEstablecimientos()
+
+    },[])
+    const [seeBool, setSeeBool]=useState(false);
+
+    const see = (id_lugar,tipo) =>{
+
+        localStorage.setItem("establecimiento",id_lugar)
+        localStorage.setItem("tipo",tipo.toLowerCase())
+
+        setSeeBool(true)
+    }
+
+    if(seeBool){
+        return(
+            <Redirect to="/lugar"/>
+        )
+    }else {
+
+        return (
+            <div id="hero" className="busquedaBlock">
+
+                {establecimientos.map(item => {
                     return (
-                        <div id="pricing" className="block pricingBlock bgGray">
-                            <div className="container-fluid">
-                                <div className="titleHolder">
+                        <Row gutter={[16, 16]}>
+                            <Col xs={{span: 24}} sm={{span: 24}} md={{span: 24}}>
+                                <Card
+                                    hoverable
+                                    style={gridStyle}
 
-                                    <div className="site-card-wrapper">
+                                    actions={[
+                                        <EyeOutlined key="select"
+                                                     onClick={() => see(item.id_lugar, item.tipo)}/>,
 
-                                        <Row gutter={[16, 16]}>
-                                            <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 8 }}>
-                                                <Card
-                                                    hoverable
-                                                    cover={<img alt="test" src={bar} />}
-                                                >
-                                                    <Meta title={item.title} />
-                                                </Card>
-                                            </Col>
+                                    ]}
 
-                                            <Col xs={{ span: 24 }} sm={{ span: 12 }} md={{ span: 8 }}>
-                                                <Card
-                                                    hoverable
-                                                    cover={<img alt="test" src={bar} />}
-                                                >
-                                                    <Meta title={item.title} />
-                                                </Card>
-                                            </Col>
+                                >
+                                    <Row gutter={[16, 16]}>
 
-                                            <Col xs={{ span: 24 }} sm={{ span: 12 }} md={{ span: 8 }}>
-                                                <Card
-                                                    hoverable
-                                                    cover={<img alt="test" src={bar} />}
-                                                >
-                                                    <Meta title={item.title} />
-                                                </Card>
-                                            </Col>
+                                        <Col xs={{span: 24}} sm={{span: 24}} md={{span: 12}}>
+                                            <Meta title={item.nombre}/>
+                                            <p>{item.paginaweb}</p>
+                                            <p></p>
 
-                                            <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }}>
-                                                <Card
-                                                    hoverable
-                                                    cover={<img alt="test" src={bar} />}
-                                                >
-                                                    <Meta title={item.title} />
-                                                </Card>
-                                            </Col>
-                                            <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }}>
-                                                <Card
-                                                    hoverable
-                                                    cover={<img alt="test" src={bar} />}
-                                                >
-                                                    <Meta title={item.title} />
-                                                </Card>
-                                            </Col>
-                                            <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }}>
-                                                <Card
-                                                    hoverable
-                                                    cover={<img alt="test" src={bar} />}
-                                                >
-                                                    <Meta title={item.title} />
-                                                </Card>
-                                            </Col>
+                                            <Image src={item.carta} alt={"No img"} width={300}/>
+                                        </Col>
 
-                                            <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }}>
-                                                <Card
-                                                    hoverable
-                                                    cover={<img alt="test" src={bar} />}
-                                                >
-                                                    <Meta title={item.title} />
-                                                </Card>
-                                            </Col>
-                                            <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }}>
-                                                <Card
-                                                    hoverable
-                                                    cover={<img alt="test" src={bar} />}
-                                                >
-                                                    <Meta title={item.title} />
-                                                </Card>
-                                            </Col>
-                                            <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }}>
-                                                <Card
-                                                    hoverable
-                                                    cover={<img alt="test" src={bar} />}
-                                                >
-                                                    <Meta title={item.title} />
-                                                </Card>
-                                            </Col>
+                                        <Col xs={{span: 24}} sm={{span: 24}} md={{span: 12}}>
 
-                                            <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }}>
-                                                <Card
-                                                    hoverable
-                                                    cover={<img alt="test" src={bar} />}
-                                                >
-                                                    <Meta title={item.title} />
-                                                </Card>
-                                            </Col>
-                                            <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }}>
-                                                <Card
-                                                    hoverable
-                                                    cover={<img alt="test" src={bar} />}
-                                                >
-                                                    <Meta title={item.title} />
-                                                </Card>
-                                            </Col>
-                                            <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }}>
-                                                <Card
-                                                    hoverable
-                                                    cover={<img alt="test" src={bar} />}
-                                                >
-                                                    <Meta title={item.title} />
-                                                </Card>
-                                            </Col>
+                                            <Carousel autoplay>
+                                                {item.imagenes.map(img => {
+                                                    return (
+                                                        <Image
+                                                            src={img.imagen}
+                                                            alt={"No Hay Imagenes para Mostrar"}
+                                                            width={400}
+                                                        />)
 
-                                        </Row>
-                                    </div>
+                                                })}
+                                            </Carousel>
 
-                                </div>
-                            </div>
-                        </div>
-                    );
-                })}
-            </Carousel>
-        </div>
-    );
+                                        </Col>
+                                    </Row>
+                                </Card>
+
+
+                            </Col>
+
+
+                        </Row>
+                    )
+                })
+                }
+            </div>
+
+        );
+    }
 }
 
-export default AppBusquedaBar;
+export default AppBusquedaEspecifica;
