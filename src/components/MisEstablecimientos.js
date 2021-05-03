@@ -4,6 +4,7 @@ import {Image, Card, Row, Col, Carousel} from 'antd';
 import { EditOutlined, DeleteOutlined , EyeOutlined, BookOutlined } from '@ant-design/icons';
 import Axios from "axios";
 import {Redirect} from "react-router-dom";
+import Swal from "sweetalert2";
 
 const { Meta } = Card;
 
@@ -69,8 +70,48 @@ function AppMisEstablecimientos() {
         setupdateBool(true)
     }
 
-    const eliminar = (id_lugar) =>{
-        console.log("delete")
+    const eliminar = async (id_lugar,tipo) =>{
+
+        var url
+
+        console.log(tipo)
+
+        url='http://localhost:5000/api/lugar/'
+
+        const token = localStorage.getItem("token")
+
+        const config = {
+            method: 'delete',
+            url: url+ id_lugar,
+            headers: {
+                'access-token': token,
+                'tipo':tipo
+            }
+        };
+
+        const response = await Axios(config)
+
+        const mensaje = response.data.message
+        const status=response.status
+
+        console.log(mensaje)
+
+        if(status===200){
+            Swal.fire({
+                title: mensaje,
+
+            })
+
+            window.location.reload(false)
+
+        }else{
+            Swal.fire({
+                title: mensaje,
+
+            })
+
+        }
+
 
 
     }
@@ -127,7 +168,7 @@ function AppMisEstablecimientos() {
                                                                      onClick={() => see(item.id_lugar, item.tipo)}/>,
                                                         <EditOutlined key="update" onClick={() => edit}/>,
                                                         <DeleteOutlined key="delete"
-                                                                        onClick={() => eliminar(item.id_lugar)}/>,
+                                                                        onClick={() => eliminar(item.id_lugar,item.tipo.toLowerCase())}/>,
                                                         <BookOutlined key="books"
                                                             onClick={() => reservas(item.id_lugar)}/>
                                                     ]}
