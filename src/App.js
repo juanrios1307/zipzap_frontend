@@ -25,6 +25,7 @@ import LugarPage from "./pages/LugarPage";
 import MisReservasPage from "./pages/MisReservasPage";
 import AppMisRatings from "./components/MisRatings";
 import MisRatingsPage from "./pages/MisRatingsPage";
+import LugarReservasPage from "./pages/LugarReservasPage";
 
 
 
@@ -44,6 +45,7 @@ class App extends React.Component {
                     <Route exact path="/misratings" component={MisRatingsPage}/>
 
                     <Route exact path="/lugar" component={LugarPage}/>
+                    <Route exact path="/lugar/reservas" component={LugarReservasPage}/>
 
                     <Route exact path="/busqueda" component={BusquedaCiudadPage}/>
                     <Route exact path="/plan" component={PlanPage}/>

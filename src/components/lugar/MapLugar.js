@@ -14,8 +14,7 @@ function AppGoogleMapsLugar(props) {
 
     const [selectedPlace, setSelectedPlace] = useState(null);
     const [markerMap, setMarkerMap] = useState({});
-    const [center, setCenter] = useState({ lat: 6.227, lng: -75.58 });
-    const [zoom, setZoom] = useState(5);
+    const [zoom, setZoom] = useState(13);
     const [clickedLatLng, setClickedLatLng] = useState(null);
     const [myPlace, setMyPlace] = useState(null);
 
@@ -86,24 +85,6 @@ function AppGoogleMapsLugar(props) {
         setMap(null)
     }, [])
 
-   /* const getClick=(longlat)=>{
-        console.log(longlat)
-        setClickedLatLng(longlat)
-
-        const place = {
-            id:'Mi establecimiento',
-            pos: {lat: longlat.lat, lng: longlat.lng}
-        }
-
-        setMyPlace(place)
-
-        var long=longlat.lng
-        var lat = longlat.lat
-
-        localStorage.setItem('long',long)
-        localStorage.setItem('lat',lat)
-
-    }*/
 
     return isLoaded ? (
 
@@ -112,7 +93,7 @@ function AppGoogleMapsLugar(props) {
 
                 // Save the user's map click position
                 //onClick={e => getClick(e.latLng.toJSON())}
-                center={center}
+                center={lugar}
                 zoom={zoom}
                 mapContainerStyle={{
                     height: "100%",

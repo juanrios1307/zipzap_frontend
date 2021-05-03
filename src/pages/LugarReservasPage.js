@@ -1,18 +1,17 @@
 import React,{Component} from "react";
-import '../assets/css/Plan.css';
 import '../assets/css/App.css';
-import AppHeader from "../components/header";
-
-import AppFooter from "../components/main/footer";
+import 'antd/dist/antd.css';
 
 import { Layout } from 'antd';
 import {Footer} from "antd/es/layout/layout";
-import AppLugar from "../components/lugar/plantillaLugar";
+import AppHeader from "../components/header";
+import AppFooter from "../components/main/footer";
+import AppMisReservas from "../components/MisReservas";
+import AppLugarReservas from "../components/lugar/ReservasLugar";
 
 const { Header, Content } = Layout;
 
-
-class LugarPage extends Component {
+class LugarReservasPage extends Component {
 
     render(){
         return (
@@ -21,7 +20,8 @@ class LugarPage extends Component {
                     <AppHeader/>
                 </Header>
                 <Content>
-                   <AppLugar/>
+                    <AppLugarReservas/>
+
                 </Content>
                 <Footer>
                     <AppFooter/>
@@ -30,5 +30,4 @@ class LugarPage extends Component {
         );
     }
 }
-
-export default LugarPage;
+export default LugarReservasPage;

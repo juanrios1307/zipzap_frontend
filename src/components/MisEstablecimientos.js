@@ -1,7 +1,7 @@
 import React, {useState,useEffect} from "react";
 import {Image, Card, Row, Col, Carousel} from 'antd';
 
-import { EditOutlined, DeleteOutlined , EyeOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined , EyeOutlined, BookOutlined } from '@ant-design/icons';
 import Axios from "axios";
 import {Redirect} from "react-router-dom";
 
@@ -13,7 +13,7 @@ function AppMisEstablecimientos() {
     const [bool, setBool]=useState(false);
     const [seeBool, setSeeBool]=useState(false);
     const [updateBool, setupdateBool]=useState(false);
-    const [eliminarBool, setEliminarBool]=useState(false);
+    const [reservasBool, setReservasBool]=useState(false);
 
     const getEstablecimientos = async() =>{
 
@@ -72,7 +72,7 @@ function AppMisEstablecimientos() {
     const eliminar = (id_lugar) =>{
         console.log("delete")
 
-        setEliminarBool(true)
+
     }
 
     const see = (id_lugar,tipo) =>{
@@ -81,6 +81,12 @@ function AppMisEstablecimientos() {
         localStorage.setItem("tipo",tipo.toLowerCase())
 
         setSeeBool(true)
+    }
+
+    const reservas = (id_lugar) =>{
+        localStorage.setItem("id_reserva",id_lugar)
+
+        setReservasBool(true)
     }
 
     useEffect(()=>{
@@ -94,8 +100,10 @@ function AppMisEstablecimientos() {
         )
     }else  if (updateBool){
 
-    }else if(eliminarBool){
-
+    }else if(reservasBool){
+        return(
+            <Redirect to="/lugar/reservas"/>
+        )
     }else {
 
         return (
@@ -119,7 +127,9 @@ function AppMisEstablecimientos() {
                                                                      onClick={() => see(item.id_lugar, item.tipo)}/>,
                                                         <EditOutlined key="update" onClick={() => edit}/>,
                                                         <DeleteOutlined key="delete"
-                                                                        onClick={() => eliminar(item.id_lugar)}/>
+                                                                        onClick={() => eliminar(item.id_lugar)}/>,
+                                                        <BookOutlined key="books"
+                                                            onClick={() => reservas(item.id_lugar)}/>
                                                     ]}
 
                                                 >

@@ -41,7 +41,10 @@ function PlanEst(props) {
             config = {
                 method: 'get',
                 url: url,
-
+                headers: {
+                    'ciudad': ciudad,
+                    'ambiente': ambiente
+                }
             };
         }
         response = await Axios(config)

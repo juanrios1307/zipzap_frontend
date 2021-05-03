@@ -1,31 +1,32 @@
 import React, {useState,useEffect} from "react";
-import {Image, Card, Row, Col, Carousel} from 'antd';
+import { Card, Row, Col} from 'antd';
 
-import { EditOutlined, DeleteOutlined , EyeOutlined } from '@ant-design/icons';
+import { DeleteOutlined } from '@ant-design/icons';
 import Axios from "axios";
-import {Redirect} from "react-router-dom";
+
 import moment from "moment";
 import Swal from "sweetalert2";
 
 const { Meta } = Card;
 
-function AppMisReservas() {
+function AppLugarReservas() {
 
     const [reservas, setReservas]=useState([]);
-    const [seeBool, setSeeBool]=useState(false);
 
     const getReservas = async() =>{
 
         setReservas([])
 
+        const id=localStorage.getItem("id_reserva")
+
         //const url = 'https://peaceful-ridge-86113.herokuapp.com/api/users/'
-        const url='http://localhost:5000/api/users/reservas/'
+        const url='http://localhost:5000/api/reserva/place/'
 
         const token = localStorage.getItem("token")
 
         const config = {
             method: 'get',
-            url: url,
+            url: url+id,
             headers: {
                 'access-token': token
             }
@@ -37,7 +38,6 @@ function AppMisReservas() {
 
 
         setReservas(data)
-
 
     }
 
@@ -84,24 +84,12 @@ function AppMisReservas() {
 
     }
 
-    const see = (id_lugar,tipo) =>{
-
-        localStorage.setItem("establecimiento",id_lugar)
-        localStorage.setItem("tipo",tipo.toLowerCase())
-
-        setSeeBool(true)
-    }
 
     useEffect(()=>{
         getReservas()
 
     },[])
 
-    if(seeBool){
-        return(
-            <Redirect to="/lugar"/>
-        )
-    }else {
 
         return (
             <div id="hero" className="paquetesBlock">
@@ -109,7 +97,7 @@ function AppMisReservas() {
                 <div id="pricing" className="block pricingBlock bgGray">
                     <div className="container-fluid">
                         <div className="titleHolder">
-                            <h2>Mis Reservas</h2>
+                            <h2>Reservas</h2>
                             <div className="site-card-wrapper">
                                 <Row gutter={[16, 16]}>
                                     {reservas.map(item => {
@@ -120,15 +108,13 @@ function AppMisReservas() {
                                                     hoverable
 
                                                     actions={[
-                                                        <EyeOutlined key="select"
-                                                                     onClick={() => see(item.id_lugar, item.tipo)}/>,
 
                                                         <DeleteOutlined key="delete"
                                                                         onClick={() => eliminar(item.id_reserva)}/>
                                                     ]}
 
                                                 >
-                                                    <Meta title={item.nombre}/>
+                                                    <Meta title={item.nombre + " " +item.apellido}/>
 
                                                     <p>{moment(item.fecha).format("YYYY-MM-DD")}</p>
 
@@ -154,7 +140,7 @@ function AppMisReservas() {
 
             </div>
         );
-    }
+
 }
 
-export default AppMisReservas;
+export default AppLugarReservas;

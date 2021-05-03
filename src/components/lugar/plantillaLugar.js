@@ -44,6 +44,7 @@ function AppLugar() {
     const [tiposhabs, settiposhabs]=useState([])
     const [valorHabs, setvalorHabs]=useState([])
     const [disponibilidadHabs, setdisponibilidadHabs]=useState([])
+    const [bool, setBool] = useState('');
 
     const [historia,setHistoria] = useState('')
 
@@ -51,12 +52,56 @@ function AppLugar() {
 
     const [cartelera,setCartelera] = useState('')
 
+
+    const getCiudades = async() =>{
+
+
+        //const url = 'https://peaceful-ridge-86113.herokuapp.com/api/users/'
+        const url='http://localhost:5000/api/ciudad/'
+
+        const response = await Axios.get(
+            url,
+        )
+
+        const data = response.data
+
+        return data
+
+    }
+
+    const getAmbientes = async() =>{
+
+        //const url = 'https://peaceful-ridge-86113.herokuapp.com/api/users/'
+        const url='http://localhost:5000/api/ambiente/'
+
+        const response = await Axios.get(
+            url,
+        )
+
+        const data = response.data
+
+        return data
+
+    }
+
+    const getCiudad_Ambiente =async (id_ciudad,id_ambiente) => {
+
+        const ciudades=await getCiudades()
+        const ambientes=await getAmbientes()
+
+        setCiudad(ciudades.find(element => element.id_ciudad === id_ciudad).nombre)
+        setAmbiente(ambientes.find(element => element.id_ambiente === id_ambiente).nombre)
+    }
+
     const getData = async() =>{
         var tipo=(localStorage.getItem('tipo'))
         setTipo(tipo)
 
         var id =(localStorage.getItem('establecimiento'))
         setId(id)
+
+        await getAmbientes()
+        await getCiudades()
 
         if(tipo==="bar"){
             console.log("bar")
@@ -87,7 +132,7 @@ function AppLugar() {
                 setLatitud(data[0].latitud)
                 setPaginaWeb(data[0].paginaweb)
 
-                setCiudad(data[0].ciudad)
+                getCiudad_Ambiente(data[0].ciudad,data[0].ambiente)
 
 
                 for (var i = 0; i < data.length; i++) {
@@ -97,7 +142,8 @@ function AppLugar() {
                 setCarta(data[0].carta)
             }
 
-        }else if(tipo === "evento"){
+        }
+        else if(tipo === "evento"){
 
             //const url = 'https://peaceful-ridge-86113.herokuapp.com/api/users/'
             const url='http://localhost:5000/api/evento/places/'
@@ -126,7 +172,7 @@ function AppLugar() {
                 setLatitud(data[0].latitud)
                 setPaginaWeb(data[0].paginaweb)
 
-                setCiudad(data[0].ciudad)
+                getCiudad_Ambiente(data[0].ciudad,data[0].ambiente)
 
 
                 for (var i = 0; i < data.length; i++) {
@@ -136,7 +182,8 @@ function AppLugar() {
                 setDescripcion(data[0].descripcion)
                 setCapacidad(data[0].capacidad)
             }
-        }else if(tipo === "hotel"){
+        }
+        else if(tipo === "hotel"){
 
             //const url = 'https://peaceful-ridge-86113.herokuapp.com/api/users/'
             const url='http://localhost:5000/api/hotel/places/'
@@ -155,44 +202,33 @@ function AppLugar() {
 
             const data = response.data
 
-            setNombre(data[0].nombre)
-            setCorreo(data[0].correo)
-            setTelefono(data[0].telefono)
-            setLongitud(data[0].logitud)
-            setLatitud(data[0].latitud)
-            setPaginaWeb(data[0].paginaweb)
-
-            setCiudad(data[0].ciudad)
-
-
             console.log(data)
 
-            for (var i = 0; i < data.length; i++) {
-                imagenes.push(data[i].imagen)
+            if(data.length>0) {
+                setNombre(data[0].nombre)
+                setCorreo(data[0].correo)
+                setTelefono(data[0].telefono)
+                setLongitud(data[0].logitud)
+                setLatitud(data[0].latitud)
+                setPaginaWeb(data[0].paginaweb)
+
+                getCiudad_Ambiente(data[0].ciudad,data[0].ambiente)
+
+
+                for (var i = 0; i < data.length; i++) {
+                    imagenes.push(data[i].imagen)
+                }
+
+                setEstrellas(data[0].estrellas)
+
+
+                await getHabs(data[0].id_lugar)
+
+
             }
 
-            var urlhabs = 'http://localhost:5000/api/habitacion/place/'
-
-            var configHabs = {
-                method: 'get',
-                url: urlhabs+data[0].id_lugar,
-
-            };
-
-            var habs = await Axios(configHabs)
-            var dataHabs = habs.data
-
-            for (var i=0; i < dataHabs.length ; i++){
-                tiposhabs.push(dataHabs[i].tipo)
-                valorHabs.push(dataHabs[i].valor)
-                disponibilidadHabs.push(dataHabs[i].disponibilidad)
-            }
-
-
-            setEstrellas(data[0].estrellas)
-
-
-        }else if(tipo==="monumento"){
+        }
+        else if(tipo==="monumento"){
 
             //const url = 'https://peaceful-ridge-86113.herokuapp.com/api/users/'
             const url='http://localhost:5000/api/monumento/places/'
@@ -221,7 +257,7 @@ function AppLugar() {
                 setLatitud(data[0].latitud)
                 setPaginaWeb(data[0].paginaweb)
 
-                setCiudad(data[0].ciudad)
+                getCiudad_Ambiente(data[0].ciudad,data[0].ambiente)
 
 
                 for (var i = 0; i < data.length; i++) {
@@ -231,7 +267,8 @@ function AppLugar() {
                 setDescripcion(data[0].descripcion)
                 setHistoria(data[0].historia)
             }
-        }else if(tipo === "parque"){
+        }
+        else if(tipo === "parque"){
 
             //const url = 'https://peaceful-ridge-86113.herokuapp.com/api/users/'
             const url='http://localhost:5000/api/parque/places/'
@@ -260,7 +297,7 @@ function AppLugar() {
                 setLatitud(data[0].latitud)
                 setPaginaWeb(data[0].paginaweb)
 
-                setCiudad(data[0].ciudad)
+                getCiudad_Ambiente(data[0].ciudad,data[0].ambiente)
 
 
                 for (var i = 0; i < data.length; i++) {
@@ -269,7 +306,8 @@ function AppLugar() {
 
                 setDescripcion(data[0].descripcion)
             }
-        }else if(tipo === "restaurante"){
+        }
+        else if(tipo === "restaurante"){
 
             //const url = 'https://peaceful-ridge-86113.herokuapp.com/api/users/'
             const url='http://localhost:5000/api/restaurante/places/'
@@ -298,7 +336,7 @@ function AppLugar() {
                 setLatitud(data[0].latitud)
                 setPaginaWeb(data[0].paginaweb)
 
-                setCiudad(data[0].ciudad)
+                getCiudad_Ambiente(data[0].ciudad,data[0].ambiente)
 
 
                 for (var i = 0; i < data.length; i++) {
@@ -307,7 +345,8 @@ function AppLugar() {
 
                 setMenu(data[0].menu)
             }
-        }else if (tipo=== "teatro"){
+        }
+        else if (tipo=== "teatro"){
 
             //const url = 'https://peaceful-ridge-86113.herokuapp.com/api/users/'
             const url='http://localhost:5000/api/teatro/places/'
@@ -336,8 +375,7 @@ function AppLugar() {
                 setLatitud(data[0].latitud)
                 setPaginaWeb(data[0].paginaweb)
 
-                setCiudad(data[0].ciudad)
-
+                getCiudad_Ambiente(data[0].ciudad,data[0].ambiente)
 
                 for (var i = 0; i < data.length; i++) {
                     imagenes.push(data[i].imagen)
@@ -350,8 +388,33 @@ function AppLugar() {
 
     }
 
+    const getHabs = async (id_lugar)=> {
+        var urlhabs = 'http://localhost:5000/api/habitacion/place/'
+
+        var configHabs = {
+            method: 'get',
+            url: urlhabs + id_lugar,
+
+        };
+
+        var habs = await Axios(configHabs)
+        var dataHabs = habs.data
+
+        console.log(dataHabs)
+
+        for (var i = 0; i < dataHabs.length; i++) {
+            tiposhabs.push(dataHabs[i].tipo)
+            valorHabs.push(dataHabs[i].valor)
+            disponibilidadHabs.push(dataHabs[i].disponibilidad)
+        }
+
+        setBool(true)
+    }
+
     useEffect(()=>{
+
         getData()
+
 
     },[])
 
@@ -400,18 +463,27 @@ function AppLugar() {
                                     )}
 
                                     {tipo==="hotel" && (
-                                        <div>
 
-                                            <Rate defaultValue = {estrellas} disabled/>
+                                        <div>
+                                            {estrellas!=0 &&(
+
+                                                <Rate defaultValue = {estrellas} disabled/>
+                                                )}
+
 
                                             {tiposhabs.map((item,i)=>(
-                                                <div>
-                                                    <h2>{item}</h2>
-                                                    <p>{"Precio: "+valorHabs[i]}</p>
-                                                    <p>{"Disponibilidad: "+disponibilidadHabs[i] + " habitaciones"}</p>
-                                                </div>
+                                                    <Card
+                                                        hoverable>
+
+                                                        <Meta title={item} />
+
+                                                        <p>{"Precio: "+valorHabs[i]}</p>
+                                                        <p>{"Disponibilidad: "+disponibilidadHabs[i] + " habitaciones"}</p>
+                                                    </Card>
                                             ))}
+
                                         </div>
+
                                     )}
                                     {tipo==="monumento" && (
 
@@ -454,7 +526,7 @@ function AppLugar() {
                                 </Col>
                                 <Col xs={{ span: 24 }} sm={{ span: 12 }} md={{ span: 12 }}>
 
-                                    <AppGoogleMapsLugar lugar={new Object({"lat":parseFloat(latitud),"lng":parseFloat(longitud)})} />
+                                    <AppGoogleMapsLugar lugar={new Object({lat:latitud,lng:longitud})} />
 
                                 </Col>
                                 <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 12 }}>
@@ -469,6 +541,7 @@ function AppLugar() {
                                             <p>{"Telefono: "+ telefono}</p>
                                             <p> {paginaWeb} </p>
                                             <p>{"Ciudad: "+ ciudad}</p>
+                                            <p>{"Ambiente: "+ ambiente}</p>
                                         </Card>
 
 
