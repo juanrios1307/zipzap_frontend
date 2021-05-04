@@ -129,7 +129,7 @@ const RegisterEstablecimiento = () => {
         values.fecha_ultima_edicion=moment().format('YYYY-MM-DD h:mm:ss')
         values.logitud=parseFloat(localStorage.getItem("long"))
         values.latitud=parseFloat(localStorage.getItem("lat"))
-
+        values.tipo=values.tipo.toLowerCase()
 
         const cityKey = ciudad.find(function (item){
             return item.value == values.ciudad
