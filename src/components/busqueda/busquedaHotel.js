@@ -29,16 +29,27 @@ function AppBusquedaEspecifica(props) {
 
         var ciudad= localStorage.getItem('ciudad')
 
+        if(ciudad != undefined) {
 
-        //const url = 'https://peaceful-ridge-86113.herokuapp.com/api/users/'
-        url = 'http://localhost:5000/api/hotel/ciudad/'
+            //const url = 'https://peaceful-ridge-86113.herokuapp.com/api/users/'
+            url = 'http://localhost:5000/api/hotel/ciudad/'
 
-        config = {
-            method: 'get',
-            url: url+ciudad,
+            config = {
+                method: 'get',
+                url: url + ciudad,
 
-        };
+            };
+        }else{
+            //const url = 'https://peaceful-ridge-86113.herokuapp.com/api/users/'
+            url = 'http://localhost:5000/api/hotel/places/'
 
+            config = {
+                method: 'get',
+                url: url ,
+
+            };
+
+        }
 
         response = await Axios(config)
         data = response.data

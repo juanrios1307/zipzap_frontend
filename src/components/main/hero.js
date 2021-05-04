@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState,useEffect} from "react";
 import {Card, Carousel,Row, Col} from 'antd';
 import hotel from "../../assets/images/hotel.jpg";
 import restaurante from "../../assets/images/restaurante.jpg";
@@ -14,6 +14,11 @@ const { Meta } = Card;
 
 function AppHero() {
 
+    useEffect(()=>{
+        localStorage.removeItem('ciudad')
+
+    },[])
+
     return (
         <div id="hero" className="heroBlock">
 
@@ -24,64 +29,78 @@ function AppHero() {
                         <div className="site-card-wrapper">
                             <Row gutter={[16, 16]}>
                                 <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }}>
-                                    <Card
-                                        hoverable
-                                        cover={<img alt="Modern Design" src={hotel} />}
-                                    >
-                                        <Meta title={"Hoteles"} />
-                                    </Card>
+                                    <a href="/busqueda/hotel">
+                                        <Card
+                                            hoverable
+                                            cover={<img alt="Modern Design" src={hotel} />}
+                                        >
+                                            <Meta title={"Hoteles"} />
+                                        </Card>
+                                    </a>
                                 </Col>
 
                                 <Col xs={{ span: 24 }} sm={{ span: 12 }} md={{ span: 8 }}>
-                                    <Card
-                                        hoverable
-                                        cover={<img alt="Test" src={restaurante} />}
-                                    >
-                                        <Meta title={"Restaurantes"} />
-                                    </Card>
+                                    <a href="/busqueda/restaurante">
+                                        <Card
+                                            hoverable
+                                            cover={<img alt="Test" src={restaurante} />}
+                                        >
+                                            <Meta title={"Restaurantes"} />
+                                        </Card>
+                                    </a>
                                 </Col>
 
                                 <Col xs={{ span: 24 }} sm={{ span: 12 }} md={{ span: 8 }}>
-                                    <Card
-                                        hoverable
-                                        cover={<img alt="Test" src={bar} />}
-                                    >
-                                        <Meta title={"Bares"} />
-                                    </Card>
+                                    <a href="/busqueda/bar">
+                                        <Card
+                                            hoverable
+                                            cover={<img alt="Test" src={bar} />}
+                                        >
+                                            <Meta title={"Bares"} />
+                                        </Card>
+                                    </a>
                                 </Col>
 
                                 <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }}>
-                                    <Card
-                                        hoverable
-                                        cover={<img alt="Test" src={monumento} />}
-                                    >
-                                        <Meta title={"Monumentos"} />
-                                    </Card>
+                                    <a href="/busqueda/monumento">
+                                        <Card
+                                            hoverable
+                                            cover={<img alt="Test" src={monumento} />}
+                                        >
+                                            <Meta title={"Monumentos"} />
+                                        </Card>
+                                    </a>
                                 </Col>
 
                                 <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }}>
-                                    <Card
-                                        hoverable
-                                        cover={<img alt="Test" src={parque} />}
-                                    >
-                                        <Meta title={"Parques"} />
-                                    </Card>
+                                    <a href="/busqueda/parque">
+                                        <Card
+                                            hoverable
+                                            cover={<img alt="Test" src={parque} />}
+                                        >
+                                            <Meta title={"Parques"} />
+                                        </Card>
+                                    </a>
                                 </Col>
                                 <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }}>
-                                    <Card
-                                        hoverable
-                                        cover={<img alt="Test" src={cine} />}
-                                    >
-                                        <Meta title={"Cines"} />
-                                    </Card>
+                                    <a href="/busqueda/cine">
+                                        <Card
+                                            hoverable
+                                            cover={<img alt="Test" src={cine} />}
+                                        >
+                                            <Meta title={"Cines"} />
+                                        </Card>
+                                    </a>
                                 </Col>
                                 <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }}>
-                                    <Card
-                                        hoverable
-                                        cover={<img alt="Test" src={evento} />}
-                                    >
-                                        <Meta title={"Eventos"} />
-                                    </Card>
+                                    <a href="/busqueda/evento">
+                                        <Card
+                                            hoverable
+                                            cover={<img alt="Test" src={evento} />}
+                                        >
+                                            <Meta title={"Eventos"} />
+                                        </Card>
+                                    </a>
                                 </Col>
 
 

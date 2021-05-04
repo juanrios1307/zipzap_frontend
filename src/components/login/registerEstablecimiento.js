@@ -131,10 +131,18 @@ const RegisterEstablecimiento = () => {
         values.latitud=parseFloat(localStorage.getItem("lat"))
         values.tipo=values.tipo.toLowerCase()
 
+
+
         const cityKey = ciudad.find(function (item){
             return item.value == values.ciudad
         })
-        values.ciudad=cityKey.key
+
+        if(cityKey != undefined){
+            values.ciudad=cityKey.key
+        }else{
+
+        }
+
 
         await uploadImagenesLugar()
         values.imagenes = imagesUrl
@@ -150,7 +158,6 @@ const RegisterEstablecimiento = () => {
         if(tipo=== "Teatro"){
             values.cartelera =await  uploadImagenEspecifica(cartelera)
         }
-
 
 
 
