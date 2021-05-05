@@ -156,6 +156,9 @@ function AppMisEstablecimientos() {
                             <h2>Mis Establecimientos</h2>
                             <div className="site-card-wrapper">
                                 <Row gutter={[16, 16]}>
+
+                                    <a href="/signup/place" className="a">Registra Tu Empresa</a>
+
                                     {establecimientos && establecimientos.map(item => {
                                         return (
                                             <Col xs={{span: 24}} sm={{span: 24}} md={{span: 24}}>
