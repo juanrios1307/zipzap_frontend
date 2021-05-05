@@ -117,22 +117,6 @@ function AppHeaderTeatro() {
 
                               <Col span={5}>
                                   <Form.Item
-                                      label="Capacidad">
-
-                                      <Slider
-                                          min={100}
-                                          max={200}
-                                          range
-                                          defaultValue={[120, 180]}
-
-                                      />
-
-                                  </Form.Item>
-                              </Col>
-
-
-                              <Col span={5}>
-                                  <Form.Item
                                       name="ambiente"
                                       label="Ambiente "
                                       rules={[{required: false}]}>
