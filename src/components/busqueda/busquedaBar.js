@@ -174,12 +174,6 @@ function AppBusquedaEspecifica(props) {
                 })
                 }
 
-                {config && (
-                    <div>
-                        <p>{JSON.stringify(config)}</p>
-                    </div>
-                )}
-
             </div>
 
         );
