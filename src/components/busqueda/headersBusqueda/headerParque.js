@@ -15,11 +15,14 @@ import Axios from "axios";
 const { Link } = Anchor;
 const { Option } = Select;
 
-function AppHeaderParque() {
+function AppHeaderParque(props) {
 
     const [visible, setVisible] = useState(false);
     const [ambientes, setAmbientes] = useState([]);
     const [token, setToken] = useState('');
+
+
+
 
     const showDrawer = () => {
         setVisible(true);
@@ -43,20 +46,117 @@ function AppHeaderParque() {
 
     }
 
+    const {filter} = props
 
     const filtrar = async(values) => {
 
-        //const url = 'https://peaceful-ridge-86113.herokuapp.com/api/users/'
-        /* const url='http://localhost:5000/api/ambiente/'
+        var ciudad= localStorage.getItem('ciudad')
+        var ambiente=values.ambiente
+        var nombre= values.nombre
 
-         const response = await Axios.get(
-             url,
-         )
-
-         const ciudades = response.data
+        var url
+        var config
 
 
-         console.log(ciudades)*/
+        if(ciudad != undefined && ambiente != undefined && (nombre != undefined && nombre != "")){
+            url = 'http://localhost:5000/api/parque/nombre_ciudad_ambiente/'
+
+            config = {
+                method: 'get',
+                url: url ,
+                headers:{
+                    'ciudad': ciudad,
+                    'ambiente': ambiente,
+                    'nombre': nombre
+                }
+
+            };
+
+        }else if(ciudad != undefined && ambiente != undefined){
+
+            url = 'http://localhost:5000/api/parque/ciudad_ambiente'
+
+            config = {
+                method: 'get',
+                url: url,
+                headers: {
+                    'ciudad': ciudad,
+                    'ambiente': ambiente
+                }
+            };
+
+        }else if(ciudad != undefined && (nombre != undefined && nombre != "")){
+
+            url = 'http://localhost:5000/api/parque/nombre_ciudad'
+
+            config = {
+                method: 'get',
+                url: url,
+                headers: {
+                    'ciudad': ciudad,
+                    'nombre': nombre
+                }
+            };
+
+        }else if(ambiente != undefined && (nombre != undefined && nombre != "")){
+
+            url = 'http://localhost:5000/api/parque/nombre_ambiente'
+
+            console.log(nombre)
+
+            config = {
+                method: 'get',
+                url: url,
+                headers: {
+                    'ambiente': ambiente,
+                    'nombre': nombre
+                }
+            };
+
+        }else if(ciudad != undefined){
+
+            url = 'http://localhost:5000/api/parque/ciudad/'
+
+            config = {
+                method: 'get',
+                url: url + ciudad,
+
+            };
+
+        }else if(ambiente != undefined){
+
+            url = 'http://localhost:5000/api/parque/ambiente/'
+
+            config = {
+                method: 'get',
+                url: url + ambiente,
+
+            };
+
+        }else if((nombre != undefined && nombre != "")){
+
+            url = 'http://localhost:5000/api/parque/nombre/'
+
+            config = {
+                method: 'get',
+                url: url + nombre,
+
+            };
+
+        }else{
+
+            url = 'http://localhost:5000/api/parque/places/'
+
+            config = {
+                method: 'get',
+                url: url ,
+
+            };
+
+        }
+
+        filter(config)
+
 
         console.log(values)
 
@@ -99,7 +199,7 @@ function AppHeaderParque() {
                               <Col span={5}>
 
                                   <Form.Item
-                                      name="city"
+                                      name="nombre"
                                       label ="Nombre"
                                       rules={[{ required: false}]}
                                   >

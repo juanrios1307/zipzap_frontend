@@ -16,7 +16,7 @@ import Axios from "axios";
 const { Link } = Anchor;
 const { Option } = Select;
 
-function AppHeaderTeatro() {
+function AppHeaderTeatro(props) {
 
     const [visible, setVisible] = useState(false);
     const [ambientes, setAmbientes] = useState([]);
@@ -45,24 +45,122 @@ function AppHeaderTeatro() {
     }
 
 
+    const {filter} = props
+
     const filtrar = async(values) => {
 
-        //const url = 'https://peaceful-ridge-86113.herokuapp.com/api/users/'
-        /* const url='http://localhost:5000/api/ambiente/'
+        var ciudad= localStorage.getItem('ciudad')
+        var ambiente=values.ambiente
+        var nombre= values.nombre
 
-         const response = await Axios.get(
-             url,
-         )
-
-         const ciudades = response.data
+        var url
+        var config
 
 
-         console.log(ciudades)*/
+        if(ciudad != undefined && ambiente != undefined && (nombre != undefined && nombre != "")){
+            url = 'http://localhost:5000/api/teatro/nombre_ciudad_ambiente/'
+
+            config = {
+                method: 'get',
+                url: url ,
+                headers:{
+                    'ciudad': ciudad,
+                    'ambiente': ambiente,
+                    'nombre': nombre
+                }
+
+            };
+
+        }else if(ciudad != undefined && ambiente != undefined){
+
+            url = 'http://localhost:5000/api/teatro/ciudad_ambiente'
+
+            config = {
+                method: 'get',
+                url: url,
+                headers: {
+                    'ciudad': ciudad,
+                    'ambiente': ambiente
+                }
+            };
+
+        }else if(ciudad != undefined && (nombre != undefined && nombre != "")){
+
+            url = 'http://localhost:5000/api/teatro/nombre_ciudad'
+
+            config = {
+                method: 'get',
+                url: url,
+                headers: {
+                    'ciudad': ciudad,
+                    'nombre': nombre
+                }
+            };
+
+        }else if(ambiente != undefined && (nombre != undefined && nombre != "")){
+
+            url = 'http://localhost:5000/api/teatro/nombre_ambiente'
+
+            console.log(nombre)
+
+            config = {
+                method: 'get',
+                url: url,
+                headers: {
+                    'ambiente': ambiente,
+                    'nombre': nombre
+                }
+            };
+
+        }else if(ciudad != undefined){
+
+            url = 'http://localhost:5000/api/teatro/ciudad/'
+
+            config = {
+                method: 'get',
+                url: url + ciudad,
+
+            };
+
+        }else if(ambiente != undefined){
+
+            url = 'http://localhost:5000/api/teatro/ambiente/'
+
+            config = {
+                method: 'get',
+                url: url + ambiente,
+
+            };
+
+        }else if((nombre != undefined && nombre != "")){
+
+            url = 'http://localhost:5000/api/teatro/nombre/'
+
+            config = {
+                method: 'get',
+                url: url + nombre,
+
+            };
+
+        }else{
+
+            url = 'http://localhost:5000/api/teatro/places/'
+
+            config = {
+                method: 'get',
+                url: url ,
+
+            };
+
+        }
+
+
+        filter(config)
+
 
         console.log(values)
 
     }
-
 
 
     useEffect(()=>{
@@ -99,7 +197,7 @@ function AppHeaderTeatro() {
                               <Col span={5}>
 
                                   <Form.Item
-                                      name="city"
+                                      name="nombre"
                                       label ="Evento"
                                       rules={[{ required: false, message: 'Por favor ingresa una ciudad!' }]}
                                   >

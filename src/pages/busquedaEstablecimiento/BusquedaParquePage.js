@@ -12,20 +12,38 @@ import {Footer} from "antd/es/layout/layout";
 
 import Busqueda from "../../components/busqueda/busquedaParque";
 import AppHeaderParque from "../../components/busqueda/headersBusqueda/headerParque";
+import AppHeaderBar from "../../components/busqueda/headersBusqueda/headerBar";
 const { Header, Content } = Layout;
 
 
 class BusquedaPage extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            config: ''
+        };
+        this.filter = this.filter.bind(this);
+    }
+
+    filter(config){
+
+
+        this.setState({
+            config: config
+        })
+    }
+
 
     render(){
         return (
             <Layout className="mainLayout">
                 <Header>
                     <AppHeader/>
-                    <AppHeaderParque />
+                    <AppHeaderParque filter={this.filter} />
                 </Header>
                 <Content>
-                    <Busqueda/>
+                    <Busqueda config={this.state.config}/>
 
 
                 </Content>

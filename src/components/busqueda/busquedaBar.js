@@ -14,9 +14,58 @@ function AppBusquedaEspecifica(props) {
 
     const [establecimientos,setEstablecimientos]=useState([])
 
+
     const gridStyle = {
         textAlign: 'center',
     };
+    const [configActual,setconfigActual]=useState(props.config)
+    const {config} = props
+
+    const filtrar = async(config) =>{
+        var response = await Axios(config)
+        var data = response.data
+
+        console.log(data)
+
+        var urlimg = 'http://localhost:5000/api/imagen/place/'
+        var datArray=[]
+
+
+        for(var i=0;i<data.length;i++){
+
+            datArray.push(data[i])
+
+            var configImg = {
+                method: 'get',
+                url: urlimg+data[i].id_lugar,
+            };
+
+            var images = await Axios(configImg)
+            var dataImg = images.data
+
+            console.log(dataImg)
+
+            datArray[i].imagenes=dataImg
+        }
+
+        setEstablecimientos(datArray)
+    }
+
+
+    useEffect(() =>{
+        if(config != configActual) {
+            filtrar(config)
+            setconfigActual(config)
+        }else{
+
+        }
+    })
+
+    useEffect(()=>{
+        getEstablecimientos()
+
+    },[])
+
 
 
     const getEstablecimientos = async() =>{
@@ -24,8 +73,6 @@ function AppBusquedaEspecifica(props) {
         setEstablecimientos([])
         var url
         var config
-        var response
-        var data
 
         var ciudad= localStorage.getItem('ciudad')
 
@@ -52,40 +99,10 @@ function AppBusquedaEspecifica(props) {
         }
 
 
-        response = await Axios(config)
-        data = response.data
-
-        console.log(data)
-
-        var urlimg = 'http://localhost:5000/api/imagen/place/'
-        var datArray=[]
-
-
-        for(var i=0;i<data.length;i++){
-
-            datArray.push(data[i])
-
-            var configImg = {
-                method: 'get',
-                url: urlimg+data[i].id_lugar,
-            };
-
-            var images = await Axios(configImg)
-            var dataImg = images.data
-
-            console.log(dataImg)
-
-            datArray[i].imagenes=dataImg
-        }
-
-        setEstablecimientos(datArray)
-        console.log(establecimientos)
+        filtrar(config)
     }
 
-    useEffect(()=>{
-        getEstablecimientos()
 
-    },[])
     const [seeBool, setSeeBool]=useState(false);
 
     const see = (id_lugar,tipo) =>{
@@ -156,6 +173,13 @@ function AppBusquedaEspecifica(props) {
                     )
                 })
                 }
+
+                {config && (
+                    <div>
+                        <p>{JSON.stringify(config)}</p>
+                    </div>
+                )}
+
             </div>
 
         );

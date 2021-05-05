@@ -102,7 +102,7 @@ function AppHeaderHotel() {
                               <Col span={5}>
 
                                   <Form.Item
-                                      name="city"
+                                      name="nombre"
                                       label ="Nombre"
                                       rules={[{ required: false, message: 'Por favor ingresa una ambiente!' }]}
                                   >
