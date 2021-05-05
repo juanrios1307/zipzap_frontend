@@ -6,8 +6,7 @@ import { Layout } from 'antd';
 import {Footer} from "antd/es/layout/layout";
 import AppHeader from "../components/header";
 import AppFooter from "../components/main/footer";
-import AppMisReservas from "../components/MisReservas";
-import AppLugarReservas from "../components/lugar/ReservasLugar";
+import AppLugarReservas from "../components/ManejoEstablecimientos/ReservasLugar";
 
 const { Header, Content } = Layout;
 

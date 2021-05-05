@@ -18,14 +18,13 @@ import BusquedaRestaurantePage from "./pages/busquedaEstablecimiento/BusquedaRes
 import BusquedaTeatroPage from "./pages/busquedaEstablecimiento/BusquedaTeatroPage";
 import RegisterEstablecimientoPage from "./pages/RegisterEstablecimientoPage";
 
-
-import AppMap from "./components/login/Map";
 import MisEstablecimientosPage from "./pages/MisEstablecimientosPage";
 import LugarPage from "./pages/LugarPage";
 import MisReservasPage from "./pages/MisReservasPage";
-import AppMisRatings from "./components/MisRatings";
 import MisRatingsPage from "./pages/MisRatingsPage";
 import LugarReservasPage from "./pages/LugarReservasPage";
+import EditarReservasPage from "./pages/EditarReservasPage";
+import EditarCalificacionPage from "./pages/EditarCalificacionPage";
 
 
 
@@ -43,6 +42,9 @@ class App extends React.Component {
                     <Route exact path="/dashboard" component={MisEstablecimientosPage}/>
                     <Route exact path="/misreservas" component={MisReservasPage}/>
                     <Route exact path="/misratings" component={MisRatingsPage}/>
+
+                    <Route exact path="/reservas/edit" component={EditarReservasPage}/>
+                    <Route exact path="/rating/edit" component={EditarCalificacionPage}/>
 
                     <Route exact path="/lugar" component={LugarPage}/>
                     <Route exact path="/lugar/reservas" component={LugarReservasPage}/>

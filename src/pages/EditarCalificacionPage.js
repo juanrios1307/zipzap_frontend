@@ -6,11 +6,11 @@ import { Layout } from 'antd';
 import {Footer} from "antd/es/layout/layout";
 import AppHeader from "../components/header";
 import AppFooter from "../components/main/footer";
-import AppMisReservas from "../components/ManejoEstablecimientos/MisReservas";
+import AppEditarCalificacion from "../components/ManejoEstablecimientos/editarCalificacion";
 
 const { Header, Content } = Layout;
 
-class MisReservasPage extends Component {
+class EditarCalificacionPage extends Component {
 
     render(){
         return (
@@ -19,7 +19,7 @@ class MisReservasPage extends Component {
                     <AppHeader/>
                 </Header>
                 <Content>
-                    <AppMisReservas/>
+                    <AppEditarCalificacion/>
 
                 </Content>
                 <Footer>
@@ -29,4 +29,4 @@ class MisReservasPage extends Component {
         );
     }
 }
-export default MisReservasPage;
+export default EditarCalificacionPage;

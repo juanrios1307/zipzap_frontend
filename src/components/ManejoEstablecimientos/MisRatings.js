@@ -1,25 +1,26 @@
 import React, {useState,useEffect} from "react";
-import {Image, Card, Row, Col, Carousel} from 'antd';
+import {Image, Card, Row, Col, Carousel, Rate} from 'antd';
 
 import { EditOutlined, DeleteOutlined , EyeOutlined } from '@ant-design/icons';
 import Axios from "axios";
 import {Redirect} from "react-router-dom";
 import moment from "moment";
-import Swal from "sweetalert2";
 
 const { Meta } = Card;
 
-function AppMisReservas() {
+function AppMisRatings() {
 
-    const [reservas, setReservas]=useState([]);
+
+    const [ratings, setRatings]=useState([]);
     const [seeBool, setSeeBool]=useState(false);
+    const [updateBool, setupdateBool]=useState(false);
 
     const getReservas = async() =>{
 
-        setReservas([])
+        setRatings([])
 
         //const url = 'https://peaceful-ridge-86113.herokuapp.com/api/users/'
-        const url='http://localhost:5000/api/users/reservas/'
+        const url='http://localhost:5000/api/users/ratings/'
 
         const token = localStorage.getItem("token")
 
@@ -35,54 +36,11 @@ function AppMisReservas() {
 
         const data = response.data
 
-
-        setReservas(data)
-
-
-    }
-
-
-    const eliminar =async (id) =>{
-        console.log("delete")
-
-        const url='http://localhost:5000/api/reserva/'
-
-        const token = localStorage.getItem("token")
-
-        const config = {
-            method: 'delete',
-            url: url+ id,
-            headers: {
-                'access-token': token
-            }
-        };
-
-        const response = await Axios(config)
-
-        const mensaje = response.data.message
-        const status=response.status
-
-        console.log(mensaje)
-
-        if(status===200){
-            Swal.fire({
-                title: mensaje,
-
-            })
-
-            window.location.reload(false)
-
-        }else{
-            Swal.fire({
-                title: mensaje,
-
-            })
-
-        }
-
+        setRatings(data)
 
 
     }
+
 
     const see = (id_lugar,tipo) =>{
 
@@ -90,6 +48,17 @@ function AppMisReservas() {
         localStorage.setItem("tipo",tipo.toLowerCase())
 
         setSeeBool(true)
+    }
+
+    const edit = (id_rating) =>{
+
+
+        localStorage.setItem("id_rating",id_rating)
+
+
+        console.log("edit")
+
+        setupdateBool(true)
     }
 
     useEffect(()=>{
@@ -101,7 +70,11 @@ function AppMisReservas() {
         return(
             <Redirect to="/lugar"/>
         )
-    }else {
+    }else if(updateBool){
+        return(
+            <Redirect to="/rating/edit"/>
+        )
+    }else{
 
         return (
             <div id="hero" className="paquetesBlock">
@@ -109,10 +82,10 @@ function AppMisReservas() {
                 <div id="pricing" className="block pricingBlock bgGray">
                     <div className="container-fluid">
                         <div className="titleHolder">
-                            <h2>Mis Reservas</h2>
+                            <h2>Mis Calificaciones</h2>
                             <div className="site-card-wrapper">
                                 <Row gutter={[16, 16]}>
-                                    {reservas.map(item => {
+                                    {ratings.map(item => {
                                         return (
                                             <Col xs={{span: 24}} sm={{span: 24}} md={{span: 24}}>
 
@@ -120,19 +93,20 @@ function AppMisReservas() {
                                                     hoverable
 
                                                     actions={[
-                                                        <EyeOutlined key="select"
+                                                        <EyeOutlined key="see"
                                                                      onClick={() => see(item.id_lugar, item.tipo)}/>,
 
-                                                        <DeleteOutlined key="delete"
-                                                                        onClick={() => eliminar(item.id_reserva)}/>
+                                                        <EditOutlined key="update" onClick={() => edit(item.id_calificacion)}/>,
+
                                                     ]}
 
                                                 >
                                                     <Meta title={item.nombre}/>
 
+                                                    <Rate disabled defaultValue={item.calificacion} />
                                                     <p>{moment(item.fecha).format("YYYY-MM-DD")}</p>
 
-                                                    <p>{item.notas}</p>
+                                                    <p>{item.comentario}</p>
 
 
                                                 </Card>
@@ -157,4 +131,4 @@ function AppMisReservas() {
     }
 }
 
-export default AppMisReservas;
+export default AppMisRatings;
