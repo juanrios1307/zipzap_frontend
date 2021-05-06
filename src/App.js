@@ -25,6 +25,7 @@ import MisRatingsPage from "./pages/MisRatingsPage";
 import LugarReservasPage from "./pages/LugarReservasPage";
 import EditarReservasPage from "./pages/EditarReservasPage";
 import EditarCalificacionPage from "./pages/EditarCalificacionPage";
+import EditarEstablecimientoPage from "./pages/EditarEstablecimientoPage";
 
 
 
@@ -45,6 +46,7 @@ class App extends React.Component {
 
                     <Route exact path="/reservas/edit" component={EditarReservasPage}/>
                     <Route exact path="/rating/edit" component={EditarCalificacionPage}/>
+                    <Route exact path="/lugar/edit" component={EditarEstablecimientoPage}/>
 
                     <Route exact path="/lugar" component={LugarPage}/>
                     <Route exact path="/lugar/reservas" component={LugarReservasPage}/>

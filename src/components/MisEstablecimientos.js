@@ -64,8 +64,12 @@ function AppMisEstablecimientos() {
 
     }
 
-    const edit = () =>{
+    const edit = (id_lugar,tipo) =>{
         console.log("edit")
+
+        localStorage.setItem("edit_id",id_lugar)
+        localStorage.setItem("tipo",tipo.toLowerCase())
+
 
         setupdateBool(true)
     }
@@ -139,7 +143,11 @@ function AppMisEstablecimientos() {
         return(
             <Redirect to="/lugar"/>
         )
-    }else  if (updateBool){
+    }else  if (updateBool) {
+
+        return(
+            <Redirect to="/lugar/edit"/>
+        )
 
     }else if(reservasBool){
         return(
@@ -169,7 +177,7 @@ function AppMisEstablecimientos() {
                                                     actions={[
                                                         <EyeOutlined key="select"
                                                                      onClick={() => see(item.id_lugar, item.tipo)}/>,
-                                                        <EditOutlined key="update" onClick={() => edit}/>,
+                                                        <EditOutlined key="update" onClick={() => edit(item.id_lugar,item.tipo)}/>,
                                                         <DeleteOutlined key="delete"
                                                                         onClick={() => eliminar(item.id_lugar,item.tipo.toLowerCase())}/>,
                                                         <BookOutlined key="books"
