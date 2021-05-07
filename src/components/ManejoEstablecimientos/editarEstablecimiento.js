@@ -7,7 +7,7 @@ import {
     Button,
     Upload,
     Modal,
-    InputNumber
+    InputNumber, Rate, Row
 } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 
@@ -49,7 +49,7 @@ const EditarEstablecimiento = () => {
     const [autoCompleteResult, setAutoCompleteResult] = useState([]);
     const [ciudades, setCiudades] = useState([]);
     const [ambientes, setAmbientes] = useState([]);
-    const [tipos, setTipos] = useState(['Bar','Evento','Hotel','Monumento','Parque','Restaurante','Teatro']);
+    const [tipos, setTipos] = useState(['bar','evento','hotel','monumento','parque','restaurante','teatro']);
 
 
     const [id, setId] = useState('');
@@ -65,6 +65,7 @@ const EditarEstablecimiento = () => {
     const [tipo, setTipo] = useState('');
 
     const [carta,setCarta] = useState('')
+    const [cartaN,setCartaN] = useState('')
 
     const [descripcion,setDescripcion] = useState('')
     const [capacidad,setCapacidad] = useState(0)
@@ -78,8 +79,12 @@ const EditarEstablecimiento = () => {
     const [historia,setHistoria] = useState('')
 
     const [menu,setMenu] = useState('')
+    const [menuN,setMenuN] = useState('')
+
 
     const [cartelera,setCartelera] = useState('')
+    const [carteleraN,setCarteleraN] = useState('')
+
 
     const [dataForm,setDataForm]=useState(false)
 
@@ -269,8 +274,7 @@ const EditarEstablecimiento = () => {
                 setEstrellas(data[0].estrellas)
 
 
-                await getHabs(data[0].id_lugar)
-
+                //await getHabs(data[0].id_lugar)
 
             }
 
@@ -523,22 +527,82 @@ const EditarEstablecimiento = () => {
         }
 
 
-
         console.log(values)
 
-       /* await uploadImagenesLugar()
-        values.imagenes = imagesUrl
+        //values.imagenes = imagesUrl
 
-        if(tipo=== "Bar"){
-            values.carta =await  uploadImagenEspecifica(carta)
+        if(tipo=== "bar"){
+
+            if(fileList == undefined){
+                values.carta=carta
+            }else {
+                values.carta = await uploadImagenEspecifica(fileList)
+            }
         }
 
-        if(tipo=== "Restaurante"){
-            values.menu =await  uploadImagenEspecifica(menu)
+        if(tipo === "evento"){
+
+            if(values.descripcion == undefined){
+                values.descripcion =descripcion
+            }
+
+            if(values.capacidad == undefined){
+                values.capacidad =capacidad
+            }
+
+
         }
 
-        if(tipo=== "Teatro"){
-            values.cartelera =await  uploadImagenEspecifica(cartelera)
+        if(tipo === "hotel"){
+
+            if(values.estrellas == undefined){
+                values.estrellas =estrellas
+            }
+
+        }
+
+        if(tipo === "monumento"){
+
+            if(values.descripcion == undefined){
+                values.descripcion =descripcion
+            }
+
+            if(values.historia == undefined){
+                values.historia =historia
+            }
+
+        }
+
+        if(tipo === "parque"){
+
+            if(values.descripcion == undefined){
+                values.descripcion =descripcion
+            }
+
+        }
+
+        if(tipo=== "restaurante"){
+
+            if(fileList == undefined){
+                values.menu = menu
+            }else{
+                values.menu =await  uploadImagenEspecifica(fileList)
+            }
+
+
+        }
+
+        if(tipo=== "teatro"){
+
+            if( fileList == undefined){
+                values.cartelera = cartelera
+            }else {
+                values.cartelera = await uploadImagenEspecifica(fileList)
+            }
+
+            if(values.capacidad == undefined){
+                values.capacidad =capacidad
+            }
         }
 
 
@@ -572,14 +636,14 @@ const EditarEstablecimiento = () => {
             })
 
             setBool(true)
-            window.location.reload(false)
+            //window.location.reload(false)
         }else{
             Swal.fire({
                 title: status,
 
             })
 
-        }*/
+        }
     }
 
     //Acciones con upload
@@ -774,32 +838,6 @@ const EditarEstablecimiento = () => {
                                 </Select>
                             </Form.Item>
 
-                            <Form.Item
-                                name="imagenes"
-                                label="Imagenes"
-                                >
-                                    <Upload
-                                        listType="picture-card"
-                                        fileList={fileList}
-                                        onPreview={handlePreview}
-                                        onChange={handleChange}
-                                        customRequest={dummyRequest}
-                                        accept="image/png, image/jpeg"
-                                    >
-                                        {fileList.length >= 10 ? null : uploadButton}
-                                    </Upload>
-                                    <Modal
-                                        visible={previewVisible}
-                                        title={previewTitle}
-                                        footer={null}
-                                        onCancel={handleCancel}
-                                    >
-                                        <img alt="example" style={{ width: '100%' }} src={previewImage} />
-                                    </Modal>
-
-                            </Form.Item>
-
-
                             {tipo==="bar" && (
                                 <Form.Item
                                     name="carta"
@@ -813,7 +851,7 @@ const EditarEstablecimiento = () => {
                                         customRequest={dummyRequest}
                                         accept="image/png, image/jpeg"
                                     >
-                                        {fileList.length >= 10 ? null : uploadButton}
+                                        {fileList.length >= 1 ? null : uploadButton}
                                     </Upload>
                                     <Modal
                                         visible={previewVisible}
@@ -833,7 +871,7 @@ const EditarEstablecimiento = () => {
                                     <Form.Item
                                         name="descripcion"
                                         label="Descripción Evento "
-                                        rules={[{required: true, message: 'Por favor Ingresa Una Descripción Del Evento', whitespace: true}]}
+                                        rules={[{required: false, message: 'Por favor Ingresa Una Descripción Del Evento', whitespace: true}]}
                                     >
                                         <Input/>
                                     </Form.Item>
@@ -841,7 +879,7 @@ const EditarEstablecimiento = () => {
                                     <Form.Item
                                         name="capacidad"
                                         label="Capacidad "
-                                        rules={[{required: true, message: 'Por Favor ingresa la capacidad del evento!'}]}
+                                        rules={[{required: false, message: 'Por Favor ingresa la capacidad del evento!'}]}
                                     >
                                         <InputNumber/>
                                     </Form.Item>
@@ -850,8 +888,19 @@ const EditarEstablecimiento = () => {
                                 </div>
                                 )}
 
-                            {tipo==="hotel" && (
-                                <div/>
+                            {tipo === "hotel" && (
+                                <div className="block">
+
+                                    <Form.Item
+                                        name="estrellas"
+                                        label="Estrellas"
+                                        rules={[{required: false}]}
+                                    >
+                                        <Rate/>
+                                    </Form.Item>
+
+                                    <p>Si deseas Editar tus habitaciones debes crear un nuevo establecimiento</p>
+                                </div>
                             )}
 
                             {tipo==="monumento" && (
@@ -881,7 +930,7 @@ const EditarEstablecimiento = () => {
                                     <Form.Item
                                         name="descripcion"
                                         label="Descripción"
-                                        rules={[{required: true, message: 'Por favor Ingresa Una Descripción Del Parque', whitespace: true}]}
+                                        rules={[{required: false, message: 'Por favor Ingresa Una Descripción Del Parque', whitespace: true}]}
                                     >
                                         <Input/>
                                     </Form.Item>
@@ -903,7 +952,7 @@ const EditarEstablecimiento = () => {
                                         customRequest={dummyRequest}
                                         accept="image/png, image/jpeg"
                                     >
-                                        {fileList.length >= 10 ? null : uploadButton}
+                                        {fileList.length >= 1 ? null : uploadButton}
                                     </Upload>
                                     <Modal
                                         visible={previewVisible}
@@ -951,7 +1000,7 @@ const EditarEstablecimiento = () => {
                                     <Form.Item
                                         name="capacidad"
                                         label="Capacidad "
-                                        rules={[{required: true, message: 'Por Favor ingresa la capacidad del teatro!'}]}
+                                        rules={[{required: false, message: 'Por Favor ingresa la capacidad del teatro!'}]}
                                     >
                                         <InputNumber/>
                                     </Form.Item>
@@ -965,6 +1014,8 @@ const EditarEstablecimiento = () => {
                                     Editar
                                 </Button>
                             </Form.Item>
+
+                            <a href="/lugar/edit/images" className="a">Edita Tus Imagenes</a>
 
                         </Form>
 

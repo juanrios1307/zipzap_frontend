@@ -36,8 +36,6 @@ function AppMisEstablecimientos() {
         var response = await Axios(config)
         var data = response.data
 
-        console.log(data)
-
         var urlimg = 'http://localhost:5000/api/imagen/place/'
         var datArray=[]
 
@@ -54,13 +52,10 @@ function AppMisEstablecimientos() {
             var images = await Axios(configImg)
             var dataImg = images.data
 
-            console.log(dataImg)
-
             datArray[i].imagenes=dataImg
         }
 
         setEstablecimientos(datArray)
-        console.log(establecimientos)
 
     }
 
