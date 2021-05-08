@@ -224,7 +224,15 @@ const RegisterEstablecimiento = () => {
 
     };
 
-    const handleChange = ({fileList}) => setFileList(fileList);
+    const handleChange = ({fileList}) =>{
+        console.log(fileList)
+        setFileList(fileList)
+    };
+
+    const handleRemove = () =>{
+        console.log("Files REMOVE")
+
+    };
 
     const dummyRequest = ({ file, onSuccess }) => {
         setTimeout(() => {
@@ -444,6 +452,7 @@ const RegisterEstablecimiento = () => {
                                         fileList={fileList}
                                         onPreview={handlePreview}
                                         onChange={handleChange}
+                                        onRemove={handleRemove}
                                         customRequest={dummyRequest}
                                         accept="image/png, image/jpeg"
                                     >

@@ -216,6 +216,7 @@ hero
 
 .heroBlock .slick-dots li button {
     background: #000 !important;
+    height: 10px!important;
 }
 
 .heroBlock .slick-dots li.slick-active button {
