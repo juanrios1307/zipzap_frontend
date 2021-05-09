@@ -39,21 +39,6 @@ function AppPaquetes() {
                         <div className="site-card-wrapper">
                             <Row gutter={[16, 16]}>
 
-                                <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 12 }}>
-
-                                        <a href='/plan' >
-                                            <Card
-                                                hoverable
-                                                cover={<img alt="Modern Design" src={planMejorRankeado} />}
-                                                onClick={()=>setPlan(0)}
-                                            >
-
-                                                <Meta title={"Mejor Rankeado"} />
-
-                                            </Card>
-                                        </a>
-
-                                </Col>
                                 <Col xs={{ span: 24 }} sm={{ span: 12 }} md={{ span: 12 }}>
                                         <a href='plan'>
                                             <Card

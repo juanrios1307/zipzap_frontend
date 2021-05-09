@@ -1,5 +1,5 @@
 import React, {useState,useEffect} from "react";
-import {Card, Carousel, Row, Col, Image} from 'antd';
+import {Card, Carousel, Row, Col, Image, Rate} from 'antd';
 
 import Axios from "axios";
 import beach from "../../assets/images/beach.jpg";
@@ -14,9 +14,61 @@ function AppBusquedaEspecifica(props) {
 
     const [establecimientos,setEstablecimientos]=useState([])
 
+
     const gridStyle = {
         textAlign: 'center',
     };
+    const [configActual,setconfigActual]=useState(props.config)
+    const {config} = props
+
+    const filtrar = async(config) =>{
+
+        setEstablecimientos([])
+
+        var response = await Axios(config)
+        var data = response.data
+
+        console.log(data)
+
+        var urlimg = 'http://localhost:5000/api/imagen/place/'
+        var datArray=[]
+
+
+        for(var i=0;i<data.length;i++){
+
+            datArray.push(data[i])
+
+            var configImg = {
+                method: 'get',
+                url: urlimg+data[i].id_lugar,
+            };
+
+            var images = await Axios(configImg)
+            var dataImg = images.data
+
+            console.log(dataImg)
+
+            datArray[i].imagenes=dataImg
+        }
+
+        setEstablecimientos(datArray)
+    }
+
+
+    useEffect(() =>{
+        if(config != configActual) {
+            filtrar(config)
+            setconfigActual(config)
+        }else{
+
+        }
+    })
+
+    useEffect(()=>{
+        getEstablecimientos()
+
+    },[])
+
 
 
     const getEstablecimientos = async() =>{
@@ -24,8 +76,6 @@ function AppBusquedaEspecifica(props) {
         setEstablecimientos([])
         var url
         var config
-        var response
-        var data
 
         var ciudad= localStorage.getItem('ciudad')
 
@@ -37,7 +87,9 @@ function AppBusquedaEspecifica(props) {
             config = {
                 method: 'get',
                 url: url + ciudad,
-
+                headers:{
+                    'estrellas':0
+                }
             };
         }else{
             //const url = 'https://peaceful-ridge-86113.herokuapp.com/api/users/'
@@ -51,53 +103,11 @@ function AppBusquedaEspecifica(props) {
 
         }
 
-        response = await Axios(config)
-        data = response.data
 
-        console.log(data)
-
-        var urlimg = 'http://localhost:5000/api/imagen/place/'
-        var urlhabs = 'http://localhost:5000/api/habitacion/place/'
-
-        var datArray=[]
-
-        for(var i=0;i<data.length;i++) {
-            datArray.push(data[i])
-            var configImg = {
-                method: 'get',
-                url: urlimg + data[i].id_lugar,
-
-            };
-
-            var images = await Axios(configImg)
-            var dataImg = images.data
-
-            console.log(dataImg)
-            datArray[i].imagenes = dataImg
-
-            var configHabs = {
-                method: 'get',
-                url: urlhabs + data[i].id_lugar,
-
-            };
-
-            var habs = await Axios(configHabs)
-            var dataHabs = habs.data
-
-            console.log(dataHabs)
-
-            datArray[i].habitaciones = dataHabs
-
-        }
-
-        setEstablecimientos(datArray)
-        console.log(establecimientos)
+        filtrar(config)
     }
 
-    useEffect(()=>{
-        getEstablecimientos()
 
-    },[])
     const [seeBool, setSeeBool]=useState(false);
 
     const see = (id_lugar,tipo) =>{
@@ -117,70 +127,62 @@ function AppBusquedaEspecifica(props) {
         return (
             <div id="hero" className="busquedaBlock">
 
-                                    {establecimientos.map(item => {
-                                        return (
-                                            <Row gutter={[16, 16]}>
-                                                <Col xs={{span: 24}} sm={{span: 24}} md={{span: 24}}>
-                                                    <Card
-                                                        hoverable
-                                                        style={gridStyle}
+                {establecimientos.map(item => {
+                    return (
+                        <Row gutter={[16, 16]}>
+                            <Col xs={{span: 24}} sm={{span: 24}} md={{span: 24}}>
+                                <Card
+                                    hoverable
+                                    style={gridStyle}
 
-                                                        actions={[
-                                                            <EyeOutlined key="select"
-                                                                         onClick={() => see(item.id_lugar, item.tipo)}/>,
+                                    actions={[
+                                        <EyeOutlined key="select"
+                                                     onClick={() => see(item.id_lugar, item.tipo)}/>,
 
-                                                        ]}
+                                    ]}
 
-                                                    >
-                                                        <Row gutter={[16, 16]}>
+                                >
+                                    <Row gutter={[16, 16]}>
 
-                                                            <Col xs={{span: 24}} sm={{span: 24}} md={{span: 12}}>
-                                                            <Meta title={item.nombre}/>
-                                                            <p>{item.paginaweb}</p>
-                                                                <p></p>
+                                        <Col xs={{span: 24}} sm={{span: 24}} md={{span: 12}}>
+                                            <Meta title={item.nombre}/>
+                                            <p>{item.paginaweb}</p>
 
-                                                            <Carousel autoplay>
-                                                                {item.habitaciones.map(i => {
-                                                                    return (
-                                                                        <div>
-                                                                            <h2>{i.tipo}</h2>
-                                                                            <p>{i.disponibilidad}</p>
-                                                                            <p>{i.valor}</p>
-                                                                            <p>. </p>
-                                                                        </div>
-                                                                    )
-
-                                                                })}
-                                                            </Carousel>
-                                                            </Col>
-
-                                                            <Col xs={{span: 24}} sm={{span: 24}} md={{span: 12}}>
-
-                                                                <Carousel autoplay>
-                                                                    {item.imagenes.map(img => {
-                                                                        return (
-                                                                            <Image
-                                                                                src={img.imagen}
-                                                                                alt={"No Hay Imagenes para Mostrar"}
-                                                                                width={400}
-                                                                            />)
-
-                                                                    })}
-                                                                </Carousel>
-
-                                                            </Col>
-                                                        </Row>
-                                                    </Card>
+                                            {item.estrellas &&(
+                                                <Rate disabled defaultValue={item.estrellas}/>
+                                            )}
 
 
-                                                </Col>
+                                        </Col>
+
+                                        <Col xs={{span: 24}} sm={{span: 24}} md={{span: 12}}>
+
+                                            <Carousel autoplay>
+                                                {item.imagenes.map(img => {
+                                                    return (
+                                                        <Image
+                                                            src={img.imagen}
+                                                            alt={"No Hay Imagenes para Mostrar"}
+                                                            width={400}
+                                                        />)
+
+                                                })}
+                                            </Carousel>
+
+                                        </Col>
+                                    </Row>
+                                </Card>
 
 
-                                            </Row>
-                                        )
-                                    })
-                                    }
-                            </div>
+                            </Col>
+
+
+                        </Row>
+                    )
+                })
+                }
+
+            </div>
 
         );
     }

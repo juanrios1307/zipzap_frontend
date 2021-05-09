@@ -45,7 +45,8 @@ function PlanHotel(props) {
                 url: url,
                 headers: {
                     'ciudad': ciudad,
-                    'ambiente': ambiente
+                    'ambiente': ambiente,
+                    'estrellas':0
                 }
             };
         }

@@ -17,15 +17,34 @@ const { Header, Content } = Layout;
 
 class BusquedaPage extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            config: ''
+        };
+        this.filter = this.filter.bind(this);
+    }
+
+    filter(config){
+
+
+        this.setState({
+            config: config
+        })
+    }
+
+
     render(){
         return (
             <Layout className="mainLayout">
                 <Header>
+
                     <AppHeader/>
-                    <AppHeaderHotel/>
+                    <AppHeaderHotel filter={this.filter} />
+
                 </Header>
                 <Content>
-                    <Busqueda/>
+                    <Busqueda config={this.state.config}/>
 
 
                 </Content>
