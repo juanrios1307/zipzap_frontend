@@ -39,7 +39,7 @@ function AppPaquetes() {
                         <div className="site-card-wrapper">
                             <Row gutter={[16, 16]}>
 
-                                <Col xs={{ span: 24 }} sm={{ span: 12 }} md={{ span: 12 }}>
+                                <Col xs={{ span: 24 }} sm={{ span: 12 }} md={{ span: 8 }}>
                                         <a href='plan'>
                                             <Card
                                                 hoverable
@@ -51,7 +51,7 @@ function AppPaquetes() {
                                         </a>
 
                                 </Col>
-                                <Col xs={{ span: 24 }} sm={{ span: 12 }} md={{ span: 12 }}>
+                                <Col xs={{ span: 24 }} sm={{ span: 12 }} md={{ span: 8 }}>
 
                                         <a href='/plan' >
                                             <Card
@@ -64,7 +64,7 @@ function AppPaquetes() {
                                         </a>
 
                                 </Col>
-                                <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 12 }}>
+                                <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }}>
 
                                         <a href='/plan' >
                                             <Card
@@ -77,7 +77,7 @@ function AppPaquetes() {
                                         </a>
 
                                 </Col>
-                                <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 12 }}>
+                                <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }}>
 
                                         <a href='/plan' >
                                             <Card
@@ -90,7 +90,7 @@ function AppPaquetes() {
                                         </a>
 
                                 </Col>
-                                <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 12 }}>
+                                <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }}>
 
                                         <a href='/plan' >
                                             <Card
@@ -103,7 +103,7 @@ function AppPaquetes() {
                                         </a>
 
                                 </Col>
-                                <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 12 }}>
+                                <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }}>
 
                                         <a href='/plan' >
                                             <Card
@@ -116,7 +116,7 @@ function AppPaquetes() {
                                         </a>
 
                                 </Col>
-                                <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 12 }}>
+                                <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }}>
 
                                         <a href='/plan' >
                                             <Card
@@ -129,7 +129,7 @@ function AppPaquetes() {
                                         </a>
 
                                 </Col>
-                                <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 12 }}>
+                                <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }}>
 
                                         <a href='/plan' >
                                             <Card
@@ -142,7 +142,7 @@ function AppPaquetes() {
                                         </a>
 
                                 </Col>
-                                <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 12 }}>
+                                <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }}>
 
                                         <a href='/plan' >
                                             <Card
@@ -151,7 +151,7 @@ function AppPaquetes() {
                                                 onClick={()=>setPlan(9)}
                                             >
                                                 <Meta title={"Romantico"} />
-                                            </Card>
+                                            </Card>12
                                         </a>
 
                                 </Col>
