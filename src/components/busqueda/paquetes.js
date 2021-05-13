@@ -151,7 +151,7 @@ function AppPaquetes() {
                                                 onClick={()=>setPlan(9)}
                                             >
                                                 <Meta title={"Romantico"} />
-                                            </Card>12
+                                            </Card>
                                         </a>
 
                                 </Col>
