@@ -533,7 +533,7 @@ const EditarEstablecimiento = () => {
 
         if(tipo=== "bar"){
 
-            if(fileList == undefined){
+            if(fileList.length==0){
                 values.carta=carta
             }else {
                 values.carta = await uploadImagenEspecifica(fileList)
@@ -583,10 +583,12 @@ const EditarEstablecimiento = () => {
 
         if(tipo=== "restaurante"){
 
-            if(fileList == undefined){
+            if(fileList.length==0){
                 values.menu = menu
+                console.log("Menu undef")
             }else{
                 values.menu =await  uploadImagenEspecifica(fileList)
+                console.log("Syube menu")
             }
 
 
@@ -594,7 +596,7 @@ const EditarEstablecimiento = () => {
 
         if(tipo=== "teatro"){
 
-            if( fileList == undefined){
+            if( fileList.length==0){
                 values.cartelera = cartelera
             }else {
                 values.cartelera = await uploadImagenEspecifica(fileList)

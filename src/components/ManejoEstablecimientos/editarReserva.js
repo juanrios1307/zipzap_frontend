@@ -92,7 +92,13 @@ const AppEditarReservaForm = () => {
 
         values.id_lugar = id_lugar
 
-        values.fecha=moment(values.fecha).format('YYYY-MM-DD h:mm:ss')
+
+        if(values.fecha == undefined){
+            values.fecha = moment(fecha).format('YYYY-MM-DD h:mm:ss')
+        }else{
+            values.fecha=moment(values.fecha).format('YYYY-MM-DD h:mm:ss')
+        }
+
 
         if(values.notas == undefined){
             values.notas=notas
