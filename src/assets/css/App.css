@@ -9,6 +9,11 @@ body {
     overflow-x: hidden;
 }
 
+.slick-dots li button {
+    background: #000 !important;
+    height: 10px!important;
+}
+
 .container-fluid {
     margin: 0 auto;
     max-width: 1200px;
