@@ -1,0 +1,65 @@
+/*
+hero
+----
+*/
+.planBlock {
+    background: url('/src/assets/images/white-background.jpg') no-repeat;
+    background-position: 50% 100%;
+    background-size: cover;
+    height: auto;
+}
+
+.planBlock .container-fluid {
+    display: block !important;
+}
+
+.planBlock .ant-carousel,
+.planBlock .ant-carousel div {
+
+}
+
+.planBlock .slick-dots li button {
+    background: #000 !important;
+}
+
+.planBlock .slick-dots li.slick-active button {
+    background: #000000 !important;
+}
+
+.planBlock .content {
+    max-width: 640px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 0 70px;
+}
+
+.planBlock h3 {
+    font-size: 30px;
+    line-height: 1.2;
+    margin: 0 0 30px;
+}
+
+.planBlock .site-card-wrapper img{
+    justify-content: center;
+    padding: 0 0 70px;
+    max-width: 640px;
+    display: flex;
+}
+
+.planBlock p {
+    margin: 0 0 30px;
+}
+
+.planBlock .btnHolder {
+    height: auto !important;
+}
+
+.planBlock .btnHolder button,
+.planBlock .btnHolder .fas {
+    margin: 0 10px 0 0;
+}
+
+.calficacionBlock{
+    height: 30vh !important;
+}

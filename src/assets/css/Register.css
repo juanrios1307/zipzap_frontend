@@ -1,0 +1,71 @@
+/*
+hero
+----
+*/
+.registerPlaceBlock  {
+    height: auto !important;
+}
+
+.registerBlock {
+    background-position: 50% 100%;
+    background-size: cover;
+    margin-top: 100px;
+    height: auto;
+
+}
+
+.registerBlock .block{
+    width: 100vh;
+    margin-right: auto;
+    margin-left: auto;
+
+}
+
+.registerBlock .container-fluid {
+    display: block !important;
+}
+
+.registerBlock .ant-carousel,
+.registerBlock .ant-carousel div {
+
+}
+
+
+.registerBlock .content {
+    max-width: 640px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 0 70px;
+}
+
+.registerBlock h3 {
+    font-size: 30px;
+    line-height: 1.2;
+    margin: 0 0 30px;
+}
+
+.registerBlock .site-card-wrapper img{
+    justify-content: center;
+    padding: 0 0 70px;
+    max-width: 640px;
+    display: flex;
+}
+
+.registerBlock p {
+    margin: 0 0 30px;
+}
+
+.registerBlock .btnHolder {
+    height: auto !important;
+}
+
+.registerBlock .btnHolder button,
+.registerBlock .btnHolder .fas {
+    margin: 0 10px 0 0;
+}
+
+.registerBlock .divMap {
+    height: 75vh !important;
+    width: 1000px !important;
+}
